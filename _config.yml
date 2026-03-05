@@ -1,0 +1,19 @@
+title: "חזי באר | פסיכולוג קליני מומחה"
+description: "טיפול קוגניטיבי-התנהגותי (CBT) ממוקד ומקצועי."
+lang: "he"
+direction: "rtl"
+
+collections:
+  articles:
+    output: true
+    permalink: /articles/:path/
+  services:
+    output: true
+    permalink: /services/:path/
+  media:
+    output: true
+    permalink: /media/:path/
+
+markdown: kramdown
+plugins:
+  - jekyll-seo-tag

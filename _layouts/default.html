@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    {% seo %}
+</head>
+<body>
+
+    <header class="container" style="padding: 20px;">
+        <nav>
+            <a href="{{ '/' | relative_url }}" style="text-decoration: none; color: var(--primary-color); font-weight: 700; font-size: 1.2rem;">
+                {{ site.data.clinic.name }} | {{ site.data.clinic.title }}
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        {{ content }}
+    </main>
+
+    <footer class="container" style="text-align: center; padding: 40px 0; margin-top: 40px; border-top: 1px solid #e0e0e0;">
+        <p>&copy; {{ "now" | date: "%Y" }} {{ site.data.clinic.name }} | רישיון משרד הבריאות מס' {{ site.data.clinic.license_number }}</p>
+    </footer>
+
+    <button id="backToTop" title="חזרה למעלה">↑</button>
+    <script>
+        const btt = document.getElementById("backToTop");
+        window.onscroll = () => { btt.classList.toggle("show", window.scrollY > 300); };
+        btt.onclick = () => { window.scrollTo({top: 0, behavior: 'smooth'}); };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+:root {
+    --primary-color: #5D5CDE;
+    --accent-color: #48C9B0;
+    --bg-color: #F9F9FB;
+    --surface-color: #ffffff;
+    --text-main: #2D3436;
+    --text-muted: #636E72;
+    --font-family: 'Assistant', sans-serif;
+    --border-radius: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    direction: rtl;
+    text-align: right;
+    font-family: var(--font-family);
+    color: var(--text-main);
+    background-color: var(--bg-color);
+    line-height: 1.8;
+}
+
+.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+.section-padding { padding: 60px 0; }
+
+h1, h2, h3 { color: var(--primary-color); margin-bottom: 15px; }
+
+/* אזור תמונת מסך מלא */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/assets/images/branding/cover.jpg') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.hero h1 { color: white; font-size: 3.5rem; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+/* רשת כרטיסיות מומחיות */
+.expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+.expertise-card {
+    background: var(--surface-color);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-top: 4px solid var(--accent-color);
+}
+
+/* כפתור חזרה למעלה */
+#backToTop {
+    position: fixed; bottom: 30px; left: 30px;
+    background: var(--primary-color); color: white;
+    width: 50px; height: 50px; border-radius: 50%;
+    border: none; cursor: pointer; opacity: 0; transition: 0.3s;
+    font-size: 20px; z-index: 1000;
+}
+#backToTop.show { opacity: 1; }
