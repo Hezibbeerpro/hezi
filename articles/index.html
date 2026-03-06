@@ -12,18 +12,21 @@ title: פרסומים
                 
                 <div class="card-content-side">
                     <div class="post-meta-line">
-                        <span class="author-name">חזי באר</span>
-                        <span class="separator">•</span>
-                        <time>{{ post.date | date: "%d/%m/%Y" }}</time>
-                        <span class="separator">•</span>
+                        <div class="meta-main hide-mobile">
+                            <span class="author-name">חזי באר</span>
+                            <span class="separator">•</span>
+                            <time>{{ post.date | date: "%d/%m/%Y" }}</time>
+                            <span class="separator">•</span>
+                        </div>
+                        
                         <span class="read-time">
-    {% assign words = post.content | number_of_words %}
-    {% if words < 360 %}
-      דקת קריאה אחת
-    {% else %}
-      {{ words | divided_by: 180 }} דקות קריאה
-    {% endif %}
-</span>
+                            {% assign words = post.content | number_of_words %}
+                            {% if words < 360 %}
+                              דקת קריאה אחת
+                            {% else %}
+                              {{ words | divided_by: 180 }} דקות קריאה
+                            {% endif %}
+                        </span>
                     </div>
                     
                     <h3 class="card-title">
