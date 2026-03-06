@@ -192,9 +192,8 @@ h2 {
     .hero h1 { font-size: 2.8rem !important; }
     .hero p { font-size: 1.6rem !important; }
 }
-
 /* =========================================
-   עיצוב הדר הניווט העליון
+   עיצוב הדר הניווט העליון (יישור Baseline)
    ========================================= */
 .main-nav {
     position: sticky; 
@@ -203,17 +202,16 @@ h2 {
     z-index: 1000;
     background: #ffffff; 
     box-shadow: 0 2px 15px rgba(0,0,0,0.08); 
-    font-family: 'Assistant', sans-serif;
     height: 65px; 
     display: flex;
-    align-items: center; 
+    align-items: center; /* יישור אנכי כללי למרכז */
+    justify-content: center; /* מרכוז אופקי (רוחב) */
 }
 
 .nav-container {
-    position: relative;
     display: flex;
     justify-content: center; 
-    align-items: center;
+    align-items: baseline; /* הטריק המרכזי: מיישר את בסיס האותיות של כולם לאותו קו */
     gap: 40px; 
     width: 100%;
     max-width: 1200px;
@@ -221,22 +219,13 @@ h2 {
     padding: 0 20px;
 }
 
-.nav-center { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); display: flex; justify-content: center; pointer-events: none; }
-.nav-brand-link { text-decoration: none; display: flex; flex-direction: column; align-items: center; text-align: center; pointer-events: auto; }
-.nav-subtext { font-family: 'Assistant', sans-serif; font-size: 1.25rem !important; color: var(--primary-purple) !important; font-weight: 500; margin-top: 5px; letter-spacing: 0.5px; }
-
 .nav-name {
     font-weight: 700;
     font-size: 2rem !important;
     color: var(--primary-purple) !important; 
     text-decoration: none;
-    transition: 0.3s;
-    line-height: 1.1;
-    text-shadow: none;
-}
-
-.nav-name:hover {
-    opacity: 0.8;
+    line-height: 1; /* מבטל רווחים עודפים מעל ומתחת לשם */
+    display: block;
 }
 
 .nav-link {
@@ -244,55 +233,44 @@ h2 {
     font-size: 1.3rem !important;
     color: var(--primary-purple) !important; 
     text-decoration: none;
-    border-bottom: 2px solid transparent;
-    padding-bottom: 3px;
-    transition: 0.3s;
-}
-
-.nav-link:hover {
-    border-bottom: 2px solid var(--accent-teal);
-}
-
-.nav-link.is-active, 
-.nav-name.is-active {
-    color: var(--primary-purple) !important;
-    font-weight: 800 !important;
+    line-height: 1; /* משווה את גובה השורה לשם המותג */
+    display: block;
     position: relative;
 }
 
-.nav-link.is-active::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    right: 0;
-    width: 100%;
-    height: 3px;
-    background-color: var(--primary-purple);
-    border-radius: 10px;
-    display: block !important;
-}
-
-.nav-name.is-active::after {
-    display: none !important; 
-}
-
+/* התאמת הסמליל של וואטסאפ ליישור האותיות */
 .nav-whatsapp-link {
     display: flex;
     align-items: center;
-    margin-right: 15px; 
+    align-self: center; /* האייקון צריך להישאר במרכז הגובה ולא על הבייסליין */
     text-decoration: none;
+    height: 24px; /* גובה קבוע שמתכתב עם גובה האותיות */
 }
 
 .header-wa-icon {
     width: 28px; 
     height: auto;
-    transition: transform 0.2s ease;
+    display: block;
 }
 
-.header-wa-icon:hover {
-    transform: scale(1.15); 
+/* התאמת הקו התחתון בדף פעיל שלא יפריע ליישור */
+.nav-link.is-active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px; /* מרחיק את הקו מעט למטה כדי לא "להרים" את המילה */
+    right: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--primary-purple);
+    border-radius: 10px;
 }
 
+@media (max-width: 600px) {
+    .nav-container { gap: 15px; align-items: center; } /* במובייל עדיף לחזור למרכז רגיל */
+    .nav-name { font-size: 1.6rem !important; }
+    .nav-link { font-size: 1.1rem !important; }
+    .header-wa-icon { width: 22px; }
+}
 @media (max-width: 600px) {
     .nav-container { gap: 15px; }
     .nav-name { font-size: 1.6rem !important; }
