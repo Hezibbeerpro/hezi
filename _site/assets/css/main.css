@@ -29,18 +29,20 @@ body {
 
 /* --- אזור ה-Hero (קאבר) --- */
 .hero {
-    height: 100vh;
-    /* נתיב יחסי שעובד הכי טוב ב-GitHub Pages */
+    height: calc(100vh - 65px);
     background: url('../images/branding/cover.jpg') no-repeat center center;
     background-size: cover;
     display: flex; 
     flex-direction: column; 
-    justify-content: flex-start; 
-    padding-top: 15vh; 
+    /* כאן השינוי הקריטי */
+    justify-content: flex-start; /* גורם לטקסט להתחיל מלמעלה */
+    padding-top: 20vh;           /* שנה את המספר הזה כדי להעלות או להוריד את הטקסט */
+    
     align-items: center; 
     text-align: center; 
-    color: white;
+    color: white;    
 }
+
 .hero h1 { 
     font-size: 5.5rem !important; 
     font-weight: 700; 
@@ -190,35 +192,36 @@ h2 {
     .hero h1 { font-size: 2.8rem !important; }
     .hero p { font-size: 1.6rem !important; }
 }
-
-/* --- עיצוב הדר ניווט עליון (מתוקן למרכוז וגודל) --- */
+/* --- עיצוב הדר ניווט עליון (רקע לבן, מנותק מהקאבר וטקסט סגול) --- */
 .main-nav {
-    position: absolute;
+    position: sticky; /* גורם להדר לשבת מעל הקאבר ולהישאר דבוק למעלה כשגוללים */
     top: 0;
     width: 100%;
     z-index: 1000;
     padding: 20px 0;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(8px);
+    background: #ffffff; /* רקע לבן חלק */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* הצללה עדיפה כדי להפריד מהקאבר */
     font-family: 'Assistant', sans-serif;
 }
 
 .nav-container {
-    display: flex;
-    align-items: center;
-    justify-content: center; 
     position: relative;
-    width: 100%; /* הקריטי למרכוז */
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
     min-height: 70px;
 }
 
+/* --- השם והתיאור במרכז המוחלט --- */
 .nav-center {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
     display: flex;
     justify-content: center;
-    width: 100%; /* עוזר למרכוז הפנימי */
+    pointer-events: none; /* מונע חסימת לחיצות מסביב */
 }
 
 .nav-brand-link {
@@ -227,36 +230,209 @@ h2 {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    pointer-events: auto; /* מאפשר ללחוץ על השם */
 }
 
 .nav-name {
     font-family: 'Assistant', sans-serif;
     font-weight: 700;
-    font-size: 2.4rem !important; /* הוגדל משמעותית */
-    color: white !important;
+    font-size: 2.4rem !important;
+    color: var(--primary-purple) !important; /* צבע סגול */
     line-height: 1.1;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    text-shadow: none; /* ביטול ההצללה שהייתה מיועדת לרקע כהה */
 }
 
 .nav-subtext {
     font-family: 'Assistant', sans-serif;
-    font-size: 1.25rem !important; /* הוגדל */
-    color: rgba(255, 255, 255, 0.95) !important;
-    font-weight: 400;
+    font-size: 1.25rem !important;
+    color: var(--primary-purple) !important; /* צבע סגול */
+    font-weight: 500;
     margin-top: 5px;
     letter-spacing: 0.5px;
 }
 
-.nav-left {
-    position: absolute; 
-    left: 20px; 
-    top: 50%;
-    transform: translateY(-50%);
+/* --- עיצוב הדר ניווט עליון (לבן, ממורכז, אחד ליד השני) --- */
+.main-nav {
+    position: sticky; 
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: #ffffff; 
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08); 
+    font-family: 'Assistant', sans-serif;
+    height: 65px; /* הגדרת גובה קבוע וצר יותר להדר */
+    display: flex;
+    align-items: center; /* ממרכז את התוכן אנכית */
+}
+
+.nav-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    gap: 40px; 
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav-name {
+    font-weight: 700;
+    font-size: 2rem !important;
+    color: var(--primary-purple) !important; /* טקסט סגול */
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.nav-name:hover {
+    opacity: 0.8;
 }
 
 .nav-link {
-    font-family: 'Assistant', sans-serif;
-    color: white !important;
-    text-decoration: none;
     font-weight: 600;
-    font-size: 1.3rem !important; /* הוגדל */
+    font-size: 1.3rem !important;
+    color: var(--primary-purple) !important; /* טקסט סגול */
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 3px;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    border-bottom: 2px solid var(--accent-teal);
+}
+
+/* --- התאמות למובייל --- */
+@media (max-width: 600px) {
+    .nav-container {
+        gap: 25px; /* מרווח קטן יותר במסכים קטנים */
+    }
+    .nav-name { font-size: 1.6rem !important; }
+    .nav-link { font-size: 1.2rem !important; }
+}
+/* --- עיצוב עמוד מאמר (Post) --- */
+.post-banner {
+    background-color: var(--bg-light-purple);
+    padding: 60px 0;
+    text-align: center;
+    border-bottom: 1px solid rgba(155, 89, 182, 0.1);
+}
+
+.post-tag {
+    display: inline-block;
+    background: var(--primary-purple);
+    color: white;
+    padding: 6px 18px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(155, 89, 182, 0.2);
+}
+
+.post-title {
+    color: var(--primary-purple);
+    font-size: 3.2rem !important;
+    font-weight: 700;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.post-meta {
+    font-size: 1.1rem;
+    color: #777;
+}
+
+.article-body {
+    max-width: 800px; /* רוחב אופטימלי לקריאה */
+    margin: 50px auto;
+    line-height: 1.9;
+    font-size: 1.25rem;
+    color: #333;
+}
+
+/* עיצוב כותרות בתוך המאמר */
+.article-body h2 {
+    color: var(--primary-purple);
+    margin: 40px 0 20px 0;
+    font-size: 2rem;
+}
+
+.article-body p {
+    margin-bottom: 25px;
+}
+
+/* התאמה למובייל */
+@media (max-width: 600px) {
+    .post-title { font-size: 2.2rem !important; }
+    .post-banner { padding: 40px 15px; }
+}
+/* --- עיצוב לובי המאמרים (Grid) --- */
+.articles-lobby {
+    padding: 80px 0;
+    background-color: #fdfdfd;
+}
+
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.article-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: 0.3s;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+}
+
+.article-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(155, 89, 182, 0.1);
+}
+
+.card-content {
+    padding: 25px;
+}
+
+.card-tag {
+    display: inline-block;
+    background: var(--bg-light-purple);
+    color: var(--primary-purple);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    color: var(--primary-purple);
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.card-excerpt {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.read-more {
+    text-decoration: none;
+    color: var(--accent-teal);
+    font-weight: 700;
+    font-size: 1rem;
+    transition: 0.2s;
+}
+
+.read-more:hover {
+    margin-right: 5px;
+}

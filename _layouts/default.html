@@ -11,19 +11,11 @@
 <body>
 
     <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-center">
-                <a href="{{ '/' | relative_url }}" class="nav-brand-link">
-                    <span class="nav-name">{{ site.data.clinic.name }}</span>
-                    <span class="nav-subtext">טיפול קוגניטיבי התנהגותי</span>
-                </a>
-            </div>
-            
-            <div class="nav-left">
-                <a href="{{ '/articles/' | relative_url }}" class="nav-link">פרסומים</a>
-            </div>
-        </div>
-    </nav>
+    <div class="nav-container">
+        <a href="{{ '/' | relative_url }}" class="nav-name">{{ site.data.clinic.name }}</a>
+        <a href="{{ '/articles/' | relative_url }}" class="nav-link">פרסומים</a>
+    </div>
+</nav>
 
     <main>
         {{ content }}
