@@ -31,7 +31,7 @@ body {
 .hero {
     height: 100vh;
     /* שימוש בנתיב מוחלט מהשורש */
-    background: url('/images/branding/cover.jpg') no-repeat center center;
+   background: url('{{ "/assets/images/branding/cover.jpg" | relative_url }}')
     background-size: cover;
     display: flex; 
     flex-direction: column; 
