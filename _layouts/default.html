@@ -12,10 +12,22 @@
 
     <nav class="main-nav">
     <div class="nav-container">
-        <a href="{{ '/' | relative_url }}" class="nav-name">{{ site.data.clinic.name }}</a>
-        <a href="{{ '/articles/' | relative_url }}" class="nav-link">פרסומים</a>
+        <a href="{{ '/' | relative_url }}" 
+           class="nav-name {% if page.url == '/' or page.url == '/index.html' %}is-active{% endif %}">
+           {{ site.data.clinic.name }}
+        </a>
+
+        <a href="{{ '/articles/' | relative_url }}" 
+           class="nav-link {% if page.url contains '/articles/' %}is-active{% endif %}">
+           פרסומים
+        </a>
+        
+        <a href="https://wa.me/972523865888" target="_blank" class="nav-whatsapp-link">
+            <img src="{{ '/assets/images/whatsapp-purple.png' | relative_url }}" alt="WhatsApp" class="header-wa-icon">
+        </a>
     </div>
 </nav>
+
 
     <main>
         {{ content }}

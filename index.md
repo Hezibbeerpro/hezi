@@ -29,9 +29,5 @@ layout: default
                 {{ area }}
             </div>
             {% endfor %}
-        </div>
-        <div style="text-align: center; margin-top: 45px;">
-            <a href="https://wa.me/{{ site.data.clinic.phone }}" target="_blank" class="btn btn-whatsapp">שלחו לי הודעה בוואטסאפ</a>
-        </div>
-    </section>
+
 </div>
