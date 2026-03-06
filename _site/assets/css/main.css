@@ -190,3 +190,73 @@ h2 {
     .hero h1 { font-size: 2.8rem !important; }
     .hero p { font-size: 1.6rem !important; }
 }
+
+/* --- עיצוב הדר ניווט עליון (מתוקן למרכוז וגודל) --- */
+.main-nav {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 20px 0;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    font-family: 'Assistant', sans-serif;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    position: relative;
+    width: 100%; /* הקריטי למרכוז */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    min-height: 70px;
+}
+
+.nav-center {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* עוזר למרכוז הפנימי */
+}
+
+.nav-brand-link {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.nav-name {
+    font-family: 'Assistant', sans-serif;
+    font-weight: 700;
+    font-size: 2.4rem !important; /* הוגדל משמעותית */
+    color: white !important;
+    line-height: 1.1;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.nav-subtext {
+    font-family: 'Assistant', sans-serif;
+    font-size: 1.25rem !important; /* הוגדל */
+    color: rgba(255, 255, 255, 0.95) !important;
+    font-weight: 400;
+    margin-top: 5px;
+    letter-spacing: 0.5px;
+}
+
+.nav-left {
+    position: absolute; 
+    left: 20px; 
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.nav-link {
+    font-family: 'Assistant', sans-serif;
+    color: white !important;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.3rem !important; /* הוגדל */
