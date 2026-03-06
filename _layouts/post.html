@@ -3,21 +3,40 @@ layout: default
 ---
 
 <article class="post-wrapper">
-    <header class="post-banner">
-        <div class="container">
-            {% if page.category %}
-            <span class="post-tag">{{ page.category }}</span>
-            {% endif %}
-            <h1 class="post-title">{{ page.title }}</h1>
-            <div class="post-meta">
-                <time datetime="{{ page.date | date_to_xmlschema }}">
-                    פורסם ב-{{ page.date | date: "%d/%m/%Y" }}
-                </time>
+    <header class="post-page-header">
+        <div class="container split-header-container">
+            
+            <div class="header-text-side">
+                <div class="post-meta-top">
+                    <span class="author-name">חזי באר</span>
+                    <span class="separator">•</span>
+                    <time>{{ page.date | date: "%d/%m/%Y" }}</time>
+                    <span class="separator">•</span>
+                    <span class="read-time">
+                        {% assign words = content | number_of_words %}
+                        {{ words | divided_by: 180 | plus: 1 }} דקות קריאה
+                    </span>
+                </div>
+                
+                <h1 class="post-main-title">{{ page.title }}</h1>
+                
+                {% if page.excerpt %}
+                <p class="post-subtitle">{{ page.excerpt | strip_html }}</p>
+                {% endif %}
             </div>
+
+            <div class="header-image-side">
+                {% if page.image %}
+                <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" class="featured-post-img">
+                {% endif %}
+            </div>
+            
         </div>
     </header>
 
-    <div class="container article-body">
-        {{ content }}
+    <div class="container">
+        <div class="post-content-area">
+            {{ content }}
+        </div>
     </div>
 </article>

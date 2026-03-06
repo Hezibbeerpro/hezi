@@ -1,0 +1,56 @@
+---
+layout: default
+title: פרסומים
+---
+
+<section class="articles-lobby">
+    <div class="container">
+        <h2 class="section-title">כל הפרסומים</h2>
+        <p class="intro-text">תובנות, מאמרים ומידע מקצועי מעולם הטיפול הקוגניטיבי התנהגותי.</p>
+
+        <div class="articles-split-wrapper">
+            {% for post in site.posts %}
+            <article class="article-split-card">
+                
+                <div class="card-content-side">
+                    <div class="post-meta-line">
+                        <span class="author-name">חזי באר</span>
+                        <span class="separator">•</span>
+                        <time>{{ post.date | date: "%d/%m/%Y" }}</time>
+                        <span class="separator">•</span>
+                        <span class="read-time">
+    {% assign words = post.content | number_of_words %}
+    {% if words < 360 %}
+      דקת קריאה אחת
+    {% else %}
+      {{ words | divided_by: 180 }} דקות קריאה
+    {% endif %}
+</span>
+                    </div>
+                    
+                    <h3 class="card-title">
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    </h3>
+                    
+                    <p class="card-excerpt">
+                        {{ post.excerpt | strip_html | truncatewords: 25 }}
+                    </p>
+                    
+                    <a href="{{ post.url | relative_url }}" class="read-more-btn">קרא עוד ←</a>
+                </div>
+
+                <div class="card-image-side">
+                    {% if post.image %}
+                    <a href="{{ post.url | relative_url }}">
+                        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+                    </a>
+                    {% else %}
+                    <div class="image-placeholder"></div>
+                    {% endif %}
+                </div>
+
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>

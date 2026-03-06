@@ -310,48 +310,58 @@ h2 {
     .nav-name { font-size: 1.6rem !important; }
     .nav-link { font-size: 1.2rem !important; }
 }
-/* --- עיצוב עמוד מאמר (Post) --- */
+/* --- עיצוב עמוד מאמר (Post) - העיצוב הנקי --- */
 .post-banner {
-    background-color: var(--bg-light-purple);
-    padding: 60px 0;
-    text-align: center;
-    border-bottom: 1px solid rgba(155, 89, 182, 0.1);
+    background-color: #ffffff; /* רקע לבן ונקי */
+    padding: 40px 0 20px 0;
+    text-align: right; 
+    border-bottom: 1px solid #eaeaea; /* קו עדין למטה */
+    max-width: 800px;
+    margin: 0 auto 30px auto;
 }
 
-.post-tag {
-    display: inline-block;
-    background: var(--primary-purple);
-    color: white;
-    padding: 6px 18px;
-    border-radius: 25px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(155, 89, 182, 0.2);
-}
-
-.post-title {
-    color: var(--primary-purple);
-    font-size: 3.2rem !important;
-    font-weight: 700;
-    margin-bottom: 15px;
-    line-height: 1.2;
+/* מסדר את התוכן והופך את הסדר (תאריך מעל כותרת) */
+.post-banner .container {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .post-meta {
-    font-size: 1.1rem;
+    order: 1; /* ממקם למעלה */
+    font-size: 0.95rem;
     color: #777;
+    margin-bottom: 15px;
+}
+
+/* הוספת השם שלך באופן אוטומטי לפני התאריך */
+.post-meta::before {
+    content: "חזי באר \00a0 • \00a0 ";
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.post-title {
+    order: 2; /* ממקם מתחת לתאריך */
+    color: var(--text-color); /* טקסט כהה במקום סגול */
+    font-size: 2.8rem !important;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.post-tag {
+    display: none; /* הוסתר כדי לשמור על קו מינימליסטי */
 }
 
 .article-body {
-    max-width: 800px; /* רוחב אופטימלי לקריאה */
-    margin: 50px auto;
+    max-width: 800px; 
+    margin: 20px auto 60px auto;
     line-height: 1.9;
     font-size: 1.25rem;
     color: #333;
 }
 
-/* עיצוב כותרות בתוך המאמר */
 .article-body h2 {
     color: var(--primary-purple);
     margin: 40px 0 20px 0;
@@ -362,77 +372,239 @@ h2 {
     margin-bottom: 25px;
 }
 
-/* התאמה למובייל */
 @media (max-width: 600px) {
     .post-title { font-size: 2.2rem !important; }
-    .post-banner { padding: 40px 15px; }
-}
-/* --- עיצוב לובי המאמרים (Grid) --- */
-.articles-lobby {
-    padding: 80px 0;
-    background-color: #fdfdfd;
+    .post-banner { padding: 20px 15px; }
 }
 
-.articles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
+//* --- עיצוב עמוד מאמר (Post) - העיצוב הנקי --- */
+.post-container {
+    max-width: 800px;
+    margin: 60px auto 40px auto;
+    padding: 0 20px;
+    direction: rtl;
 }
 
-.article-card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    transition: 0.3s;
-    border: 1px solid #eee;
+.post-header {
+    text-align: right;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eaeaea; /* קו הפרדה עדין בתחתית הכותרת */
+}
+
+/* שורת פרטי הכותב והתאריך שמופיעה מעל הכותרת */
+.post-meta-top {
+    font-size: 1.05rem;
+    color: #666;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.author-name {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.separator {
+    margin: 0 10px;
+    color: #ccc;
+}
+
+.post-category-label {
+    color: var(--primary-purple);
+    font-weight: 600;
+}
+
+/* הכותרת המרכזית */
+.post-main-title {
+    font-size: 2.8rem;
+    color: var(--text-color);
+    line-height: 1.2;
+    margin-top: 5px;
+    font-weight: 700;
+}
+
+/* אזור גוף המאמר */
+.post-content-body {
+    font-size: 1.25rem;
+    line-height: 1.9;
+    color: #333;
+}
+
+.post-content-body h2 {
+    color: var(--primary-purple);
+    margin: 40px 0 20px 0;
+    font-size: 2rem;
+}
+
+.post-content-body p {
+    margin-bottom: 25px;
+}
+
+/* התאמה למסכים קטנים (מובייל) */
+@media (max-width: 600px) {
+    .post-main-title { font-size: 2.2rem; }
+    .post-container { margin: 30px auto; }
+}
+.card-image {
+    width: 100%;
+    /* יחס אנכי התואם לאינפוגרפיקה שהעלית (3 רוחב על 4 גובה) */
+    aspect-ratio: 3 / 4; 
+    
+    /* מונע חיתוך של הטקסט בתמונה - מציג את כולה */
+    object-fit: contain; 
+    
+    /* רקע סגול בהיר מאוד שימלא את השוליים אם התמונה לא בפרופורציה מושלמת */
+    background-color: var(--bg-light-purple); 
+    
+    display: block;
+    border-bottom: 1px solid #eee;
+    transition: transform 0.4s ease;
+}
+/* --- עיצוב לובי מפוצל (טקסט מימין, תמונה משמאל) --- */
+.articles-split-wrapper {
+    max-width: 1000px;
+    margin: 40px auto;
     display: flex;
     flex-direction: column;
+    gap: 60px;
 }
 
-.article-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(155, 89, 182, 0.1);
+.article-split-card {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 40px;
 }
 
-.card-content {
-    padding: 25px;
+/* צד הטקסט */
+.card-content-side {
+    flex: 1.5; /* לוקח יותר שטח מהתמונה */
+    text-align: right;
 }
 
-.card-tag {
-    display: inline-block;
-    background: var(--bg-light-purple);
-    color: var(--primary-purple);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
+.post-meta-line {
+    font-size: 0.95rem;
+    color: #777;
     margin-bottom: 15px;
 }
 
-.card-title {
-    font-size: 1.5rem;
-    color: var(--primary-purple);
+.author-name {
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.card-title a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    display: block;
     margin-bottom: 15px;
-    line-height: 1.3;
 }
 
 .card-excerpt {
-    font-size: 1rem;
-    color: #666;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #555;
     margin-bottom: 20px;
-    line-height: 1.6;
 }
 
-.read-more {
+.read-more-btn {
+    color: var(--primary-purple);
     text-decoration: none;
-    color: var(--accent-teal);
     font-weight: 700;
-    font-size: 1rem;
-    transition: 0.2s;
 }
 
-.read-more:hover {
-    margin-right: 5px;
+/* צד התמונה */
+.card-image-side {
+    flex: 1; /* לוקח פחות שטח מהטקסט */
+}
+
+.card-image-side img {
+    width: 100%;
+    aspect-ratio: 3 / 4; /* היחס האנכי שביקשת */
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+/* התאמה למובייל - תמונה מעל טקסט */
+@media (max-width: 768px) {
+    .article-split-card {
+        flex-direction: column-reverse;
+        gap: 20px;
+    }
+    .card-title a { font-size: 1.8rem; }
+}
+/* --- עיצוב עמוד מאמר פנימי (Split Header) --- */
+.post-page-header {
+    background-color: #ffffff;
+    padding: 60px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 50px;
+}
+
+.split-header-container {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+
+.header-text-side {
+    flex: 1.5;
+    text-align: right;
+}
+
+.post-subtitle {
+    font-size: 1.4rem;
+    color: #666;
+    margin-top: 20px;
+    line-height: 1.5;
+    font-weight: 300;
+}
+
+.header-image-side {
+    flex: 1;
+}
+
+.featured-post-img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* עיצוב גוף הטקסט של המאמר */
+.post-content-area {
+    max-width: 800px; /* רוחב אופטימלי לקריאה נוחה */
+    margin: 0 auto 80px auto;
+    font-size: 1.25rem;
+    line-height: 2;
+    color: #333;
+}
+
+.post-content-area h2 {
+    font-size: 2rem;
+    color: var(--primary-purple);
+    margin: 50px 0 20px 0;
+}
+
+.post-content-area p {
+    margin-bottom: 30px;
+}
+
+/* התאמה למובייל */
+@media (max-width: 768px) {
+    .split-header-container {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+    .header-text-side { text-align: right; }
+    .post-main-title { font-size: 2.2rem; }
 }
