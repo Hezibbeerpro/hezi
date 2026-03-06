@@ -1,36 +1,37 @@
 ---
 layout: default
-title: "דף הבית"
 ---
 
-<section class="hero">
-    <div class="container">
-        <h1>{{ site.data.clinic.homepage_hero_title }}</h1>
-    </div>
-</section>
+<div class="hero">
+    <h1>{{ site.data.clinic.name }}</h1>
+    <p>{{ site.data.clinic.title }}</p>
+</div>
 
-<section class="container section-padding">
-    <h2>{{ site.data.clinic.homepage_greeting }}</h2>
-    <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 20px;">
-        <strong>{{ site.data.clinic.title }}</strong>
-    </p>
-    <div style="font-size: 1.1rem; max-width: 800px;">
-        {{ site.data.clinic.homepage_about }}
-    </div>
-</section>
-
-<section style="background-color: #f0f2f5;">
-    <div class="container section-padding">
-        <h2>תחומי מומחיות</h2>
-        <p>{{ site.data.clinic.expertise_intro }}</p>
-        
-        <div class="expertise-grid">
-          {% for item in site.data.clinic.expertises %}
-            <div class="expertise-card">
-                <h3>{{ item.title }}</h3>
-                <p>{{ item.description }}</p>
-            </div>
-          {% endfor %}
+<div class="container">
+    <section id="about" class="about-split">
+        <div class="about-text">
+            <h2>{{ site.data.clinic.about_title }}</h2>
+            <p><strong>{{ site.data.clinic.about_highlight }}</strong></p>
+            <p>{{ site.data.clinic.about_p1 }}</p>
+            <p>{{ site.data.clinic.about_p2 }}</p>
         </div>
-    </div>
-</section>
+      <div class="about-image">
+    <img src="{{ site.data.clinic.profile_image | relative_url }}" alt="{{ site.data.clinic.name }}">
+</div>
+    </section>
+
+    <section id="expertise">
+        <h2>תחומי מומחיות</h2>
+        <p class="intro-text">{{ site.data.clinic.expertise_intro }}</p>
+        <div class="expertise-grid">
+            {% for area in site.data.clinic.expertise %}
+            <div class="expertise-item {% if area == 'קבלת החלטות' %}hide-mobile{% endif %}">
+                {{ area }}
+            </div>
+            {% endfor %}
+        </div>
+        <div style="text-align: center; margin-top: 45px;">
+            <a href="https://wa.me/{{ site.data.clinic.phone }}" target="_blank" class="btn btn-whatsapp">שלחו לי הודעה בוואטסאפ</a>
+        </div>
+    </section>
+</div>
