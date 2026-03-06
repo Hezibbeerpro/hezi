@@ -30,8 +30,8 @@ body {
 /* --- אזור ה-Hero (קאבר) --- */
 .hero {
     height: 100vh;
-    /* שימוש בנתיב מוחלט מהשורש */
-    background: url('/assets/images/branding/cover.jpg') no-repeat center center;
+    /* נתיב יחסי שעובד הכי טוב ב-GitHub Pages */
+    background: url('../images/branding/cover.jpg') no-repeat center center;
     background-size: cover;
     display: flex; 
     flex-direction: column; 
@@ -41,7 +41,6 @@ body {
     text-align: center; 
     color: white;
 }
-
 .hero h1 { 
     font-size: 5.5rem !important; 
     font-weight: 700; 
