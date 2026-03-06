@@ -16,7 +16,7 @@
     {% if page.image %}
       <meta property="og:image" content="{{ page.image | absolute_url }}">
     {% else %}
-      <meta property="og:image" content="{{ '/assets/images/branding/share-image.jpg' | absolute_url }}">
+      <meta property="og:image" content="{{ site.url }}{{ site.social_image }}">
     {% endif %}
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -25,7 +25,27 @@
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="{{ '/' | relative_url }}" 
+               class="nav-name {% if page.url == '/' or page.url == '/index.html' %}is-active{% endif %}">
+               {{ site.data.clinic.name }}
+            </a>
+
+            <a href="{{ '/articles/' | relative_url }}" 
+               class="nav-link {% if page.url contains '/articles/' %}is-active{% endif %}">
+               פרסומים
+            </a>
+            
+            <<a href="https://wa.me/{{ site.whatsapp_number }}" target="_blank" class="nav-whatsapp-link">
+    <img src="{{ '/assets/images/whatsapp-purple.png' | relative_url }}" alt="WhatsApp" class="header-wa-icon">
+</a>
+            </a>
+        </div>
+    </nav>
+    <body>
 
     <nav class="main-nav">
     <div class="nav-container">

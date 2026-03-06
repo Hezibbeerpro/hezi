@@ -635,44 +635,31 @@ h2 {
         width: 24px;
     }
 }
-/* סימון דף פעיל בתפריט הניווט */
-.nav-link.active, 
-.nav-name.active {
-    color: var(--primary-purple) !important;
-    font-weight: 700;
-    position: relative;
-}
 
-/* --- תיקון סימון דף פעיל --- */
-
-/* צבע סגול מודגש לקישור הפעיל */
+/* --- סימון דף פעיל סופי --- */
 .nav-link.is-active, 
 .nav-name.is-active {
-    color: #9b59b6 !important; /* צבע סגול ישיר כדי לוודא זיהוי */
+    color: var(--primary-purple) !important;
     font-weight: 800 !important;
     position: relative;
-    opacity: 1 !important;
 }
 
-/* הקו התחתון הסגול */
-.nav-link.is-active::after,
-.nav-name.is-active::after {
+.nav-link.is-active::after {
     content: '';
     position: absolute;
-    bottom: -8px; /* מרחק מהטקסט */
+    bottom: -5px;
     right: 0;
     width: 100%;
-    height: 3px; /* עובי הקו */
-    background-color: #9b59b6;
+    height: 3px;
+    background-color: var(--primary-purple);
     border-radius: 10px;
     display: block !important;
 }
 
-/* ביטול הקו מתחת לשם הקליניקה אם תרצה שרק הטקסט ייצבע */
+/* ביטול הקו תחת שם הקליניקה בדף הבית כדי לשמור על ניקיון */
 .nav-name.is-active::after {
     display: none !important;
 }
-
 /* וידוא שהקישורים הרגילים לא דורסים את הפעיל */
 .nav-container a {
     transition: all 0.3s ease;
