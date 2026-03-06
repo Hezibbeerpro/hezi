@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>{{ page.title | default: site.data.clinic.name }}</title>
-    <meta name="description" content="{{ page.excerpt | strip_html | truncatewords: 25 | default: 'חזי באר - פסיכולוג קליני מומחה לטיפול CBT ב-OCD וחרדות בקרית אונו' }}">
+    <title>{{ page.title | default: site.title }}</title>
+    <meta name="description" content="{{ page.excerpt | strip_html | truncatewords: 25 | default: site.description }}">
 
-    <meta property="og:site_name" content="{{ site.data.clinic.name }}">
-    <meta property="og:title" content="{{ page.title | default: site.data.clinic.name }}">
-    <meta property="og:description" content="{{ page.excerpt | strip_html | truncatewords: 25 | default: 'חזי באר - פסיכולוג קליני מומחה לטיפול CBT ב-OCD וחרדות' }}">
+    <meta property="og:site_name" content="חזי באר">
+    <meta property="og:title" content="{{ page.title | default: site.title }}">
+    <meta property="og:description" content="{{ page.excerpt | strip_html | truncatewords: 25 | default: site.description }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ page.url | absolute_url }}">
     
@@ -18,8 +18,6 @@
     {% else %}
       <meta property="og:image" content="{{ site.url }}{{ site.social_image }}">
     {% endif %}
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
 
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
@@ -31,7 +29,7 @@
         <div class="nav-container">
             <a href="{{ '/' | relative_url }}" 
                class="nav-name {% if page.url == '/' or page.url == '/index.html' %}is-active{% endif %}">
-               {{ site.data.clinic.name }}
+               חזי באר
             </a>
 
             <a href="{{ '/articles/' | relative_url }}" 
@@ -39,47 +37,22 @@
                פרסומים
             </a>
             
-            <<a href="https://wa.me/{{ site.whatsapp_number }}" target="_blank" class="nav-whatsapp-link">
-    <img src="{{ '/assets/images/whatsapp-purple.png' | relative_url }}" alt="WhatsApp" class="header-wa-icon">
-</a>
+            <a href="https://wa.me/{{ site.whatsapp_number }}" target="_blank" class="nav-whatsapp-link">
+                <img src="{{ '/assets/images/whatsapp-purple.png' | relative_url }}" alt="WhatsApp" class="header-wa-icon">
             </a>
         </div>
     </nav>
-    <body>
-
-    <nav class="main-nav">
-    <div class="nav-container">
-        <a href="{{ '/' | relative_url }}" 
-           class="nav-name {% if page.url == '/' or page.url == '/index.html' %}is-active{% endif %}">
-           {{ site.data.clinic.name }}
-        </a>
-
-        <a href="{{ '/articles/' | relative_url }}" 
-           class="nav-link {% if page.url contains '/articles/' %}is-active{% endif %}">
-           פרסומים
-        </a>
-        
-        <a href="https://wa.me/972523865888" target="_blank" class="nav-whatsapp-link">
-            <img src="{{ '/assets/images/whatsapp-purple.png' | relative_url }}" alt="WhatsApp" class="header-wa-icon">
-        </a>
-    </div>
-</nav>
-
 
     <main>
         {{ content }}
     </main>
 
     <footer class="container" style="text-align: center; padding: 40px 0; margin-top: 40px; border-top: 1px solid #e0e0e0;">
-        <p>&copy; {{ "now" | date: "%Y" }} {{ site.data.clinic.name }} | רישיון משרד הבריאות מס' {{ site.data.clinic.license_number }}</p>
+        <p>&copy; {{ "now" | date: "%Y" }} חזי באר | רישיון משרד הבריאות מס' 27145665</p>
     </footer>
 
-    <button id="backToTop" title="חזרה למעלה">↑</button>
-    <script>
-        const btt = document.getElementById("backToTop");
-        window.onscroll = () => { btt.classList.toggle("show", window.scrollY > 300); };
-        btt.onclick = () => { window.scrollTo({top: 0, behavior: 'smooth'}); };
-    </script>
-
+    <a href="https://wa.me/{{ site.whatsapp_number }}" class="whatsapp-fixed" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 </body>
 </html>
