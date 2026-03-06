@@ -23,13 +23,24 @@ layout: default
                 {% if page.excerpt %}
                 <p class="post-subtitle">{{ page.excerpt | strip_html }}</p>
                 {% endif %}
+
+                <div class="post-action-bar">
+                    <a href="https://api.whatsapp.com/send?text=קראתי מאמר מעניין של חזי באר: {{ page.title }} - {{ site.url }}{{ page.url }}" 
+                       target="_blank" class="action-btn wa-btn" title="שתף בוואטסאפ">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    
+                    <button onclick="window.print()" class="action-btn print-btn" title="הדפס מאמר">
+                        <i class="fas fa-print"></i>
+                    </button>
+                </div>
             </div>
 
+            {% if page.image and page.image != "" %}
             <div class="header-image-side">
-                {% if page.image %}
                 <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" class="featured-post-img">
-                {% endif %}
             </div>
+            {% endif %}
             
         </div>
     </header>

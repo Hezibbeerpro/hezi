@@ -1,4 +1,8 @@
-/* --- משתני צבע וטיפוגרפיה (לפי הקובץ שהעלית) --- */
+/* =========================================
+   קובץ עיצוב ראשי (CSS) - חזי באר
+   ========================================= */
+
+/* --- 1. משתני צבע וטיפוגרפיה --- */
 :root {
     --primary-purple: #9b59b6; 
     --accent-teal: #1abc9c; 
@@ -9,7 +13,7 @@
     --font-family: 'Assistant', sans-serif;
 }
 
-/* --- אתחול מערכת --- */
+/* --- 2. אתחול מערכת (Reset) --- */
 * { 
     margin: 0; 
     padding: 0; 
@@ -18,7 +22,7 @@
 }
 
 body { 
-    direction: rtl;
+    direction: rtl; 
     text-align: right;
     color: var(--text-color); 
     background-color: var(--bg-main); 
@@ -27,17 +31,18 @@ body {
     scroll-behavior: smooth; 
 }
 
-/* --- אזור ה-Hero (קאבר) --- */
+/* =========================================
+   דף הבית (Home Page)
+   ========================================= */
+
 .hero {
     height: calc(100vh - 65px);
     background: url('../images/branding/cover.jpg') no-repeat center center;
     background-size: cover;
     display: flex; 
     flex-direction: column; 
-    /* כאן השינוי הקריטי */
-    justify-content: flex-start; /* גורם לטקסט להתחיל מלמעלה */
-    padding-top: 20vh;           /* שנה את המספר הזה כדי להעלות או להוריד את הטקסט */
-    
+    justify-content: flex-start; 
+    padding-top: 20vh; 
     align-items: center; 
     text-align: center; 
     color: white;    
@@ -58,7 +63,6 @@ body {
     color: #ffffff !important;
 }
 
-/* --- מבנה הקונטיינר הכללי --- */
 .container { 
     max-width: 1200px; 
     margin: 0 auto; 
@@ -81,7 +85,6 @@ h2 {
     font-size: 2.4rem; 
 }
 
-/* --- אזור אודות (Split Layout - 55/45) --- */
 .about-split { 
     display: flex; 
     padding: 0 !important; 
@@ -116,16 +119,15 @@ h2 {
     display: block; 
 }
 
-/* --- תחומי מומחיות (מרכוז כותרות וטקסט) --- */
 #expertise h2 { 
-    text-align: center; /* מרכוז הכותרת */
+    text-align: center; 
     margin-left: auto;
     margin-right: auto;
-    max-width: fit-content; /* שומר שהקו התחתון יהיה באורך הטקסט */
+    max-width: fit-content; 
 }
 
 .intro-text { 
-    text-align: center; /* מרכוז פסקת ההסבר */
+    text-align: center; 
     max-width: 800px; 
     margin: 0 auto 40px auto; 
     font-size: 1.25rem;
@@ -155,7 +157,6 @@ h2 {
     box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
 }
 
-/* --- כפתורים --- */
 .btn { 
     display: inline-block; 
     padding: 13px 40px; 
@@ -177,9 +178,8 @@ h2 {
     transform: translateY(-3px); 
 }
 
-/* --- התאמות למובייל --- */
 @media (max-width: 900px) {
-    .about-split { flex-direction: column-reverse; }
+    .about-split { flex-direction: column-reverse; } 
     .about-text, .about-image { flex: 0 0 100%; width: 100%; }
     .about-text { padding: 40px 25px; }
     .expertise-grid { grid-template-columns: repeat(2, 1fr); }
@@ -192,66 +192,10 @@ h2 {
     .hero h1 { font-size: 2.8rem !important; }
     .hero p { font-size: 1.6rem !important; }
 }
-/* --- עיצוב הדר ניווט עליון (רקע לבן, מנותק מהקאבר וטקסט סגול) --- */
-.main-nav {
-    position: sticky; /* גורם להדר לשבת מעל הקאבר ולהישאר דבוק למעלה כשגוללים */
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    padding: 20px 0;
-    background: #ffffff; /* רקע לבן חלק */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* הצללה עדיפה כדי להפריד מהקאבר */
-    font-family: 'Assistant', sans-serif;
-}
 
-.nav-container {
-    position: relative;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    min-height: 70px;
-}
-
-/* --- השם והתיאור במרכז המוחלט --- */
-.nav-center {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: center;
-    pointer-events: none; /* מונע חסימת לחיצות מסביב */
-}
-
-.nav-brand-link {
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    pointer-events: auto; /* מאפשר ללחוץ על השם */
-}
-
-.nav-name {
-    font-family: 'Assistant', sans-serif;
-    font-weight: 700;
-    font-size: 2.4rem !important;
-    color: var(--primary-purple) !important; /* צבע סגול */
-    line-height: 1.1;
-    text-shadow: none; /* ביטול ההצללה שהייתה מיועדת לרקע כהה */
-}
-
-.nav-subtext {
-    font-family: 'Assistant', sans-serif;
-    font-size: 1.25rem !important;
-    color: var(--primary-purple) !important; /* צבע סגול */
-    font-weight: 500;
-    margin-top: 5px;
-    letter-spacing: 0.5px;
-}
-
-/* --- עיצוב הדר ניווט עליון (לבן, ממורכז, אחד ליד השני) --- */
+/* =========================================
+   עיצוב הדר הניווט העליון
+   ========================================= */
 .main-nav {
     position: sticky; 
     top: 0;
@@ -260,12 +204,13 @@ h2 {
     background: #ffffff; 
     box-shadow: 0 2px 15px rgba(0,0,0,0.08); 
     font-family: 'Assistant', sans-serif;
-    height: 65px; /* הגדרת גובה קבוע וצר יותר להדר */
+    height: 65px; 
     display: flex;
-    align-items: center; /* ממרכז את התוכן אנכית */
+    align-items: center; 
 }
 
 .nav-container {
+    position: relative;
     display: flex;
     justify-content: center; 
     align-items: center;
@@ -276,12 +221,18 @@ h2 {
     padding: 0 20px;
 }
 
+.nav-center { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); display: flex; justify-content: center; pointer-events: none; }
+.nav-brand-link { text-decoration: none; display: flex; flex-direction: column; align-items: center; text-align: center; pointer-events: auto; }
+.nav-subtext { font-family: 'Assistant', sans-serif; font-size: 1.25rem !important; color: var(--primary-purple) !important; font-weight: 500; margin-top: 5px; letter-spacing: 0.5px; }
+
 .nav-name {
     font-weight: 700;
     font-size: 2rem !important;
-    color: var(--primary-purple) !important; /* טקסט סגול */
+    color: var(--primary-purple) !important; 
     text-decoration: none;
     transition: 0.3s;
+    line-height: 1.1;
+    text-shadow: none;
 }
 
 .nav-name:hover {
@@ -291,7 +242,7 @@ h2 {
 .nav-link {
     font-weight: 600;
     font-size: 1.3rem !important;
-    color: var(--primary-purple) !important; /* טקסט סגול */
+    color: var(--primary-purple) !important; 
     text-decoration: none;
     border-bottom: 2px solid transparent;
     padding-bottom: 3px;
@@ -302,168 +253,57 @@ h2 {
     border-bottom: 2px solid var(--accent-teal);
 }
 
-/* --- התאמות למובייל --- */
-@media (max-width: 600px) {
-    .nav-container {
-        gap: 25px; /* מרווח קטן יותר במסכים קטנים */
-    }
-    .nav-name { font-size: 1.6rem !important; }
-    .nav-link { font-size: 1.2rem !important; }
-}
-/* --- עיצוב עמוד מאמר (Post) - העיצוב הנקי --- */
-.post-banner {
-    background-color: #ffffff; /* רקע לבן ונקי */
-    padding: 40px 0 20px 0;
-    text-align: right; 
-    border-bottom: 1px solid #eaeaea; /* קו עדין למטה */
-    max-width: 800px;
-    margin: 0 auto 30px auto;
+.nav-link.is-active, 
+.nav-name.is-active {
+    color: var(--primary-purple) !important;
+    font-weight: 800 !important;
+    position: relative;
 }
 
-/* מסדר את התוכן והופך את הסדר (תאריך מעל כותרת) */
-.post-banner .container {
-    padding: 0;
-    display: flex;
-    flex-direction: column;
+.nav-link.is-active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--primary-purple);
+    border-radius: 10px;
+    display: block !important;
 }
 
-.post-meta {
-    order: 1; /* ממקם למעלה */
-    font-size: 0.95rem;
-    color: #777;
-    margin-bottom: 15px;
+.nav-name.is-active::after {
+    display: none !important; 
 }
 
-/* הוספת השם שלך באופן אוטומטי לפני התאריך */
-.post-meta::before {
-    content: "חזי באר \00a0 • \00a0 ";
-    color: var(--text-color);
-    font-weight: 600;
-}
-
-.post-title {
-    order: 2; /* ממקם מתחת לתאריך */
-    color: var(--text-color); /* טקסט כהה במקום סגול */
-    font-size: 2.8rem !important;
-    font-weight: 700;
-    margin-bottom: 10px;
-    line-height: 1.2;
-}
-
-.post-tag {
-    display: none; /* הוסתר כדי לשמור על קו מינימליסטי */
-}
-
-.article-body {
-    max-width: 800px; 
-    margin: 20px auto 60px auto;
-    line-height: 1.9;
-    font-size: 1.25rem;
-    color: #333;
-}
-
-.article-body h2 {
-    color: var(--primary-purple);
-    margin: 40px 0 20px 0;
-    font-size: 2rem;
-}
-
-.article-body p {
-    margin-bottom: 25px;
-}
-
-@media (max-width: 600px) {
-    .post-title { font-size: 2.2rem !important; }
-    .post-banner { padding: 20px 15px; }
-}
-
-//* --- עיצוב עמוד מאמר (Post) - העיצוב הנקי --- */
-.post-container {
-    max-width: 800px;
-    margin: 60px auto 40px auto;
-    padding: 0 20px;
-    direction: rtl;
-}
-
-.post-header {
-    text-align: right;
-    margin-bottom: 40px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #eaeaea; /* קו הפרדה עדין בתחתית הכותרת */
-}
-
-/* שורת פרטי הכותב והתאריך שמופיעה מעל הכותרת */
-.post-meta-top {
-    font-size: 1.05rem;
-    color: #666;
-    margin-bottom: 15px;
+.nav-whatsapp-link {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    margin-right: 15px; 
+    text-decoration: none;
 }
 
-.author-name {
-    font-weight: 600;
-    color: var(--text-color);
+.header-wa-icon {
+    width: 28px; 
+    height: auto;
+    transition: transform 0.2s ease;
 }
 
-.separator {
-    margin: 0 10px;
-    color: #ccc;
+.header-wa-icon:hover {
+    transform: scale(1.15); 
 }
 
-.post-category-label {
-    color: var(--primary-purple);
-    font-weight: 600;
-}
-
-/* הכותרת המרכזית */
-.post-main-title {
-    font-size: 2.8rem;
-    color: var(--text-color);
-    line-height: 1.2;
-    margin-top: 5px;
-    font-weight: 700;
-}
-
-/* אזור גוף המאמר */
-.post-content-body {
-    font-size: 1.25rem;
-    line-height: 1.9;
-    color: #333;
-}
-
-.post-content-body h2 {
-    color: var(--primary-purple);
-    margin: 40px 0 20px 0;
-    font-size: 2rem;
-}
-
-.post-content-body p {
-    margin-bottom: 25px;
-}
-
-/* התאמה למסכים קטנים (מובייל) */
 @media (max-width: 600px) {
-    .post-main-title { font-size: 2.2rem; }
-    .post-container { margin: 30px auto; }
+    .nav-container { gap: 15px; }
+    .nav-name { font-size: 1.6rem !important; }
+    .nav-link { font-size: 1.2rem !important; }
+    .header-wa-icon { width: 24px; }
 }
-.card-image {
-    width: 100%;
-    /* יחס אנכי התואם לאינפוגרפיקה שהעלית (3 רוחב על 4 גובה) */
-    aspect-ratio: 3 / 4; 
-    
-    /* מונע חיתוך של הטקסט בתמונה - מציג את כולה */
-    object-fit: contain; 
-    
-    /* רקע סגול בהיר מאוד שימלא את השוליים אם התמונה לא בפרופורציה מושלמת */
-    background-color: var(--bg-light-purple); 
-    
-    display: block;
-    border-bottom: 1px solid #eee;
-    transition: transform 0.4s ease;
-}
-/* --- עיצוב לובי מפוצל (טקסט מימין, תמונה משמאל) --- */
+
+/* =========================================
+   עמוד ריכוז פרסומים (Articles List)
+   ========================================= */
+
 .articles-split-wrapper {
     max-width: 1000px;
     margin: 40px auto;
@@ -480,9 +320,8 @@ h2 {
     padding-bottom: 40px;
 }
 
-/* צד הטקסט */
 .card-content-side {
-    flex: 1.5; /* לוקח יותר שטח מהתמונה */
+    flex: 1.5; 
     text-align: right;
 }
 
@@ -490,11 +329,6 @@ h2 {
     font-size: 0.95rem;
     color: #777;
     margin-bottom: 15px;
-}
-
-.author-name {
-    font-weight: 700;
-    color: var(--text-color);
 }
 
 .card-title a {
@@ -520,20 +354,18 @@ h2 {
     font-weight: 700;
 }
 
-/* צד התמונה */
 .card-image-side {
-    flex: 1; /* לוקח פחות שטח מהטקסט */
+    flex: 1; 
 }
 
-.card-image-side img {
+.card-image, .card-image-side img {
     width: 100%;
-    aspect-ratio: 3 / 4; /* היחס האנכי שביקשת */
-    object-fit: cover;
+    aspect-ratio: 3 / 4; 
+    object-fit: cover; 
     border-radius: 4px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
-/* התאמה למובייל - תמונה מעל טקסט */
 @media (max-width: 768px) {
     .article-split-card {
         flex-direction: column-reverse;
@@ -541,126 +373,264 @@ h2 {
     }
     .card-title a { font-size: 1.8rem; }
 }
-/* --- עיצוב עמוד מאמר פנימי (Split Header) --- */
+
+/* =========================================
+   עמוד מאמר פנימי (Post Design Rules) - סגנון 'הארץ' מגזין
+   ========================================= */
+
 .post-page-header {
     background-color: #ffffff;
-    padding: 60px 0;
+    padding: 40px 0 30px 0; /* הקטנתי את הריווח התחתון כדי לקרב את הטקסט למעלה */
     border-bottom: 1px solid #eee;
-    margin-bottom: 50px;
+    margin-bottom: 0; /* בוטל הריווח מתחת לקו ההפרדה כדי להדביק את הטקסט */
+}
+
+/* צמצום הרווח של הקונטיינר שעוטף את גוף המאמר */
+.post-wrapper > .container {
+    padding-top: 25px; /* מקרב את תוכן המאמר כלפי מעלה */
 }
 
 .split-header-container {
     display: flex;
-    gap: 50px;
-    align-items: center;
+    justify-content: space-between; 
+    align-items: flex-start; 
+    max-width: 1550px !important; 
+    width: 100%;
+    margin: 0 auto;
+    gap: 40px; 
 }
 
 .header-text-side {
-    flex: 1.5;
+    flex: 0 0 45%; 
+    max-width: 45%;
     text-align: right;
+    padding-top: 30px; 
+}
+
+.header-text-side:only-child {
+    max-width: 800px;
+    margin: 0 auto;
+    flex: none;
+    width: 100%;
+}
+
+.post-page-header .post-main-title {
+    font-size: 4.8rem; 
+    color: #000000; 
+    font-weight: 400 !important; 
+    line-height: 1.05; 
+    margin-bottom: 25px;
+    margin-top: 5px;
+    letter-spacing: -1px; 
 }
 
 .post-subtitle {
     font-size: 1.4rem;
-    color: #666;
-    margin-top: 20px;
+    color: #444;
+    margin-top: 0;
     line-height: 1.5;
-    font-weight: 300;
+    font-weight: 400;
 }
 
-.header-image-side {
-    flex: 1;
+.post-action-bar {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    color: #444;
+    font-size: 1.3rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.wa-btn:hover { background-color: #25D366; color: white; transform: translateY(-3px); }
+.print-btn:hover { background-color: #777; color: white; transform: translateY(-3px); }
+
+@media print {
+    .main-nav, .post-action-bar, .whatsapp-fixed, footer { display: none !important; }
+}
+
+.header-image-side { 
+    flex: 0 0 46%; 
+    max-width: 46%; 
 }
 
 .featured-post-img {
     width: 100%;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 3 / 4; 
     object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 0; 
+    box-shadow: 0 5px 25px rgba(0,0,0,0.06); 
 }
 
-/* עיצוב גוף הטקסט של המאמר */
 .post-content-area {
-    max-width: 800px; /* רוחב אופטימלי לקריאה נוחה */
+    max-width: 800px; 
     margin: 0 auto 80px auto;
     font-size: 1.25rem;
     line-height: 2;
     color: #333;
 }
 
-.post-content-area h2 {
-    font-size: 2rem;
-    color: var(--primary-purple);
-    margin: 50px 0 20px 0;
+.post-content-area h2, 
+.post-content-body h2,
+.post-content-area h3,
+.post-content-body h3 {
+    color: var(--primary-purple) !important;
+    font-weight: 700 !important;
+    margin: 40px 0 20px 0;
+    text-align: right;
+    font-size: 1.6rem;
 }
 
-.post-content-area p {
-    margin-bottom: 30px;
-}
+.post-content-area p { margin-bottom: 30px; }
 
-/* התאמה למובייל */
 @media (max-width: 768px) {
     .split-header-container {
-        flex-direction: column-reverse;
-        text-align: center;
+        flex-direction: column; 
+        text-align: right;
+        gap: 30px;
+        padding: 0 20px;
     }
-    .header-text-side { text-align: right; }
-    .post-main-title { font-size: 2.2rem; }
-}
-/* --- עיצוב אייקון וואטסאפ בהדר --- */
-.nav-whatsapp-link {
-    display: flex;
-    align-items: center;
-    margin-right: 15px; /* יוצר רווח מהמילה 'פרסומים' */
-    text-decoration: none;
-}
-
-.header-wa-icon {
-    width: 28px; /* גודל האייקון */
-    height: auto;
-    transition: transform 0.2s ease;
-}
-
-.header-wa-icon:hover {
-    transform: scale(1.15); /* אפקט הגדלה עדין בריחוף */
-}
-
-/* התאמה למובייל */
-@media (max-width: 600px) {
-    .nav-container {
-        gap: 15px; /* מקטין רווחים בטלפון כדי שהכל ייכנס בשורה אחת */
+    
+    .header-text-side, 
+    .header-image-side { 
+        max-width: 100%; 
+        flex: 1;
+        text-align: right; 
+        padding-top: 0;
     }
-    .header-wa-icon {
-        width: 24px;
+    
+    .post-page-header .post-main-title { 
+        font-size: 3rem; 
+        line-height: 1.1;
+    }
+    
+    .featured-post-img {
+        aspect-ratio: 4 / 5; 
     }
 }
 
-/* --- סימון דף פעיל סופי --- */
-.nav-link.is-active, 
-.nav-name.is-active {
-    color: var(--primary-purple) !important;
-    font-weight: 800 !important;
-    position: relative;
+/* =========================================
+   טבלאות ותמונות פנימיות בתוך המאמר
+   ========================================= */
+
+.post-content-area table {
+    width: 90%; 
+    max-width: 100%;
+    margin: 30px auto; 
+    border-collapse: collapse;
+    border: 2px solid #ddd; 
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
-.nav-link.is-active::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    right: 0;
-    width: 100%;
-    height: 3px;
+.post-content-area th, 
+.post-content-area td {
+    border: 1px solid #ddd; 
+    text-align: center !important; 
+    padding: 16px 25px; 
+    vertical-align: middle;
+}
+
+.post-content-area th {
     background-color: var(--primary-purple);
-    border-radius: 10px;
-    display: block !important;
+    color: white;
+    border-bottom: 3px solid #734287; 
+    font-weight: bold;
 }
 
-/* ביטול הקו תחת שם הקליניקה בדף הבית כדי לשמור על ניקיון */
-.nav-name.is-active::after {
-    display: none !important;
+.post-content-area tr:nth-child(even) {
+    background-color: #fcf8ff; 
 }
-/* וידוא שהקישורים הרגילים לא דורסים את הפעיל */
-.nav-container a {
-    transition: all 0.3s ease;
+
+@media (max-width: 768px) {
+    .post-content-area table {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap; 
+    }
+}
+
+.post-content-area figure {
+    margin: 40px auto; 
+    text-align: center;
+    width: 100%;
+}
+
+.post-content-area img {
+    max-width: 700px; 
+    width: 100%;      
+    height: auto;     
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    display: block;
+    margin: 0 auto;   
+}
+
+.post-content-area figcaption {
+    font-size: 0.95rem;
+    color: #666;
+    margin-top: 15px;
+    font-style: italic;
+}
+
+@media (max-width: 600px) {
+    .post-content-area img {
+        max-width: 90%; 
+    }
+}
+
+/* =========================================
+   יישור רשימות בתוך גוף המאמר (Bullets & Numbers)
+   ========================================= */
+
+.post-content-area ul, 
+.post-content-area ol {
+    list-style: none; /* ביטול הגדרות דפדפן ברירת מחדל */
+    padding: 0; /* מונע את בריחת הרשימה שמאלה */
+    margin: 0 0 30px 0; /* רווח סביר בין הרשימה כולה (הבולט האחרון) לפסקה הבאה */
+}
+
+.post-content-area li {
+    position: relative;
+    padding-right: 25px; /* הרווח המקובל בין הבולט לתחילת הטקסט (הזחה) */
+    margin-bottom: 12px; /* רווח בין שורה לשורה בתוך הרשימה */
+}
+
+/* עיצוב רשימה רגילה (נקודות) */
+.post-content-area ul li::before {
+    content: "•";
+    position: absolute;
+    right: 0; /* מצמיד את הבולט בדיוק לקו הימני של שאר הטקסט */
+    top: 0;
+    font-weight: 700;
+    color: var(--primary-purple); 
+}
+
+/* עיצוב רשימה ממוספרת */
+.post-content-area ol {
+    counter-reset: custom-list-counter;
+}
+
+.post-content-area ol li::before {
+    content: counter(custom-list-counter) ".";
+    counter-increment: custom-list-counter;
+    position: absolute;
+    right: 0; /* מצמיד את המספר בדיוק לקו הימני של שאר הטקסט */
+    top: 0;
+    font-weight: 700;
+    color: var(--primary-purple);
 }
