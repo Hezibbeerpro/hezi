@@ -66,7 +66,8 @@ body {
 .container { 
     max-width: 1200px; 
     margin: 0 auto; 
-    padding: 60px 20px; 
+    padding: 60px 20px 0px 20px; 
+    
 }
 
 section { 
@@ -220,7 +221,7 @@ h2 {
 }
 
 /* =========================================
-   עיצוב הדר הניווט העליון (יישור Baseline)
+   עיצוב הדר הניווט העליון (ממורכז פלס)
    ========================================= */
 .main-nav {
     position: sticky; 
@@ -232,21 +233,23 @@ h2 {
     height: 65px; 
     display: flex;
     align-items: center; 
-    justify-content: center; 
 }
 
 .nav-container {
-    display: flex;
-    justify-content: center; 
-    align-items: baseline; 
-    gap: 40px; 
+    display: grid;
+    /* מחלק את השורה ל-3 עמודות: שמאל וימין שוות, והאמצעית תופסת בדיוק את רוחב הטקסט */
+    grid-template-columns: 1fr max-content 1fr; 
+    align-items: center; /* יישור אנכי לאמצע כדי שהוואטסאפ והטקסט יהיו באותו גובה */
+    gap: 40px; /* זהו הרווח המדויק שיהיה זהה בשני הצדדים */
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
+/* הפריט הימני (חזי באר) - נדחף שמאלה לכיוון המרכז (ב-RTL end זה שמאל) */
 .nav-name {
+    justify-self: end;
     font-weight: 700;
     font-size: 2rem !important;
     color: var(--primary-purple) !important; 
@@ -255,7 +258,9 @@ h2 {
     display: block;
 }
 
+/* הפריט האמצעי (פרסומים) - יושב בול באמצע הגריד ובאמצע המסך */
 .nav-link {
+    justify-self: center;
     font-weight: 600;
     font-size: 1.3rem !important;
     color: var(--primary-purple) !important; 
@@ -265,10 +270,11 @@ h2 {
     position: relative;
 }
 
+/* הפריט השמאלי (וואטסאפ) - נדחף ימינה לכיוון המרכז (ב-RTL start זה ימין) */
 .nav-whatsapp-link {
+    justify-self: start;
     display: flex;
     align-items: center;
-    align-self: center; 
     text-decoration: none;
     height: 24px; 
 }
@@ -288,6 +294,14 @@ h2 {
     height: 3px;
     background-color: var(--primary-purple);
     border-radius: 10px;
+}
+
+/* התאמות לנייד שומרות על אותו יחס סימטרי, רק מצמצמות רווחים */
+@media (max-width: 600px) {
+    .nav-container { gap: 15px; } 
+    .nav-name { font-size: 1.6rem !important; }
+    .nav-link { font-size: 1.1rem !important; }
+    .header-wa-icon { width: 22px; }
 }
 
 @media (max-width: 600px) {
@@ -721,4 +735,87 @@ h2 {
     top: 0;
     font-weight: 700;
     color: var(--primary-purple);
+}
+/* --- עיצוב Footer מהודק --- */
+.main-footer {
+    background-color: var(--bg-light-purple);
+    margin-top: 20px; /* תוקן ל-20px */
+    border-top: 1px solid rgba(155, 89, 182, 0.1);
+}
+
+/* התיקון המרכזי: דריסת המרווחים של ה-container בתוך הפוטר בלבד */
+.main-footer .container {
+    padding-top: 20px !important; /* מצמצם את הרווח הורוד מעל "צרו קשר" */
+    padding-bottom: 25px !important; /* מוסיף מרווח ורוד יפה מתחת לקישורים המשפטיים */
+}
+
+.footer-contact {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.footer-contact h2 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.contact-links-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* הגדרת אייקון וואטסאפ סגול בלבד */
+.whatsapp-footer .header-wa-icon {
+    width: 22px;
+    height: auto;
+}
+
+/* שורה תחתונה וקישורים משמאל */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* יישור לתחתית */
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding-top: 15px;
+    font-size: 0.85rem;
+}
+
+.footer-legal-links {
+    display: flex;
+    flex-direction: column;
+    text-align: left; /* יישור טקסט לשמאל */
+    gap: 2px;
+}
+
+.footer-legal-links a {
+    text-decoration: none;
+    color: #777;
+}
+
+.footer-legal-links a:hover {
+    color: var(--primary-purple);
+}
+
+@media (max-width: 768px) {
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+    }
+    .footer-legal-links { 
+        text-align: center; 
+    }
 }
