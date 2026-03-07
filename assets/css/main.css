@@ -180,8 +180,29 @@ h2 {
 }
 
 @media (max-width: 600px) {
-    .expertise-grid { grid-template-columns: 1fr; }
-    .expertise-card { padding: 25px; }
+    .expertise-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 15px; 
+    }
+    
+    .expertise-card { 
+        padding: 15px 10px; 
+    }
+    
+    .card-icon {
+        font-size: 2rem; 
+        margin-bottom: 10px;
+    }
+    
+    .expertise-card h3 {
+        font-size: 1.15rem; 
+        margin-bottom: 8px;
+    }
+    
+    .expertise-card p {
+        font-size: 0.9rem; 
+        line-height: 1.3;
+    }
 }
 
 .btn { 
@@ -214,7 +235,6 @@ h2 {
 }
 
 @media (max-width: 600px) {
-    .expertise-grid { grid-template-columns: 1fr; }
     .hide-mobile { display: none; }
     .hero h1 { font-size: 2.8rem !important; }
     .hero p { font-size: 1.6rem !important; }
@@ -377,58 +397,64 @@ h2 {
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
-/* תיקוני נייד עבור דף הפרסומים */
+/* תיקוני נייד עבור דף הפרסומים (עיצוב כרטיסים סגנון הארץ) */
 @media (max-width: 768px) {
+    .articles-split-wrapper {
+        gap: 15px; /* מרווח קטן יותר בין הכרטיסים */
+        margin-top: 10px;
+    }
+
     .article-split-card {
-        flex-direction: row-reverse; 
+        flex-direction: row-reverse; /* תמונה מימין, טקסט משמאל */
         gap: 15px; 
-        align-items: flex-start; /* שונה מ-stretch כדי לאפשר גמישות בגובה */
-        padding-bottom: 25px;
-        margin-bottom: 25px;
+        align-items: center; /* ממרכז את התמונה והטקסט לאותו קו */
+        padding: 15px; /* מרווח פנימי שיוצר את ה"כרטיס" */
+        margin-bottom: 0;
+        border-bottom: none; /* ביטול הקו הישן */
+        background-color: #fcfcfc; /* רקע עדין לכרטיס עצמו להפרדה מהרקע הלבן */
+        border: 1px solid #f0f0f0; /* מסגרת חלשה לתיחום */
+        border-radius: 12px; /* פינות מעוגלות לכרטיס כולו */
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03); /* צל עדין מאד */
+        width: 100%; /* מתיחה לכל הרוחב האפשרי */
     }
     
     .card-image-side {
-        flex: 0 0 120px; /* הוגדל מ-90px ל-120px */
-        height: 120px; /* הוגדל מ-90px ל-120px */
+        flex: 0 0 110px; /* גודל תמונה קבוע */
+        height: 110px; 
     }
     
     .card-image, .card-image-side img {
         width: 100%;
         height: 100%;
         aspect-ratio: 1 / 1; 
-        border-radius: 8px; 
+        border-radius: 8px; /* עיגול הפינות של התמונה עצמה בתוך הכרטיס */
         display: block;
+        object-fit: cover;
     }
 
     .card-content-side {
         flex: 1; 
         display: flex;
         flex-direction: column; 
-        justify-content: center; /* ממרכז את הטקסט ביחס לתמונה החדשה */
-        min-height: 120px; /* תואם לגובה התמונה */
-        height: auto; /* מאפשר לטקסט לגדול במידת הצורך */
+        justify-content: center; 
         text-align: right;
         padding: 0; 
     }
 
     .card-title a { 
-        font-size: 1.3rem !important; /* הוגדל מ-1.1rem */
+        font-size: 1.15rem !important; 
         line-height: 1.3;
         margin-bottom: 8px; 
         font-weight: 700;
-        order: 1; 
     }
 
     .post-meta-line {
-        font-size: 0.9rem; /* הוגדל מ-0.75rem */
+        font-size: 0.85rem;
         margin-bottom: 0; 
         color: #888;
-        order: 2; 
-        visibility: visible;
-        height: auto;
     }
 
-    /* הסתרת חזי באר, התאריך והסימנים המפרידים */
+    /* הסתרת אלמנטים מיותרים כדי לשמור על מראה נקי בנייד */
     .post-meta-line a, 
     .post-meta-line .author-name,
     .post-meta-line time,
