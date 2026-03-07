@@ -407,7 +407,6 @@ h2 {
 .post-page-header {
     background-color: #ffffff;
     padding: 40px 0 30px 0; /* הקטנתי את הריווח התחתון כדי לקרב את הטקסט למעלה */
-    border-bottom: 1px solid #eee;
     margin-bottom: 0; /* בוטל הריווח מתחת לקו ההפרדה כדי להדביק את הטקסט */
 }
 
