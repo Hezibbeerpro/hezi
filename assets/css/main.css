@@ -180,27 +180,33 @@ h2 {
 }
 
 @media (max-width: 600px) {
+    /* השוואת שולי הסקשן בדיוק לאלו של 'היי, אני חזי באר' */
+    #expertise { 
+        padding: 40px 25px !important; 
+    }
+    
+    /* פריסה של שני כרטיסים בשורה מורחבים */
     .expertise-grid { 
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 15px; 
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 12px; /* רווח קטן כדי לנצל את רוחב המסך */
     }
     
     .expertise-card { 
-        padding: 15px 10px; 
+        padding: 15px 10px !important; /* מרווח פנימי קטן יותר */
     }
     
     .card-icon {
-        font-size: 2rem; 
-        margin-bottom: 10px;
-    }
-    
-    .expertise-card h3 {
-        font-size: 1.15rem; 
+        font-size: 2rem;
         margin-bottom: 8px;
     }
     
+    .expertise-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+    
     .expertise-card p {
-        font-size: 0.9rem; 
+        font-size: 0.85rem;
         line-height: 1.3;
     }
 }
@@ -397,64 +403,73 @@ h2 {
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
-/* תיקוני נייד עבור דף הפרסומים (עיצוב כרטיסים סגנון הארץ) */
+/* תיקוני נייד עבור דף הפרסומים (תצוגת רשימה קלאסית) */
 @media (max-width: 768px) {
     .articles-split-wrapper {
-        gap: 15px; /* מרווח קטן יותר בין הכרטיסים */
+        gap: 0; 
         margin-top: 10px;
+        /* הפריצה מהקונטיינר - מותח את הרשימה עד קצוות המסך המוחלטים */
+        margin-right: -20px;
+        margin-left: -20px;
     }
-
+    
     .article-split-card {
-        flex-direction: row-reverse; /* תמונה מימין, טקסט משמאל */
-        gap: 15px; 
-        align-items: center; /* ממרכז את התמונה והטקסט לאותו קו */
-        padding: 15px; /* מרווח פנימי שיוצר את ה"כרטיס" */
-        margin-bottom: 0;
-        border-bottom: none; /* ביטול הקו הישן */
-        background-color: #fcfcfc; /* רקע עדין לכרטיס עצמו להפרדה מהרקע הלבן */
-        border: 1px solid #f0f0f0; /* מסגרת חלשה לתיחום */
-        border-radius: 12px; /* פינות מעוגלות לכרטיס כולו */
-        box-shadow: 0 2px 8px rgba(0,0,0,0.03); /* צל עדין מאד */
-        width: 100%; /* מתיחה לכל הרוחב האפשרי */
+        display: flex;
+        flex-direction: row-reverse; 
+        gap: 13px; /* צמצמתי מ-15 כדי לתת יותר מקום לטקסט */
+        align-items: flex-start; 
+        padding: 12px 3px; /* מרווח הנשימה המדויק מקצה המסך אל התמונה והטקסט */
+        margin: 0;
+        border-bottom: 1px solid #eaeaea; 
+        background: transparent; 
+        border-radius: 0; 
+        box-shadow: none; 
+        width: auto; /* משתלב עם השוליים השליליים */
     }
     
     .card-image-side {
-        flex: 0 0 110px; /* גודל תמונה קבוע */
-        height: 110px; 
+        flex: 0 0 100px; /* הקטנתי מ-115px ל-100px כדי לפנות יותר שטח אופקי לטקסט */
     }
     
     .card-image, .card-image-side img {
         width: 100%;
-        height: 100%;
-        aspect-ratio: 1 / 1; 
-        border-radius: 8px; /* עיגול הפינות של התמונה עצמה בתוך הכרטיס */
-        display: block;
+        height: 100px; /* תואם לרוחב ליצירת ריבוע מושלם */
         object-fit: cover;
+        border-radius: 8px; /* עיגול פינות לתמונה בלבד */
+        display: block;
     }
 
     .card-content-side {
         flex: 1; 
         display: flex;
         flex-direction: column; 
-        justify-content: center; 
+        justify-content: flex-start; 
         text-align: right;
         padding: 0; 
+        min-width: 0; /* טריק קריטי בפלקסבוקס שמונע מהטקסט לדחוף את התמונה החוצה */
     }
 
     .card-title a { 
-        font-size: 1.15rem !important; 
+        font-size: 1rem !important; 
         line-height: 1.3;
-        margin-bottom: 8px; 
+        margin-bottom: 5px; 
         font-weight: 700;
+        color: var(--text-color);
+        /* הגבלת הטקסט ל-3 שורות בדיוק */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .post-meta-line {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         margin-bottom: 0; 
         color: #888;
+        margin-top: auto; /* דוחף את זמן הקריאה לתחתית */
     }
 
-    /* הסתרת אלמנטים מיותרים כדי לשמור על מראה נקי בנייד */
     .post-meta-line a, 
     .post-meta-line .author-name,
     .post-meta-line time,
