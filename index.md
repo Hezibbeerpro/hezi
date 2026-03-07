@@ -20,14 +20,16 @@ layout: default
 </div>
     </section>
 
-    <section id="expertise">
-        <h2>תחומי מומחיות</h2>
-        <p class="intro-text">{{ site.data.clinic.expertise_intro }}</p>
-        <div class="expertise-grid">
-            {% for area in site.data.clinic.expertise %}
-            <div class="expertise-item {% if area == 'קבלת החלטות' %}hide-mobile{% endif %}">
-                {{ area }}
-            </div>
-            {% endfor %}
-
-</div>
+<section id="expertise">
+    <h2>תחומי מומחיות</h2>
+    <p class="intro-text">{{ site.data.clinic.expertise_intro }}</p>
+    <div class="expertise-grid">
+        {% for area in site.data.clinic.expertise %}
+        <div class="expertise-card {% if area.name == 'קבלת החלטות' %}hide-mobile{% endif %}">
+            <div class="card-icon">{{ area.icon }}</div>
+            <h3>{{ area.name }}</h3>
+            <p>{{ area.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
