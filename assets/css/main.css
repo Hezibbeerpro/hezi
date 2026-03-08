@@ -843,7 +843,8 @@ h2 {
 
 .footer-legal-links a {
     text-decoration: none;
-    color: #777;
+    color: var(--text-color); /* שונה כדי לעבור בדיקת נגישות */
+    text-decoration: underline; /* מומלץ לנגישות בקישורים שאין להם כפתור */
 }
 
 .footer-legal-links a:hover {
