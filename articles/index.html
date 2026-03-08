@@ -20,12 +20,12 @@ title: פרסומים
                         </div>
                         
                         <span class="read-time">
-                            {% assign words = post.content | number_of_words %}
-                            {% if words < 360 %}
-                              דקת קריאה אחת
-                            {% else %}
-                              {{ words | divided_by: 180 }} דקות קריאה
-                            {% endif %}
+                        {% assign words = post.content | number_of_words %}
+                        {% if words < 360 %}
+                        דקת קריאה אחת           
+                        {% else %}
+                        {{ words | divided_by: 180 }} דקות קריאה
+                        {% endif %} 
                         </span>
                     </div>
                     

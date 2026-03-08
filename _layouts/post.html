@@ -13,8 +13,7 @@ layout: default
                     <time>{{ page.date | date: "%d/%m/%Y" }}</time>
                     <span class="separator">•</span>
                     <span class="read-time">
-                        {% assign words = content | number_of_words %}
-                        {{ words | divided_by: 180 | plus: 1 }} דקות קריאה
+                    {% include read-time.html content=content %}
                     </span>
                 </div>
                 
