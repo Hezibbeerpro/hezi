@@ -1,9 +1,15 @@
-# frozen_string_literal: true
-
 source "https://rubygems.org"
 
-# gem "rails"
+# שימוש בגרסה מודרנית של Jekyll
+gem "jekyll", "~> 4.3"
 
-gem "jekyll", "~> 4.4"
+# תוספים פופולריים בגרסאות שתומכות ב-Ruby החדש
+group :jekyll_plugins do
+  gem "jekyll-seo-tag"
+  gem "jekyll-sitemap"
+  gem "jekyll-feed"
+  gem "jekyll-gist"
+end
 
-gem "jekyll-seo-tag", "~> 2.8"
+# הכרחי להרצת שרת ב-Windows וב-Ruby 4
+gem "webrick"
