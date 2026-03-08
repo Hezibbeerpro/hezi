@@ -37,7 +37,7 @@ body {
 
 .hero {
     height: calc(100vh - 65px);
-    background: url('../images/branding/cover.jpg') no-repeat center center;
+    background: url('../images/branding/cover.webp') no-repeat center center;
     background-size: cover;
     display: flex; 
     flex-direction: column; 

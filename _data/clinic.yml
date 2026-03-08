@@ -9,7 +9,7 @@ about_p1: "אני רואה חשבון, פסיכולוג קליני מומחה ו
 about_p2: "הבסיס המקצועי שלי נשען על למידה אקדמית עמוקה: אני בוגר תואר ראשון בפסיכולוגיה, ניהול, כלכלה וחשבונאות מאוניברסיטת תל אביב, ומוסמך תואר שני בפסיכולוגיה קלינית מהאוניברסיטה העברית."
 
 # הגדרות מדיה (שימוש בנתיב המלא מרמת ה-assets)
-hero_image: "/assets/images/branding/cover.jpg"
+hero_image: "/assets/images/branding/cover.webp"
 profile_image: "/assets/images/branding/profile.jpg"
 
 # תחומי מומחיות
