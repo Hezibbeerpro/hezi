@@ -244,6 +244,12 @@ h2 {
     .hide-mobile { display: none; }
     .hero h1 { font-size: 2.8rem !important; }
     .hero p { font-size: 1.6rem !important; }
+    
+    /* הפקודה שמחליפה את התמונה לגרסת המובייל הקלה */
+    .hero {
+        background-image: url('../images/branding/cover-mobile.webp') !important;
+        height: 75vh; /* הקטנה קלה של הגובה כדי שהגולש יראה מיד שיש תוכן להמשך גלילה */
+    }
 }
 
 /* =========================================
