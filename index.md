@@ -16,14 +16,15 @@ layout: default
             <p>{{ site.data.clinic.about_p2 }}</p>
         </div>
       <div class="about-image">
-    <img src="{{ site.data.clinic.profile_image }}" 
-     srcset="{{ site.data.clinic.profile_image_mobile }} 600w,
-             {{ site.data.clinic.profile_image }} 1300w"
-     sizes="(max-width: 600px) 100vw, 650px"
-     alt="חזי באר - פסיכולוג קליני"
-     width="651" height="434"
-     loading="lazy">
-</div>
+        <img src="{{ site.data.clinic.profile_image }}" 
+         class="profile-pic"
+         srcset="{{ site.data.clinic.profile_image_mobile }} 600w,
+                 {{ site.data.clinic.profile_image }} 1300w"
+         sizes="(max-width: 600px) 100vw, 650px"
+         alt="חזי באר - פסיכולוג קליני"
+         width="651" height="434"
+         loading="lazy">
+      </div>
     </section>
 
 <section id="expertise">
