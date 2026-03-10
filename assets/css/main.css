@@ -250,7 +250,7 @@ h2 {
     /* הפקודה שמחליפה את התמונה לגרסת המובייל הקלה */
     .hero {
         background-image: url("{{ site.data.clinic.hero_image_mobile | relative_url }}") !important;
-        height: 100vh; /* הקטנה קלה של הגובה כדי שהגולש יראה מיד שיש תוכן להמשך גלילה */
+        height: 90vh; /* הקטנה קלה של הגובה כדי שהגולש יראה מיד שיש תוכן להמשך גלילה */
     }
 }
 

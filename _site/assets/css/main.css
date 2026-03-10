@@ -248,7 +248,7 @@ h2 {
     /* הפקודה שמחליפה את התמונה לגרסת המובייל הקלה */
     .hero {
         background-image: url("/assets/images/branding/cover-mobile.webp") !important;
-        height: 100vh; /* הקטנה קלה של הגובה כדי שהגולש יראה מיד שיש תוכן להמשך גלילה */
+        height: 90vh; /* הקטנה קלה של הגובה כדי שהגולש יראה מיד שיש תוכן להמשך גלילה */
     }
 }
 
