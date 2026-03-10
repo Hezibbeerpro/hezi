@@ -12,20 +12,15 @@ title: פרסומים
                 
                 <div class="card-content-side">
                     <div class="post-meta-line">
-                        <div class="meta-main hide-mobile">
+                        <span class="meta-main hide-mobile">
                             <span class="author-name">חזי באר</span>
                             <span class="separator">•</span>
                             <time>{{ post.date | date: "%d/%m/%Y" }}</time>
                             <span class="separator">•</span>
-                        </div>
+                        </span>
                         
                         <span class="read-time">
-                        {% assign words = post.content | number_of_words %}
-                        {% if words < 360 %}
-                        דקת קריאה אחת           
-                        {% else %}
-                        {{ words | divided_by: 180 }} דקות קריאה
-                        {% endif %} 
+                        {% include read-time.html content=post.content %}
                         </span>
                     </div>
                     

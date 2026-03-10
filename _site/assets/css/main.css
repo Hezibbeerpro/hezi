@@ -368,10 +368,15 @@ h2 {
     text-align: right;
 }
 
-.post-meta-line {
+/* איחוד עיצוב טקסט קרדיט וזמן קריאה למאמרים ולפרסומים */
+.post-meta-line, .post-meta-top {
     font-size: 0.95rem;
-    color: #777;
+    color: #777; /* הצבע האפור העדין */
     margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 6px; /* ריווח אחיד ויפה בין הנקודות למילים */
 }
 
 .card-title a {
