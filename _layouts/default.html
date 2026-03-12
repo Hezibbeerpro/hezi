@@ -2,23 +2,28 @@
 <html lang="he" dir="rtl">
 {% include head.html %}
 <body>
-    <nav class="main-nav">
-        <div class="nav-container">
-            <a href="{{ '/' | relative_url }}" 
-               class="nav-name {% if page.url == '/' or page.url == '/index.html' %}is-active{% endif %}">
-               חזי באר
-            </a>
+<nav class="main-nav">
+    <div class="nav-container">
+        <a href="{{ '/' | relative_url }}" 
+           class="nav-name {% if page.url == '/' or page.url == '/index.html' %}is-active{% endif %}">
+           חזי באר
+        </a>
 
-            <a href="{{ '/articles/' | relative_url }}" 
-               class="nav-link {% if page.url contains '/articles/' %}is-active{% endif %}">
-               פרסומים
-            </a>
-            
-            <a href="https://wa.me/{{ site.clinic.phone }}" target="_blank" class="nav-whatsapp-link">
-                <img src="{{ '/assets/images/whatsapp-purple.png' | relative_url }}" alt="WhatsApp" class="header-wa-icon">
-            </a>
-        </div>
-    </nav>
+        <a href="{{ '/articles/' | relative_url }}" 
+           class="nav-link {% if page.url contains '/articles/' %}is-active{% endif %}">
+           פרסומים
+        </a>
+        
+        <a href="{{ '/contact.html' | relative_url }}" 
+           class="nav-link {% if page.url == '/contact.html' %}is-active{% endif %}">
+           צור קשר
+        </a>
+        
+        <a href="https://wa.me/{{ site.clinic.phone }}" target="_blank" class="nav-whatsapp-link">
+            <img src="{{ '/assets/images/whatsapp-purple.png' | relative_url }}" alt="WhatsApp" class="header-wa-icon">
+        </a>
+    </div>
+</nav>
 
     <main>
         {{ content }}
@@ -40,12 +45,20 @@
         </div>
 
         <div class="footer-bottom">
+            <div class="footer-info-row">
+                <div class="footer-credentials">
+                <a href="{{ '/assets/docs/specialist_license.pdf' | relative_url }}" target="_blank" class="license-link">
+                חזי באר - פסיכולוג קליני מומחה (מס' רישיון פסיכולוג: 27-145665; מס' רישיון מומחה: 27-52442)
+            </a>
+        </div>
+                <div class="footer-legal-links">
+                    <a href="/accessibility.html">הצהרת נגישות</a>
+                    <a href="/privacy.html">מדיניות פרטיות</a>
+                </div>
+            </div>
+            
             <div class="footer-copyright">
                  Ⓒ כל הזכויות שמורות לחזי באר
-            </div>
-            <div class="footer-legal-links">
-                <a href="/accessibility.html">הצהרת נגישות</a>
-                <a href="/privacy.html">מדיניות פרטיות</a>
             </div>
         </div>
     </div>

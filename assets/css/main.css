@@ -288,81 +288,48 @@ h2 {
 }
 
 .nav-container {
-    display: grid;
-    /* מחלק את השורה ל-3 עמודות: שמאל וימין שוות, והאמצעית תופסת בדיוק את רוחב הטקסט */
-    grid-template-columns: 1fr max-content 1fr; 
-    align-items: center; /* יישור אנכי לאמצע כדי שהוואטסאפ והטקסט יהיו באותו גובה */
-    gap: 40px; /* זהו הרווח המדויק שיהיה זהה בשני הצדדים */
+    display: flex;
+    justify-content: center; /* ממורכז את כל הקישורים לאמצע המסך */
+    align-items: center; /* מוודא שכולם באותו גובה */
+    gap: 35px; /* הרווח האחיד בין כל האלמנטים */
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* הפריט הימני (חזי באר) - נדחף שמאלה לכיוון המרכז (ב-RTL end זה שמאל) */
+/* מאחר שעברנו למרכז, יש למחוק את פקודות ה-justify-self הישנות אם הן קיימות */
 .nav-name {
-    justify-self: end;
     font-weight: 700;
     font-size: 2rem !important;
     color: var(--primary-purple) !important; 
     text-decoration: none;
     line-height: 1; 
-    display: block;
 }
 
-/* הפריט האמצעי (פרסומים) - יושב בול באמצע הגריד ובאמצע המסך */
 .nav-link {
-    justify-self: center;
     font-weight: 600;
     font-size: 1.3rem !important;
     color: var(--primary-purple) !important; 
     text-decoration: none;
     line-height: 1; 
-    display: block;
     position: relative;
 }
 
-/* הפריט השמאלי (וואטסאפ) - נדחף ימינה לכיוון המרכז (ב-RTL start זה ימין) */
 .nav-whatsapp-link {
-    justify-self: start;
     display: flex;
     align-items: center;
     text-decoration: none;
     height: 24px; 
 }
 
-.header-wa-icon {
-    width: 28px; 
-    height: auto;
-    display: block;
-}
-
-.nav-link.is-active::after {
-    content: '';
-    position: absolute;
-    bottom: -8px; 
-    right: 0;
-    width: 100%;
-    height: 3px;
-    background-color: var(--primary-purple);
-    border-radius: 10px;
-}
-
-/* התאמות לנייד שומרות על אותו יחס סימטרי, רק מצמצמות רווחים */
+/* התאמה לנייד: הקטנת הרווחים והפונטים כדי שיכנסו יפה בשורה */
 @media (max-width: 600px) {
     .nav-container { gap: 15px; } 
     .nav-name { font-size: 1.6rem !important; }
     .nav-link { font-size: 1.1rem !important; }
     .header-wa-icon { width: 22px; }
 }
-
-@media (max-width: 600px) {
-    .nav-container { gap: 15px; align-items: center; } 
-    .nav-name { font-size: 1.6rem !important; }
-    .nav-link { font-size: 1.1rem !important; }
-    .header-wa-icon { width: 22px; }
-}
-
 /* =========================================
    עמוד ריכוז פרסומים (Articles List)
    ========================================= */
@@ -855,40 +822,260 @@ h2 {
     height: auto;
 }
 
-/* שורה תחתונה וקישורים משמאל */
+/* שורה תחתונה, רישיון, קישורים משמאל וזכויות יוצרים */
 .footer-bottom {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end; /* יישור לתחתית */
+    flex-direction: column;
+    gap: 15px; 
     border-top: 1px solid rgba(0,0,0,0.05);
     padding-top: 15px;
-    font-size: 0.85rem;
+}
+
+.footer-info-row {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    flex-wrap: wrap; 
+}
+
+.footer-credentials {
+    font-size: 1.0rem; 
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.license-link {
+    color: inherit; /* שומר על צבע הטקסט המקורי של הפוטר */
+    text-decoration: none; /* ללא קו תחתון כברירת מחדל למראה נקי */
+    transition: all 0.3s ease;
+}
+
+.license-link:hover {
+    text-decoration: none; /* הקו יופיע רק במעבר עכבר */
+    color: var(--primary-purple); /* שינוי צבע עדין לסגול כדי לתת פידבק שהשורה לחיצה */
+}
+
+.footer-copyright {
+    text-align: center; 
+    font-size: 0.9rem;
+    opacity: 0.8; 
 }
 
 .footer-legal-links {
     display: flex;
     flex-direction: column;
-    text-align: left; /* יישור טקסט לשמאל */
+    text-align: left; 
     gap: 2px;
 }
 
 .footer-legal-links a {
-    text-decoration: none;
-    color: var(--text-color); /* שונה כדי לעבור בדיקת נגישות */
-    text-decoration: underline; /* מומלץ לנגישות בקישורים שאין להם כפתור */
+    text-decoration: none; /* מסיר את הקו התחתון */
+    color: var(--text-color); 
+    font-size: 0.85rem; /* מקטין מעט את הטקסט */
+    transition: color 0.3s ease; /* מוסיף מעבר צבע חלק */
 }
 
 .footer-legal-links a:hover {
     color: var(--primary-purple);
 }
+.footer-legal-links a:hover {
+    color: var(--primary-purple);
+}
 
 @media (max-width: 768px) {
-    .footer-bottom {
+    .footer-info-row {
         flex-direction: column;
-        align-items: center;
         text-align: center;
         gap: 15px;
     }
     .footer-legal-links { 
         text-align: center; 
     }
+}
+/* מבנה עמוד צור קשר אלגנטי */
+.contact-page-wrapper {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.contact-grid-elegant {
+    display: flex;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+.contact-content-side {
+    flex: 1;
+    text-align: right; /* הכל מיושר לימין */
+}
+
+.contact-main-title {
+    color: var(--primary-purple);
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.contact-subtitle {
+    font-size: 1.3rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* תמונת הפרופיל העגולה */
+.contact-profile-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 8px 25px rgba(155, 89, 182, 0.2);
+    margin-bottom: 30px;
+    display: block;
+}
+
+/* רשימת ההתקשרות */
+.contact-methods-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.elegant-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.25rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.elegant-contact-item:hover {
+    color: var(--primary-purple);
+}
+
+.contact-icon {
+    font-size: 1.5rem;
+}
+
+.contact-wa-icon {
+    width: 35px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.contact-wa-icon:hover {
+    transform: scale(1.1);
+}
+
+/* אזור הגעה וחניה - אקורדיון נפתח (מוסתר ורגוע) */
+.parking-accordion {
+    background-color: var(--bg-light-purple);
+    border-radius: 12px;
+    padding: 15px 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+.parking-accordion summary {
+    font-weight: 600;
+    color: var(--primary-purple);
+    font-size: 1.1rem;
+    list-style: none; /* מסתיר את החץ המכוער של הדפדפן */
+    outline: none;
+}
+
+.parking-accordion summary::-webkit-details-marker {
+    display: none;
+}
+
+.parking-content {
+    margin-top: 15px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    border-top: 1px solid rgba(155, 89, 182, 0.2);
+    padding-top: 15px;
+}
+
+/* צד שמאל - המפה והאייקונים */
+.contact-map-side {
+    flex: 1.2; /* המפה מקבלת קצת יותר מקום מהטקסט */
+}
+
+.map-elegant-wrapper {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+/* השורה שמתחת למפה (מחזיקה את המידע מימין ואייקונים משמאל) */
+.map-bottom-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+/* מעטפת האקורדיון בשורה התחתונה */
+.parking-accordion-wrapper {
+    flex: 1; 
+}
+/* כפתורי הניווט (אייקונים בלבד) */
+/* כפתורי הניווט (אייקונים בלבד) */
+.map-icons-row {
+    display: flex;
+    gap: 15px;
+    margin-top: 0;
+}
+
+.nav-icon-link {
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-icon-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.nav-app-icon {
+    width: 28px;
+    height: auto;
+}
+
+/* התאמה לנייד */
+@media (max-width: 768px) {
+    .contact-grid-elegant {
+        flex-direction: column;
+    }
+    
+    .contact-content-side {
+        text-align: right;
+    }
+    
+    /* מיקום התמונה בנייד */
+    .contact-profile-img {
+        margin: 0 0 25px 0;
+    }
+    .map-bottom-section {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .parking-accordion-wrapper {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}

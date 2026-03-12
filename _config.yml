@@ -2,10 +2,13 @@ title: "חזי באר | פסיכולוג קליני - טיפול CBT ב-OCD וח
 description: "פסיכולוג קליני מומחה בטיפול קוגניטיבי-התנהגותי"
 url: "https://hezibeer.co.il"
 author: "חזי באר"
+phone: "052-3865888"
+email: "hezibeerpro@gmail.com"
+address: "רחוב חיי אדם 2, תל אביב"
 social_image: <img src="{{ profile_image | relative_url }}" alt="תמונת פרופיל"> # תמונה שתוצג בוואטסאפ
 # פרטי קשר
 whatsapp_number: "972523865888"
-license_number: "27145665"
+license_number: "27-145665"
 lang: "he"
 direction: "rtl"
 
