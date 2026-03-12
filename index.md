@@ -21,7 +21,7 @@ layout: default
          srcset="{{ site.data.clinic.profile_image_mobile }} 600w,
                  {{ site.data.clinic.profile_image }} 1300w"
          sizes="(max-width: 600px) 100vw, 650px"
-         alt="חזי באר - פסיכולוג קליני"
+         alt="{{ site.data.clinic.profile_image_alt }}"
          width="651" height="434"
          loading="lazy">
       </div>

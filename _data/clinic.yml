@@ -13,6 +13,7 @@ hero_image: "/assets/images/branding/cover.webp"
 hero_image_mobile: "/assets/images/branding/cover-mobile.webp"
 profile_image: "/assets/images/branding/profile.webp"
 profile_image_mobile: "/assets/images/branding/profile-mobile.webp"
+profile_image_alt: "חזי באר - פסיכולוג קליני מומחה"
 
 # תחומי מומחיות
 expertise_intro: "בדיוק כפי שלא הייתם פונים לרופא עיניים לטיפול בבעיית לב, אני מאמין שגם בבריאות הנפש לדיוק יש משמעות קריטית. אני בוחר להתמקד בתחומים בהם יש לי את המומחיות והכלים להביא לתוצאות ממשיות."
