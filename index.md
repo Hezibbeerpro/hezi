@@ -15,28 +15,29 @@ layout: default
             <p>{{ site.data.clinic.about_p1 }}</p>
             <p>{{ site.data.clinic.about_p2 }}</p>
         </div>
-      <div class="about-image">
-        <img src="{{ site.data.clinic.profile_image }}" 
-         class="profile-pic"
-         srcset="{{ site.data.clinic.profile_image_mobile }} 600w,
-                 {{ site.data.clinic.profile_image }} 1300w"
-         sizes="(max-width: 600px) 100vw, 650px"
-         alt="{{ site.data.clinic.profile_image_alt }}"
-         width="651" height="434"
-         loading="lazy">
-      </div>
+        <div class="about-image">
+            <img src="{{ site.data.clinic.profile_image }}" 
+                 class="profile-pic"
+                 srcset="{{ site.data.clinic.profile_image_mobile }} 600w,
+                         {{ site.data.clinic.profile_image }} 1300w"
+                 sizes="(max-width: 600px) 200px, 650px"
+                 alt="{{ site.data.clinic.profile_image_alt }}"
+                 width="200" height="200"
+                 loading="lazy">
+        </div>
     </section>
 
-<section id="expertise">
-    <h2>תחומי מומחיות</h2>
-    <p class="intro-text">{{ site.data.clinic.expertise_intro }}</p>
-    <div class="expertise-grid">
-        {% for area in site.data.clinic.expertise %}
-        <div class="expertise-card {% if area.name == 'קבלת החלטות' %}hide-mobile{% endif %}">
-            <div class="card-icon">{{ area.icon }}</div>
-            <h3>{{ area.name }}</h3>
-            <p>{{ area.description }}</p>
+    <section id="expertise">
+        <h2>תחומי מומחיות</h2>
+        <p class="intro-text">{{ site.data.clinic.expertise_intro }}</p>
+        <div class="expertise-grid">
+            {% for area in site.data.clinic.expertise %}
+            <div class="expertise-card {% if area.name == 'קבלת החלטות' %}hide-mobile{% endif %}">
+                <div class="card-icon">{{ area.icon }}</div>
+                <h3>{{ area.name }}</h3>
+                <p>{{ area.description }}</p>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-</section>
+    </section>
+</div>
