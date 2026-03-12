@@ -792,6 +792,8 @@ h2 {
 .footer-contact {
     text-align: center;
     margin-bottom: 20px;
+    border-bottom: none !important;
+    margin-bottom: 0;
 }
 
 .footer-contact h2 {
@@ -828,7 +830,8 @@ h2 {
     flex-direction: column;
     gap: 15px; 
     border-top: 1px solid rgba(0,0,0,0.05);
-    padding-top: 15px;
+    border-top: none !important;
+    padding-top: 15px; /* שומר על מרווח נקי גם בלי הקו */
 }
 
 .footer-info-row {
@@ -836,6 +839,7 @@ h2 {
     justify-content: space-between; 
     align-items: center;
     flex-wrap: wrap; 
+    border-top: none !important;
 }
 
 .footer-credentials {
@@ -1077,5 +1081,39 @@ h2 {
     .parking-accordion-wrapper {
         width: 100%;
         margin-bottom: 15px;
+    }
+}
+/* -- עיצוב השורה החדשה בטור הימני (פרטים + תמונה) -- */
+.contact-personal-row {
+    display: flex;
+    justify-content: flex-start; /* מתחיל צמוד לימין */
+    align-items: center; /* ממרכז אותם לגובה אחיד */
+    gap: 40px; /* הרווח בין הטקסט לתמונה */
+    margin-bottom: 40px;
+}
+
+/* ביטול מרווחים ישנים שלא רלוונטיים במבנה החדש */
+.contact-methods-list {
+    margin-bottom: 0;
+}
+
+.contact-profile-img {
+    margin-bottom: 0; 
+}
+
+/* -- אייקונים בתוך האקורדיון -- */
+.map-icons-row {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px; /* נותן מרווח מטקסט החניה מעליו */
+    justify-content: flex-start; /* מיישר את האייקונים לימין כמו שאר הטקסט */
+}
+
+/* -- התאמה למסכים קטנים בנייד -- */
+@media (max-width: 768px) {
+    .contact-personal-row {
+        flex-direction: column-reverse; /* בנייד התמונה תעלה מעל לפרטים */
+        align-items: flex-start;
+        gap: 20px;
     }
 }

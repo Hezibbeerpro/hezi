@@ -31,18 +31,21 @@
 
 <footer class="main-footer">
     <div class="container">
+
+        {% unless page.url == '/contact.html' %}
         <div class="footer-contact">
             <h2>צרו קשר</h2>
             <p><strong>רוצים להתייעץ? אל תהססו, אני נהנה לעזור.</strong></p>
             
             <div class="contact-links-wrapper">
-                <a href="tel:0523865888" class="contact-item">052-3865888</a>
-                <a href="mailto:hezibeerpro@gmail.com" class="contact-item">hezibeerpro@gmail.com</a>
+                <a href="tel:0523865888" class="contact-item">{{ site.phone }}</a>
+                <a href="mailto:hezibeerpro@gmail.com" class="contact-item">{{ site.email }}</a>
                 <a href="https://wa.me/972523865888" class="contact-item whatsapp-footer">
                  <img src="{{ '/assets/images/whatsapp-purple.png' | relative_url }}" alt="WhatsApp" class="header-wa-icon">
                 </a>
             </div>
         </div>
+{% endunless %}
 
         <div class="footer-bottom">
             <div class="footer-info-row">

@@ -10,53 +10,56 @@ title: צרו קשר | חזי באר
             <h1 class="contact-main-title">צרו קשר</h1>
             <p class="contact-subtitle">רוצים להתייעץ? אל תהססו, אני נהנה לעזור.</p>
             
-            <img src="{{ site.data.clinic.profile_image | relative_url }}" alt="חזי באר" class="contact-profile-img">
+            <div class="contact-personal-row">
+                <div class="contact-methods-list">
+                    <a href="https://wa.me/{{ site.whatsapp_number }}" target="_blank" class="elegant-contact-item">
+                        <img src="{{ '/assets/images/whatsapp-purple.png' | relative_url }}" alt="WhatsApp" class="contact-wa-icon-small">
+                        <span style="direction: ltr;">{{ site.phone }}</span>
+                    </a>
 
-            <div class="contact-methods-list">
-                <a href="https://wa.me/972523865888" target="_blank" class="elegant-contact-item">
-                    <img src="{{ '/assets/images/whatsapp-purple.png' | relative_url }}" alt="WhatsApp" class="contact-wa-icon-small">
-                    <span style="direction: ltr;">052-3865888</span>
-                </a>
-
-                <a href="mailto:hezibeerpro@gmail.com" class="elegant-contact-item">
-                    <span style="direction: ltr;">hezibeerpro@gmail.com</span>
-                </a>
+                    <a href="mailto:{{ site.email }}" class="elegant-contact-item">
+                        <span style="direction: ltr;">{{ site.email }}</span>
+                    </a>
+                </div>
+                
+                <div class="contact-image-wrapper">
+                    <img src="{{ site.data.clinic.profile_image | relative_url }}" alt="חזי באר" class="contact-profile-img">
+                </div>
             </div>
         </div>
 
         <div class="contact-map-side">
             <div class="map-elegant-wrapper">
                 <iframe 
-                    src="https://maps.google.com/maps?q=%D7%97%D7%99%D7%99%20%D7%90%D7%93%D7%9D%202,%20%D7%AA%D7%9C%20%D7%90%D7%91%D7%99%D7%91&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                    src="https://maps.google.com/maps?q=חיי+אדם+2,+תל+אביב&t=&z=15&ie=UTF8&iwloc=&output=embed" 
                     width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy">
                 </iframe>
             </div>
             
-            <div class="map-bottom-section">
-                
-                <div class="parking-accordion-wrapper">
-                    <details class="parking-accordion">
-                        <summary>מידע מפורט על הגעה וחניה (לחצו לפתיחה)</summary>
-                        <div class="parking-content">
-                            <p><strong>כתובת:</strong> חיי אדם 2, תל-אביב (פינת נחלת יצחק 28), קומה 2.</p>
-                            <p><strong>תחבורה ציבורית:</strong> קווים 62, 63, 55. רכבת: תחנת השלום או סבידור.</p>
-                            <p><strong>חניה באזור:</strong><br>
-                            • חניון נחלת יצחק 34 (דקת הליכה).<br>
-                            • חניון מגדלי תל-אביב (כניסה מרחוב חפץ חיים 3).<br>
-                            • חניה בכחול-לבן ברחובות המקיפים. מומלץ לבדוק מפרצי חניה בנחלת יצחק 37א.</p>
+            <div class="parking-accordion-wrapper" style="margin-top: 20px;">
+                <details class="parking-accordion">
+                    <summary>מידע מפורט על הגעה וחניה</summary>
+                    <div class="parking-content">
+                        <p><strong>כתובת:</strong> חיי אדם 2, תל-אביב (פינת נחלת יצחק 28), קומה 2.</p>
+                        <p><strong>תחבורה ציבורית:</strong> קווים 62, 63, 55. רכבת: תחנות השלום וסבידור במרחק הליכה (השלום קרובה יותר).</p>
+                        <p><strong>חניה:</strong><br>
+                        • חניון נחלת יצחק 34 (דקת הליכה).<br>
+                        • חניון מגדלי תל-אביב (כניסה מרחוב חפץ חיים 3).<br>
+                        • חניון TOHA (רחוב תוצרת הארץ 8-6).<br>
+                        • בית קליפורניה (רחוב תוצרת הארץ 3).<br>
+                        • חניה בכחול-לבן ברחובות המקיפים. ברחובות המקיפים, בסביבת רחוב ביצרון ובצד המזרחי של רחוב עליית הנוער.
+</p>
+                        
+                        <div class="map-icons-row">
+                            <a href="https://www.waze.com/ul?ll=32.071191,34.7958567&navigate=yes" target="_blank" class="nav-icon-link" title="ניווט ב-Waze">
+                                <img src="{{ '/assets/images/waze-icon.png' | relative_url }}" alt="Waze" class="nav-app-icon">
+                            </a>
+                            <a href="https://maps.google.com/?q=32.071191,34.7958567" target="_blank" class="nav-icon-link" title="ניווט ב-Google Maps">
+                                <img src="{{ '/assets/images/gmaps-icon.png' | relative_url }}" alt="Google Maps" class="nav-app-icon">
+                            </a>
                         </div>
-                    </details>
-                </div>
-
-                <div class="map-icons-row">
-                    <a href="https://www.waze.com/ul?ll=32.071191,34.7958567&navigate=yes" target="_blank" class="nav-icon-link" title="ניווט ב-Waze">
-                        <img src="{{ '/assets/images/waze-icon.png' | relative_url }}" alt="Waze" class="nav-app-icon">
-                    </a>
-                    <a href="https://maps.google.com/maps?q=%D7%97%D7%99%D7%99%20%D7%90%D7%93%D7%9D%202,%20%D7%AA%D7%9C%20%D7%90%D7%91%D7%99%D7%91" target="_blank" class="nav-icon-link" title="ניווט ב-Google Maps">
-                        <img src="{{ '/assets/images/gmaps-icon.png' | relative_url }}" alt="Google Maps" class="nav-app-icon">
-                    </a>
-                </div>
-
+                    </div>
+                </details>
             </div>
         </div>
 
