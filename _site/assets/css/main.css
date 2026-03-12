@@ -45,7 +45,9 @@ body {
     padding-top: 20vh; 
     align-items: center; 
     text-align: center; 
-    color: white;    
+    color: white; 
+    background-color: #3984A6;   
+    
 }
 
 .hero h1 { 
