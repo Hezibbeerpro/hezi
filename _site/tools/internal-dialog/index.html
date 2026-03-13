@@ -88,7 +88,7 @@
         --need-bg: #f39c12;
     }
 
-    /* בידוד מוחלט מהאתר: ביטול יכולת גלילה ברקע */
+    /* נעילת ה-Viewport */
     body.app-active, html.app-active {
         position: fixed !important;
         top: 0 !important; left: 0 !important;
@@ -96,8 +96,7 @@
         height: 100dvh !important;
         overflow: hidden !important;
         margin: 0 !important; padding: 0 !important;
-        touch-action: none !important; /* חוסם משיכה לרענון וגלילה כללית באנדרואיד */
-        overscroll-behavior: none !important;
+        touch-action: none !important;
     }
 
     #app-wrapper {
@@ -107,7 +106,6 @@
         box-sizing: border-box; transition: all 0.3s ease; position: relative;
     }
 
-    /* הגדרת המסך המלא כמיכל קשיח שלא משתנה */
     #app-wrapper.fullscreen-mode {
         position: fixed !important; 
         top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
@@ -119,20 +117,8 @@
         padding: 0 !important; overflow: hidden !important;
     }
 
-    #app-wrapper.fullscreen-mode * {
-        box-sizing: border-box !important;
-    }
-
-    h2 { font-size: 1.5rem; margin-top: 0; margin-bottom: 12px; }
-    p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 15px; }
-
     #intro-screen { display: block; overflow-y: auto; height: 100%; padding: 20px;}
     #app-wrapper.fullscreen-mode #intro-screen { display: none !important; }
-    
-    .privacy-box {
-        background: #f9f9f9; border-right: 4px solid var(--btn-bg);
-        padding: 15px; font-size: 1rem; margin-bottom: 25px;
-    }
     
     .btn-primary { 
         width: 100%; padding: 16px; border: none; border-radius: 8px;
@@ -140,7 +126,6 @@
         background-color: var(--btn-bg); color: var(--user-msg-text); transition: 0.2s;
     }
 
-    /* אזור הצ'אט הוא מיכל קשיח של 100% שאינו נגלל כשלעצמו */
     #chat-interface {
         display: none; 
         flex-direction: column !important; 
@@ -151,14 +136,20 @@
     }
     #app-wrapper.fullscreen-mode #chat-interface { display: flex !important; }
 
-    /* רק היסטוריית ההודעות נגללת - הניתוק משדה ההקלדה קורה כאן */
     #chat-history {
         flex: 1 1 auto !important; 
         overflow-y: auto !important; 
         padding: 20px !important; 
         display: flex !important; flex-direction: column !important; gap: 14px;
-        touch-action: pan-y !important; /* מאפשר רק החלקה למעלה ולמטה באזור הזה */
-        overscroll-behavior: none !important;
+        touch-action: pan-y !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* ה-Spacer שביקשת: דוחף את ההודעה הראשונה למטה */
+    .chat-spacer {
+        flex-shrink: 0;
+        height: 40vh; /* מתחיל את ההודעות בערך באמצע המסך */
+        width: 100%;
     }
 
     .message {
@@ -177,23 +168,19 @@
     .msg-bully { background-color: var(--bully-bg); }
     .msg-need { background-color: var(--need-bg); }
 
-    /* שדה ההקלדה קשיח ותמיד נשאר צמוד לתחתית המיכל, ללא קשר למה שקורה למעלה */
     #input-area {
         background: #fff !important; border-top: 1px solid #ddd !important;
         display: flex !important; gap: 10px; align-items: flex-end;
         flex-shrink: 0 !important; 
         padding: 15px !important;
-        width: 100% !important;
+        padding-bottom: max(15px, env(safe-area-inset-bottom)) !important;
     }
 
     #chat-input {
         flex: 1 !important; min-height: 48px; max-height: 120px !important; padding: 14px;
         border: 1px solid #ccc; border-radius: 24px; font-family: inherit; 
         font-size: 16px; resize: none; box-sizing: border-box; outline: none; line-height: 1.4;
-        overflow-y: auto !important;
     }
-
-    #chat-input:focus { border-color: var(--btn-bg); }
 
     #send-btn {
         background-color: var(--btn-bg); color: #fff; border: none;
@@ -207,7 +194,6 @@
         background: #fff !important; border-top: 1px solid #ddd !important;
         display: none; gap: 8px; justify-content: flex-start; flex-wrap: wrap; 
         max-height: 40vh; overflow-y: auto !important; flex-shrink: 0 !important; padding: 15px !important;
-        width: 100% !important;
     }
 
     .option-btn {
@@ -234,11 +220,13 @@
             <strong>הפרטיות שלך:</strong><br>
             השיחה לא נשמרת בשום שרת. בסיום, תוכלי לבחור להוריד את הסיכום או לשתף אותו.
         </div>
-        <button class="btn-primary" onclick="startChat()">בואי נתחיל (גרסה 4.0)</button>
+        <button class="btn-primary" onclick="startChat()">בואי נתחיל (גרסה 5.0)</button>
     </div>
 
     <div id="chat-interface">
-        <div id="chat-history"></div>
+        <div id="chat-history">
+            <div class="chat-spacer"></div>
+        </div>
         <div id="options-area"></div>
         <div id="input-area">
             <textarea id="chat-input" rows="1" placeholder="הקלידי כאן..."></textarea>
@@ -345,6 +333,10 @@
     const inputArea = document.getElementById('input-area');
     const optionsArea = document.getElementById('options-area');
 
+    chatInput.addEventListener('focus', function() {
+        setTimeout(scrollToBottom, 300);
+    });
+
     chatInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
@@ -376,21 +368,16 @@
     function askQuestion(stepIndex) {
         if (stepIndex < chatFlow.length) {
             const currentFlow = chatFlow[stepIndex];
-
             if (currentFlow.condition && !currentFlow.condition(sessionData)) {
                 currentStep++;
                 askQuestion(currentStep);
                 return;
             }
-
             const questionText = typeof currentFlow.question === 'function' ? currentFlow.question(sessionData) : currentFlow.question;
             addMessage(questionText, 'system');
-
             optionsArea.innerHTML = '';
-            
             if (currentFlow.isScale) optionsArea.classList.add('scale-mode'); else optionsArea.classList.remove('scale-mode');
             if (currentFlow.ltr) optionsArea.style.direction = 'ltr'; else optionsArea.style.direction = 'rtl';
-            
             if (currentFlow.inputType === 'options' || currentFlow.inputType === 'options_and_text') {
                 optionsArea.style.display = 'flex';
                 currentFlow.options.forEach(opt => {
@@ -400,34 +387,19 @@
                     btn.onclick = () => handleOptionSelect(btn, opt, currentFlow.type, currentFlow.multiSelect);
                     optionsArea.appendChild(btn);
                 });
-            } else {
-                optionsArea.style.display = 'none';
-            }
-
-            if (currentFlow.inputType === 'text' || currentFlow.inputType === 'options_and_text') {
-                inputArea.style.display = 'flex';
-            } else {
-                inputArea.style.display = 'none';
-            }
-            
+            } else optionsArea.style.display = 'none';
+            if (currentFlow.inputType === 'text' || currentFlow.inputType === 'options_and_text') inputArea.style.display = 'flex'; else inputArea.style.display = 'none';
             setTimeout(scrollToBottom, 100);
-        } else {
-            showSummaryActions();
-        }
+        } else showSummaryActions();
     }
 
     function handleOptionSelect(btn, selectedOption, msgType, isMulti) {
-        if (isMulti) {
-            btn.classList.toggle('selected');
-        } else {
-            processUserInput(selectedOption, msgType);
-        }
+        if (isMulti) btn.classList.toggle('selected'); else processUserInput(selectedOption, msgType);
     }
 
     function handleSend() {
         const currentFlow = chatFlow[currentStep];
         let text = chatInput.value.trim();
-        
         if (currentFlow && currentFlow.multiSelect) {
             const selectedOpts = Array.from(optionsArea.querySelectorAll('.option-btn.selected')).map(b => b.innerText);
             if (selectedOpts.length > 0) {
@@ -435,116 +407,47 @@
                 text = text ? `${optsText}. בנוסף: ${text}` : optsText;
             }
         }
-        
         if (!text && currentFlow.key !== "feedback") return; 
-        if (!text && currentFlow.key === "feedback") text = "בחרה לדלג על שאלת הפידבק";
-
         processUserInput(text, currentFlow.type);
     }
 
     function processUserInput(text, msgType) {
         const currentFlow = chatFlow[currentStep];
-        addMessage(text, 'user', msgType);
+        addMessage(text || "דלג", 'user', msgType);
         sessionData[currentFlow.key] = text;
-        
         chatInput.value = '';
         chatInput.style.height = '48px';
         optionsArea.style.display = 'none';
         inputArea.style.display = 'none';
-
         currentStep++;
         setTimeout(() => askQuestion(currentStep), 500);
     }
 
-    /* לוגיקה חכמה: גולל למטה רק אם התוכן חורג מגובה המסך, אחרת אל תיגע במיקום */
     function scrollToBottom() {
         requestAnimationFrame(() => {
-            if (chatHistory.scrollHeight > chatHistory.clientHeight) {
-                chatHistory.scrollTop = chatHistory.scrollHeight;
-            }
+            chatHistory.scrollTop = chatHistory.scrollHeight;
         });
     }
 
     function generateSummaryText() {
         const timestamp = new Date().toLocaleString('he-IL');
-        let text = `סיכום שיח פנימי - ${timestamp}\n\n` +
-            `מיקום: ${sessionData.location || ''}\n` +
-            `משימה: ${sessionData.task || ''}\n` +
-            `למה: ${sessionData.reason || ''}\n` +
-            `חשיבות המשימה: ${sessionData.importance || ''}\n`;
-            
-        if(sessionData.importance_level) {
-            text += `רמת חשיבות (1-10): ${sessionData.importance_level}\n`;
-        }
-
-        text += `\nהחלק הפגיע מפחד מ: ${sessionData.vulnerable || ''}\n\n` +
-            `הבריון המתנשא עקץ ואמר: "${sessionData.bully || ''}"\n\n` +
-            `ההרגשה הפגיעה והמחשבות: ${sessionData.answer_bully || ''}\n\n` +
-            `תחושה גופנית: ${sessionData.somatic || ''}\n\n` +
-            `מצב הבריון כעת: ${sessionData.bully_status || ''}\n\n` +
-            `מילים אחרונות לבריון: ${sessionData.final_words || ''}\n\n` +
-            `פידבק על התהליך: ${sessionData.feedback || ''}`;
-            
-        return text;
+        return `סיכום שיח פנימי - ${timestamp}\n\nמשימה: ${sessionData.task}\nפחד: ${sessionData.vulnerable}\nבריון: ${sessionData.bully}\nצורך: ${sessionData.final_words}`;
     }
 
     function showSummaryActions() {
         inputArea.style.display = 'none';
         optionsArea.style.display = 'none';
-
         const actionsDiv = document.createElement('div');
         actionsDiv.className = 'chat-actions';
-        
         const shareBtn = document.createElement('button');
         shareBtn.innerText = 'שתפי את הסיכום';
         shareBtn.style.backgroundColor = 'var(--btn-bg)';
         shareBtn.style.color = 'white';
-        shareBtn.onclick = () => {
-            const summaryText = generateSummaryText();
-            if (navigator.share) {
-                navigator.share({ title: 'סיכום שיח', text: summaryText }).catch(console.error);
-            } else {
-                navigator.clipboard.writeText(summaryText).then(() => {
-                    alert('הסיכום הועתק ללוח.');
-                });
-            }
-        };
-
-        const downloadBtn = document.createElement('button');
-        downloadBtn.innerText = 'הורידי קובץ למכשיר';
-        downloadBtn.style.backgroundColor = '#27ae60';
-        downloadBtn.style.color = 'white';
-        downloadBtn.onclick = () => {
-            const summaryText = generateSummaryText();
-            const blob = new Blob([summaryText], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `סיכום_שיח_פנימי.txt`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        };
-
+        shareBtn.onclick = () => { navigator.clipboard.writeText(generateSummaryText()); alert('הועתק'); };
         const closeBtn = document.createElement('button');
-        closeBtn.innerText = 'סיום וחזרה לאתר';
-        closeBtn.style.backgroundColor = '#95a5a6';
-        closeBtn.style.color = 'white';
-        closeBtn.onclick = () => {
-            currentStep = 0;
-            sessionData = {};
-            chatHistory.innerHTML = '';
-            inputArea.style.display = 'flex';
-            chatInput.value = '';
-            document.body.classList.remove('app-active');
-            document.documentElement.classList.remove('app-active');
-            document.getElementById('app-wrapper').classList.remove('fullscreen-mode');
-            window.scrollTo(0, 0);
-        };
-
+        closeBtn.innerText = 'סיום';
+        closeBtn.onclick = () => { location.reload(); };
         actionsDiv.appendChild(shareBtn);
-        actionsDiv.appendChild(downloadBtn);
         actionsDiv.appendChild(closeBtn);
         chatHistory.appendChild(actionsDiv);
         scrollToBottom();
