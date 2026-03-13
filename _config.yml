@@ -1,11 +1,16 @@
-title: "חזי באר | פסיכולוג קליני - טיפול CBT ב-OCD וחרדה"
+title: "חזי באר | פסיכולוג קליני - טיפול קוגניטיבי-התנהגותי"
 description: "פסיכולוג קליני מומחה בטיפול קוגניטיבי-התנהגותי"
 url: "https://hezibeer.co.il"
 author: "חזי באר"
 phone: "052-3865888"
 email: "hezibeerpro@gmail.com"
 address: "רחוב חיי אדם 2, תל אביב"
-social_image: <img src="{{ profile_image | relative_url }}" alt="תמונת פרופיל"> # תמונה שתוצג בוואטסאפ
+# הגדרות תצוגה לוואטסאפ ורשתות חברתיות
+image: "/assets/images/branding/profile.webp"
+description: "חזי באר - פסיכולוג קליני מומחה | טיפול קוגניטיבי-התנהגותי"
+
+# תחת הכותרת social_image (אם תרצה לשמור עליה לשימוש פנימי, למרות ש-image היא החשובה ל-SEO)
+social_image: "/assets/images/branding/profile.webp"
 # פרטי קשר
 whatsapp_number: "972523865888"
 license_number: "27-145665"
