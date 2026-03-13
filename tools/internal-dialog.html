@@ -1,0 +1,471 @@
+---
+layout: default
+title: מרחב לשיח פנימי | קליניקה
+permalink: /tools/internal-dialog/
+robots: noindex
+---
+
+<style>
+    :root {
+        --app-bg: #f0f2f5;
+        --card-bg: #fff;
+        --btn-bg: #4A90E2;
+        --sys-msg-bg: #e4e6eb;
+        --sys-msg-text: #050505;
+        --user-msg-bg: #4A90E2;
+        --user-msg-text: #fff;
+        
+        --vulnerable-bg: #2ecc71; 
+        --bully-bg: #8e44ad;
+        --need-bg: #f39c12;
+    }
+
+    #app-wrapper {
+        width: 100%; max-width: 500px; margin: 40px auto;
+        background: var(--card-bg); border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 28px;
+        box-sizing: border-box; transition: all 0.3s ease; position: relative;
+    }
+
+    #app-wrapper.fullscreen-mode {
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        max-width: none; margin: 0; border-radius: 0; z-index: 999999;
+        background-color: var(--app-bg); display: flex; flex-direction: column;
+        padding: 0; overflow: hidden;
+    }
+
+    h2 { font-size: 1.4rem; margin-top: 0; margin-bottom: 12px; }
+    p { line-height: 1.6; margin-bottom: 15px; }
+
+    #intro-screen { display: block; }
+    #app-wrapper.fullscreen-mode #intro-screen { display: none; }
+    
+    .privacy-box {
+        background: #f9f9f9; border-right: 4px solid var(--btn-bg);
+        padding: 15px; font-size: 0.9rem; margin-bottom: 25px;
+    }
+    
+    .btn-primary { 
+        width: 100%; padding: 15px; border: none; border-radius: 8px;
+        font-size: 1.05rem; font-weight: 600; cursor: pointer;
+        background-color: var(--btn-bg); color: var(--user-msg-text); transition: 0.2s;
+    }
+
+    #chat-interface {
+        display: none; flex-direction: column; height: 100%; width: 100%; max-width: 600px; margin: 0 auto;
+    }
+    #app-wrapper.fullscreen-mode #chat-interface { display: flex; }
+
+    #chat-history {
+        flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px;
+    }
+
+    .message {
+        max-width: 80%; padding: 12px 16px; border-radius: 18px; font-size: 1rem; line-height: 1.4;
+        animation: popIn 0.3s ease-out; position: relative; word-wrap: break-word; white-space: pre-wrap;
+    }
+
+    @keyframes popIn {
+        0% { opacity: 0; transform: translateY(10px) scale(0.95); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .msg-system {
+        align-self: flex-start; background-color: var(--sys-msg-bg); color: var(--sys-msg-text);
+        border-bottom-right-radius: 4px;
+    }
+
+    .msg-user {
+        align-self: flex-end; background-color: var(--user-msg-bg); color: var(--user-msg-text);
+        border-bottom-left-radius: 4px;
+    }
+
+    .msg-vulnerable { background-color: var(--vulnerable-bg); }
+    .msg-bully { background-color: var(--bully-bg); }
+    .msg-need { background-color: var(--need-bg); }
+
+    #input-area {
+        background: #fff; padding: 15px; border-top: 1px solid #ddd;
+        display: flex; gap: 10px; align-items: flex-end;
+    }
+
+    #chat-input {
+        flex: 1; min-height: 45px; max-height: 120px; padding: 12px;
+        border: 1px solid #ccc; border-radius: 20px; font-family: inherit; font-size: 1rem;
+        resize: none; box-sizing: border-box; outline: none;
+    }
+
+    #chat-input:focus { border-color: var(--btn-bg); }
+
+    #send-btn {
+        background-color: var(--btn-bg); color: #fff; border: none;
+        border-radius: 50%; width: 45px; height: 45px; cursor: pointer;
+        display: flex; justify-content: center; align-items: center; flex-shrink: 0;
+    }
+
+    #send-btn svg { width: 20px; height: 20px; fill: currentColor; transform: rotate(180deg); }
+    
+    #options-area {
+        background: #fff; padding: 15px; border-top: 1px solid #ddd;
+        display: none; gap: 10px; justify-content: center; flex-wrap: wrap;
+        max-height: 30vh; overflow-y: auto;
+    }
+
+    .option-btn {
+        background-color: #fff; color: var(--btn-bg);
+        border: 2px solid var(--btn-bg); border-radius: 20px; padding: 10px 20px;
+        font-size: 1rem; cursor: pointer; transition: 0.2s; font-family: inherit; font-weight: bold;
+    }
+
+    .option-btn:hover, .option-btn.selected { 
+        background-color: var(--btn-bg); color: #fff; 
+    }
+
+    #options-area.scale-mode {
+        flex-wrap: nowrap;
+        padding: 15px 5px;
+    }
+    
+    #options-area.scale-mode .option-btn {
+        padding: 10px 0;
+        flex: 1;
+        margin: 0 2px;
+        font-size: 0.95rem;
+        min-width: 0;
+        text-align: center;
+    }
+
+    .chat-actions {
+        display: flex; flex-direction: column; gap: 10px; margin-top: 20px;
+    }
+    
+    .chat-actions button {
+        padding: 12px; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold;
+    }
+</style>
+
+<div id="app-wrapper">
+    <div id="intro-screen">
+        <h2>ברוכה הבאה למרחב השיח</h2>
+        <p>הכלי הזה נועד לעזור לך לעשות סדר כשיש בתוכך קונפליקט – במיוחד כשחלק אחד מפחד, וחלק אחר מתנשא עליו או תוקף אותו.</p>
+        <div class="privacy-box">
+            <strong>הפרטיות שלך:</strong><br>
+            השיחה לא נשמרת בשום שרת. בסיום, תוכלי לבחור להוריד את הסיכום או לשתף אותו.
+        </div>
+        <button class="btn-primary" onclick="startChat()">בואי נתחיל</button>
+    </div>
+
+    <div id="chat-interface">
+        <div id="chat-history"></div>
+        <div id="options-area"></div>
+        <div id="input-area">
+            <textarea id="chat-input" rows="1" placeholder="הקלידי כאן..."></textarea>
+            <button id="send-btn" onclick="handleSend()">
+                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const chatFlow = [
+        { key: "location", question: "איפה את נמצאת?", type: "regular", inputType: "text" },
+        { key: "task", question: "מה המשימה שלך כרגע?", type: "regular", inputType: "text" },
+        { key: "reason", question: "למה את עושה את המשימה הזו?", type: "regular", inputType: "text" },
+        { key: "importance", question: "המשימה הזו חשובה לך?", type: "regular", inputType: "options", options: ["כן", "לא"] },
+        { 
+            key: "importance_level", 
+            question: "עד כמה היא חשובה לך מ-1 עד 10?", 
+            type: "regular", 
+            inputType: "options", 
+            options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], 
+            condition: (data) => data.importance === "כן",
+            ltr: true,
+            isScale: true
+        },
+        { 
+            key: "vulnerable", 
+            question: (data) => {
+                let reflection = "";
+                if (data.importance === "כן" && data.importance_level) {
+                    reflection = `ציינת שהמשימה הזו חשובה לך (ברמה ${data.importance_level} מתוך 10). כשמשהו חשוב לנו, זה הגיוני וטבעי שהמערכת נכנסת לדריכות.\n\n`;
+                } else if (data.importance === "לא") {
+                    reflection = `אפילו שציינת שהמשימה הזו לא מאוד חשובה לך, נראה שמשהו בסיטואציה בכל זאת מפעיל אצלך מתח.\n\n`;
+                }
+                return `${reflection}יש בך כל מיני קולות עכשיו. אחד מהם, אולי יותר מאחד, הוא קול שמרגיש איום, פחד או חשש. ממה החלק הזה מפחד? מה מפחיד במצב שאת נמצאת בו?`;
+            }, 
+            type: "vulnerable", 
+            inputType: "text" 
+        },
+        { 
+            key: "bully", 
+            question: "במקום לעזור לחלק שפוחד, מתעורר קול אחר שמזלזל בו. איך הבריון המתנשא עוקץ עכשיו את הפחד שלך? מה הוא אומר לך?", 
+            type: "bully", 
+            inputType: "text" 
+        },
+        { 
+            key: "answer_bully", 
+            question: "הקול שפוחד חטף עכשיו התקפה מהבריון. לפעמים קשה לתפקד כשאנחנו מפחדים להרגיש. יכול להיות שהקול הזה אומר לך שאסור לך וזה משתק אותך?\n\nהפעם, בואי תנסי לענות לבריון המתנשא בחזרה. בלי להתנצל או להתחמק. למשל, אני לא חלשה, אבל אני כן מרגישה ששום דבר שאני עושה לא מספיק טוב. יכולה?\n\nעכשיו במילים שלך. תתארי את המחשבות שפוגעות בך. מה המחשבות הפגיעות או המפחדות שלך? תנסי יותר מאחת, אולי אפילו יותר משתיים. אני מזמין אותך לתאר את אלו שהכי מכאיבות, הכי פוצעות. לי למשל, יש מחשבה אחת ממש פוצעת: אני האפס הכי גדול בעולם. קדימה, עכשיו את:", 
+            type: "need", 
+            inputType: "text" 
+        },
+        { 
+            key: "somatic", 
+            question: (data) => `זה מאוד אנושי לחשוב ש"${data.answer_bully}". המחשבות האלו מובנות לחלוטין כשמרגישים תחת התקפה.\n\nזה בטח גם מרגיש ממש לא נעים בגוף. נשמע שזו הרגשה שאת ממש שונאת. מה את מרגישה?\n(אפשר לסמן כמה אפשרויות שמתאימות לך, וגם להוסיף במילים שלך בשורת ההקלדה ולשלוח)`, 
+            type: "vulnerable", 
+            inputType: "options_and_text",
+            multiSelect: true,
+            options: [
+                "דופק מהיר או דפיקות לב חזקות", "קוצר נשימה או תחושת מחנק", "לחץ בחזה", 
+                "הזעה (בידיים או בכל הגוף)", "רעידות בידיים או ברגליים", "סחרחורת ותחושת חוסר יציבות", 
+                "בחילה, כאבי בטן או צורך דחוף לשירותים", "שרירים תפוסים (בעיקר בצוואר ובכתפיים)", 
+                '"פרפרים" בבטן', "גוש בגרון או קושי לבלוע", "תחושת נימול או עקצוץ בקצות האצבעות", 
+                "גלי חום או צמרמורות", "עייפות גדולה או תשישות", "פה יבש"
+            ]
+        },
+        { 
+            key: "bully_status", 
+            question: (data) => `זה באמת קשה. לחוות ${data.somatic} זו תגובה טבעית של הגוף ללחץ ולפחד, וזה מתיש בפני עצמו.\n\nמה הבריון המתנשא אומר עכשיו? הוא ממשיך לתקוף? באותה עוצמה?`, 
+            type: "bully", 
+            inputType: "options", 
+            options: ["כן", "בעוצמה גבוהה יותר", "בעוצמה נמוכה יותר"] 
+        },
+        { 
+            key: "final_words", 
+            question: (data) => {
+                let empathy = "";
+                if(data.bully_status === "בעוצמה גבוהה יותר") {
+                    empathy = "זה כל כך קשה כשהוא מגביר את הווליום דווקא כשאת מנסה לעשות מקום לפחד. זה דורש המון אומץ להישאר כאן.";
+                } else if(data.bully_status === "כן") {
+                    empathy = "לשמוע אותו ממשיך באותה עוצמה זה מתיש ומייאש, אבל את עושה עבודה מדהימה בעצם זה שאת לא מוותרת לו.";
+                } else {
+                    empathy = "זו הקלה לשמוע שהעוצמה קצת יורדת. זה מראה שהנוכחות שלך וההסכמה להרגיש, מתחילות לקחת לו את הכוח.";
+                }
+                return `${empathy}\n\nעכשיו, אחרי שהסכמת להגיד ממה את מפחדת, מה את יכולה להגיד לבריון המתנשא?`;
+            }, 
+            type: "need", 
+            inputType: "text" 
+        },
+        {
+            key: "feedback",
+            question: "כל הכבוד! אני מעריך מאוד את האומץ שהיה לך לעצור, להסתכל לפחד בעיניים, לתת לו מקום בגוף, גם כשהבריון מנסה לאיים מהכיוון השני. זה לא מובן מאליו בכלל.\n\nאני מקווה שהמרחב הזה ימשיך להיות המקום הבטוח שלך לעשות סדר במחשבות בכל פעם שתזדקקי לו.\n\nשאלה אחרונה לסיום (רשות): איך הייתה לך החוויה של השיחה הזו עכשיו? האם משהו עזר במיוחד או היה חסר? (אפשר לכתוב ולשלוח, או פשוט ללחוץ על חץ השליחה כדי לדלג)",
+            type: "regular",
+            inputType: "text"
+        }
+    ];
+
+    let currentStep = 0;
+    let sessionData = {};
+
+    const chatHistory = document.getElementById('chat-history');
+    const chatInput = document.getElementById('chat-input');
+    const inputArea = document.getElementById('input-area');
+    const optionsArea = document.getElementById('options-area');
+
+    chatInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSend();
+        }
+    });
+
+    chatInput.addEventListener('input', function() {
+        this.style.height = '45px';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+
+    function startChat() {
+        document.getElementById('app-wrapper').classList.add('fullscreen-mode');
+        setTimeout(() => askQuestion(currentStep), 300);
+    }
+
+    function addMessage(text, sender, msgType = "") {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${sender === 'system' ? 'msg-system' : 'msg-user'} msg-${msgType}`;
+        msgDiv.innerText = text;
+        chatHistory.appendChild(msgDiv);
+        scrollToBottom();
+    }
+
+    function askQuestion(stepIndex) {
+        if (stepIndex < chatFlow.length) {
+            const currentFlow = chatFlow[stepIndex];
+
+            if (currentFlow.condition && !currentFlow.condition(sessionData)) {
+                currentStep++;
+                askQuestion(currentStep);
+                return;
+            }
+
+            const questionText = typeof currentFlow.question === 'function' 
+                ? currentFlow.question(sessionData) 
+                : currentFlow.question;
+
+            addMessage(questionText, 'system');
+
+            optionsArea.innerHTML = '';
+            
+            if (currentFlow.isScale) {
+                optionsArea.classList.add('scale-mode');
+            } else {
+                optionsArea.classList.remove('scale-mode');
+            }
+
+            if (currentFlow.ltr) {
+                optionsArea.style.direction = 'ltr';
+            } else {
+                optionsArea.style.direction = 'rtl';
+            }
+            
+            if (currentFlow.inputType === 'options' || currentFlow.inputType === 'options_and_text') {
+                optionsArea.style.display = 'flex';
+                currentFlow.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.innerText = opt;
+                    btn.onclick = () => handleOptionSelect(btn, opt, currentFlow.type, currentFlow.multiSelect);
+                    optionsArea.appendChild(btn);
+                });
+            } else {
+                optionsArea.style.display = 'none';
+            }
+
+            if (currentFlow.inputType === 'text' || currentFlow.inputType === 'options_and_text') {
+                inputArea.style.display = 'flex';
+                chatInput.focus();
+            } else {
+                inputArea.style.display = 'none';
+            }
+            
+            scrollToBottom();
+        } else {
+            showSummaryActions();
+        }
+    }
+
+    function handleOptionSelect(btn, selectedOption, msgType, isMulti) {
+        if (isMulti) {
+            btn.classList.toggle('selected');
+        } else {
+            processUserInput(selectedOption, msgType);
+        }
+    }
+
+    function handleSend() {
+        const currentFlow = chatFlow[currentStep];
+        let text = chatInput.value.trim();
+        
+        if (currentFlow && currentFlow.multiSelect) {
+            const selectedOpts = Array.from(optionsArea.querySelectorAll('.option-btn.selected')).map(b => b.innerText);
+            if (selectedOpts.length > 0) {
+                const optsText = selectedOpts.join(', ');
+                text = text ? `${optsText}. בנוסף: ${text}` : optsText;
+            }
+        }
+        
+        if (!text && currentFlow.key !== "feedback") return; 
+        if (!text && currentFlow.key === "feedback") text = "בחרה לדלג על שאלת הפידבק";
+
+        processUserInput(text, currentFlow.type);
+    }
+
+    function processUserInput(text, msgType) {
+        const currentFlow = chatFlow[currentStep];
+        addMessage(text, 'user', msgType);
+        sessionData[currentFlow.key] = text;
+        
+        chatInput.value = '';
+        chatInput.style.height = '45px';
+        optionsArea.style.display = 'none';
+        inputArea.style.display = 'none';
+
+        currentStep++;
+        setTimeout(() => askQuestion(currentStep), 500);
+    }
+
+    function scrollToBottom() {
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    function generateSummaryText() {
+        const timestamp = new Date().toLocaleString('he-IL');
+        let text = `סיכום שיח פנימי - ${timestamp}\n\n` +
+            `מיקום: ${sessionData.location || ''}\n` +
+            `משימה: ${sessionData.task || ''}\n` +
+            `למה: ${sessionData.reason || ''}\n` +
+            `חשיבות המשימה: ${sessionData.importance || ''}\n`;
+            
+        if(sessionData.importance_level) {
+            text += `רמת חשיבות (1-10): ${sessionData.importance_level}\n`;
+        }
+
+        text += `\nהחלק הפגיע מפחד מ: ${sessionData.vulnerable || ''}\n\n` +
+            `הבריון המתנשא עקץ ואמר: "${sessionData.bully || ''}"\n\n` +
+            `ההרגשה הפגיעה והמחשבות: ${sessionData.answer_bully || ''}\n\n` +
+            `תחושה גופנית: ${sessionData.somatic || ''}\n\n` +
+            `מצב הבריון כעת: ${sessionData.bully_status || ''}\n\n` +
+            `מילים אחרונות לבריון: ${sessionData.final_words || ''}\n\n` +
+            `פידבק על התהליך: ${sessionData.feedback || ''}`;
+            
+        return text;
+    }
+
+    function showSummaryActions() {
+        inputArea.style.display = 'none';
+        optionsArea.style.display = 'none';
+
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'chat-actions';
+        
+        const shareBtn = document.createElement('button');
+        shareBtn.innerText = 'שתפי את הסיכום';
+        shareBtn.style.backgroundColor = 'var(--btn-bg)';
+        shareBtn.style.color = 'white';
+        shareBtn.onclick = () => {
+            const summaryText = generateSummaryText();
+            if (navigator.share) {
+                navigator.share({ title: 'סיכום שיח', text: summaryText }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(summaryText).then(() => {
+                    alert('הסיכום הועתק ללוח.');
+                });
+            }
+        };
+
+        const downloadBtn = document.createElement('button');
+        downloadBtn.innerText = 'הורידי קובץ למכשיר';
+        downloadBtn.style.backgroundColor = '#27ae60';
+        downloadBtn.style.color = 'white';
+        downloadBtn.onclick = () => {
+            const summaryText = generateSummaryText();
+            const blob = new Blob([summaryText], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `סיכום_שיח_פנימי.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        };
+
+        const closeBtn = document.createElement('button');
+        closeBtn.innerText = 'סיום וחזרה לאתר';
+        closeBtn.style.backgroundColor = '#95a5a6';
+        closeBtn.style.color = 'white';
+        closeBtn.onclick = () => {
+            currentStep = 0;
+            sessionData = {};
+            chatHistory.innerHTML = '';
+            inputArea.style.display = 'flex';
+            chatInput.value = '';
+            document.getElementById('app-wrapper').classList.remove('fullscreen-mode');
+        };
+
+        actionsDiv.appendChild(shareBtn);
+        actionsDiv.appendChild(downloadBtn);
+        actionsDiv.appendChild(closeBtn);
+        chatHistory.appendChild(actionsDiv);
+        scrollToBottom();
+    }
+</script>
