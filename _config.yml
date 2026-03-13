@@ -7,11 +7,11 @@ email: "hezibeerpro@gmail.com"
 address: "רחוב חיי אדם 2, תל אביב"
 
 # הגדרות תמונה עבור וואטסאפ ופייסבוק (SEO)
-image: "https://hezibeer.co.il/assets/images/branding/profile.webp"
+image: "https://hezibeer.co.il/assets/images/branding/profile.jpg"
 
 # אופציונלי: הגדרת אובייקט תמונה מפורט יותר
 twitter:
-  image: "https://hezibeer.co.il/assets/images/branding/profile.webp"
+  image: "https://hezibeer.co.il/assets/images/branding/profile.jpg"
 
 # פרטי קשר
 whatsapp_number: "972523865888"
