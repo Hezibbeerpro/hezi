@@ -1,17 +1,18 @@
 title: "חזי באר | פסיכולוג קליני - טיפול קוגניטיבי-התנהגותי"
-description: "פסיכולוג קליני מומחה בטיפול קוגניטיבי-התנהגותי"
+description: "חזי באר - פסיכולוג קליני מומחה | טיפול קוגניטיבי-התנהגותי"
 url: "https://hezibeer.co.il"
 author: "חזי באר"
 phone: "052-3865888"
 email: "hezibeerpro@gmail.com"
 address: "רחוב חיי אדם 2, תל אביב"
-# הגדרות תצוגה לוואטסאפ ורשתות חברתיות
+
 # הגדרות תמונה עבור וואטסאפ ופייסבוק (SEO)
 image: "https://hezibeer.co.il/assets/images/branding/profile.webp"
-# אופציונלי: הגדרת אובייקט תמונה מפורט יותר אם תרצה
+
+# אופציונלי: הגדרת אובייקט תמונה מפורט יותר
 twitter:
   image: "https://hezibeer.co.il/assets/images/branding/profile.webp"
-description: "חזי באר - פסיכולוג קליני מומחה | טיפול קוגניטיבי-התנהגותי"
+
 # פרטי קשר
 whatsapp_number: "972523865888"
 license_number: "27-145665"
