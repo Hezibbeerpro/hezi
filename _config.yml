@@ -6,7 +6,7 @@ phone: "052-3865888"
 email: "hezibeerpro@gmail.com"
 address: "רחוב חיי אדם 2, תל אביב"
 # הגדרות תצוגה לוואטסאפ ורשתות חברתיות
-image: "/assets/images/branding/profile.webp"
+image: "https://hezibeer.co.il/assets/images/branding/profile.webp"
 description: "חזי באר - פסיכולוג קליני מומחה | טיפול קוגניטיבי-התנהגותי"
 
 # תחת הכותרת social_image (אם תרצה לשמור עליה לשימוש פנימי, למרות ש-image היא החשובה ל-SEO)
