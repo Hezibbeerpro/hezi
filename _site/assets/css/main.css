@@ -273,6 +273,15 @@ h2 {
 /* =========================================
    עיצוב הדר הניווט העליון (ממורכז פלס)
    ========================================= */
+/* =========================================
+   עיצוב הדר הניווט העליון (ממורכז פלס)
+   ========================================= */
+/* =========================================
+   עיצוב הדר הניווט העליון (ממורכז ומושווה)
+   ========================================= */
+/* =========================================
+   עיצוב הדר הניווט העליון (פס מיושר פלס)
+   ========================================= */
 .main-nav {
     position: sticky; 
     top: 0;
@@ -287,46 +296,74 @@ h2 {
 
 .nav-container {
     display: flex;
-    justify-content: center; /* ממורכז את כל הקישורים לאמצע המסך */
-    align-items: center; /* מוודא שכולם באותו גובה */
-    gap: 35px; /* הרווח האחיד בין כל האלמנטים */
+    justify-content: center; 
+    align-items: center; 
+    gap: 35px; 
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    position: relative;
 }
 
-/* מאחר שעברנו למרכז, יש למחוק את פקודות ה-justify-self הישנות אם הן קיימות */
+.nav-name, .nav-link {
+    text-decoration: none;
+    position: relative; /* קריטי עבור מיקום הפס */
+    display: flex;
+    align-items: center;
+    height: 65px;
+    transition: all 0.3s ease;
+}
+
+/* יצירת הפס הדק כאלמנט עצמאי */
+.nav-name::before, .nav-link::before {
+    content: "";
+    position: absolute;
+    top: 12px; /* המרחק המדויק מהקצה העליון של הסרגל - כולם יהיו בקו הזה */
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
 .nav-name {
     font-weight: 700;
     font-size: 2rem !important;
-    color: var(--primary-purple) !important; 
-    text-decoration: none;
-    line-height: 1; 
+    color: var(--primary-purple) !important;
 }
 
 .nav-link {
     font-weight: 600;
     font-size: 1.3rem !important;
-    color: var(--primary-purple) !important; 
-    text-decoration: none;
-    line-height: 1; 
-    position: relative;
+    color: var(--text-color) !important;
+}
+
+/* הפעלת הפס במעבר עכבר או בעמוד פעיל */
+.nav-name:hover::before,
+.nav-name.is-active::before,
+.nav-link:hover::before, 
+.nav-link.is-active::before {
+    background-color: var(--primary-purple);
+}
+
+/* שינוי צבע הטקסט בעת פעילות */
+.nav-link:hover, .nav-link.is-active {
+    color: var(--primary-purple) !important;
 }
 
 .nav-whatsapp-link {
     display: flex;
     align-items: center;
-    text-decoration: none;
-    height: 24px; 
+    height: 65px;
 }
 
-/* התאמה לנייד: הקטנת הרווחים והפונטים כדי שיכנסו יפה בשורה */
+/* התאמה לנייד */
 @media (max-width: 600px) {
     .nav-container { gap: 15px; } 
     .nav-name { font-size: 1.6rem !important; }
     .nav-link { font-size: 1.1rem !important; }
-    .header-wa-icon { width: 22px; }
+    .nav-name::before, .nav-link::before { top: 10px; } /* קצת יותר גבוה במובייל */
 }
 /* =========================================
    עמוד ריכוז פרסומים (Articles List)
