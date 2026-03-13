@@ -89,7 +89,7 @@
         --need-bg: #f39c12;
     }
 
-    /* נעילה אגרסיבית של רקע האתר למניעת גלילה כפולה */
+    /* נעילה אגרסיבית של רקע האתר */
     body.app-active, html.app-active {
         overflow: hidden !important;
         width: 100% !important;
@@ -105,11 +105,10 @@
         box-sizing: border-box; transition: all 0.3s ease; position: relative;
     }
 
-    /* שימוש בגובה דינמי נקי (dvh) שמותאם למקלדות באנדרואיד */
+    /* שיטת וואטסאפ: מתיחה לארבעת הקצוות בלי הגדרת גובה קשיח */
     #app-wrapper.fullscreen-mode {
         position: fixed; 
         top: 0; left: 0; right: 0; bottom: 0;
-        width: 100%; height: 100dvh; 
         max-width: none; margin: 0; border-radius: 0; z-index: 999999;
         background-color: var(--app-bg); display: flex; flex-direction: column;
         padding: 0; overflow: hidden;
@@ -186,7 +185,7 @@
     #send-btn {
         background-color: var(--btn-bg); color: #fff; border: none;
         border-radius: 50%; width: 48px; height: 48px; cursor: pointer;
-        display: flex; justify-content: center; align-items: center; flex-shrink: 0;
+        display: flex; justify-content: center; align-items: flex-shrink: 0;
     }
 
     #send-btn svg { width: 22px; height: 22px; fill: currentColor; transform: rotate(180deg); }
@@ -360,7 +359,7 @@
     const inputArea = document.getElementById('input-area');
     const optionsArea = document.getElementById('options-area');
 
-    // גלילה חכמה שמותאמת לאנדרואיד
+    // גלילה חלקה למטה בעת שינוי גודל החלון (פתיחת מקלדת טבעית של אנדרואיד)
     window.addEventListener('resize', () => {
         setTimeout(scrollToBottom, 50);
     });
