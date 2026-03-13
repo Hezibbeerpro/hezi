@@ -68,13 +68,6 @@
 
     <main>
         <style>
-    /* העלמת אזורים לא רלוונטיים באתר הראשי כדי למנוע הצצות רקע */
-    body.app-active header, body.app-active .site-header, body.app-active #header,
-    body.app-active footer, body.app-active .site-footer, body.app-active #footer,
-    body.app-active #contact, body.app-active .contact-section, body.app-active .contact-wrapper {
-        display: none !important;
-    }
-
     :root {
         --app-bg: #f0f2f5;
         --card-bg: #fff;
@@ -83,19 +76,26 @@
         --sys-msg-text: #050505;
         --user-msg-bg: #4A90E2;
         --user-msg-text: #fff;
-        
         --vulnerable-bg: #2ecc71; 
         --bully-bg: #8e44ad;
         --need-bg: #f39c12;
     }
 
-    /* נעילה אגרסיבית של רקע האתר */
-    body.app-active, html.app-active {
+    /* נשק יום הדין 1: כשנכנסים למסך מלא, כל שאר האתר מוסתר לחלוטין ונעול */
+    body.app-active {
+        visibility: hidden !important; 
         overflow: hidden !important;
-        width: 100% !important;
-        height: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
+        position: fixed !important;
+        top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+        width: 100% !important; height: 100% !important;
+        background-color: var(--app-bg) !important;
+        overscroll-behavior: none !important;
+        margin: 0 !important; padding: 0 !important;
+    }
+
+    /* האפליקציה עצמה נשארת גלויה */
+    body.app-active #app-wrapper {
+        visibility: visible !important;
     }
 
     #app-wrapper {
@@ -105,11 +105,14 @@
         box-sizing: border-box; transition: all 0.3s ease; position: relative;
     }
 
-    /* שיטת וואטסאפ: מתיחה לארבעת הקצוות בלי הגדרת גובה קשיח */
+    /* נשק יום הדין 2: הגובה מחושב במדויק לפי משתנה --vh ולא לפי אחוזים */
     #app-wrapper.fullscreen-mode {
         position: fixed; 
-        top: 0; left: 0; right: 0; bottom: 0;
-        max-width: none; margin: 0; border-radius: 0; z-index: 999999;
+        top: 0; left: 0;
+        width: 100%; 
+        height: 100vh; /* גיבוי */
+        height: calc(var(--vh, 1vh) * 100); /* גובה אמיתי שמתעדכן עם המקלדת */
+        max-width: none; margin: 0; border-radius: 0; z-index: 9999999;
         background-color: var(--app-bg); display: flex; flex-direction: column;
         padding: 0; overflow: hidden;
     }
@@ -152,16 +155,8 @@
         100% { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    .msg-system {
-        align-self: flex-start; background-color: var(--sys-msg-bg); color: var(--sys-msg-text);
-        border-bottom-right-radius: 4px;
-    }
-
-    .msg-user {
-        align-self: flex-end; background-color: var(--user-msg-bg); color: var(--user-msg-text);
-        border-bottom-left-radius: 4px;
-    }
-
+    .msg-system { align-self: flex-start; background-color: var(--sys-msg-bg); color: var(--sys-msg-text); border-bottom-right-radius: 4px; }
+    .msg-user { align-self: flex-end; background-color: var(--user-msg-bg); color: var(--user-msg-text); border-bottom-left-radius: 4px; }
     .msg-vulnerable { background-color: var(--vulnerable-bg); }
     .msg-bully { background-color: var(--bully-bg); }
     .msg-need { background-color: var(--need-bg); }
@@ -169,23 +164,19 @@
     #input-area {
         background: #fff; border-top: 1px solid #ddd;
         display: flex; gap: 10px; align-items: flex-end;
-        flex-shrink: 0; 
-        padding: 15px;
+        flex-shrink: 0; padding: 15px;
     }
 
     #chat-input {
         flex: 1; min-height: 48px; max-height: 120px; padding: 14px;
         border: 1px solid #ccc; border-radius: 24px; font-family: inherit; 
-        font-size: 16px; 
-        resize: none; box-sizing: border-box; outline: none; line-height: 1.4;
+        font-size: 16px; resize: none; box-sizing: border-box; outline: none; line-height: 1.4;
     }
-
-    #chat-input:focus { border-color: var(--btn-bg); }
 
     #send-btn {
         background-color: var(--btn-bg); color: #fff; border: none;
         border-radius: 50%; width: 48px; height: 48px; cursor: pointer;
-        display: flex; justify-content: center; align-items: flex-shrink: 0;
+        display: flex; justify-content: center; align-items: center; flex-shrink: 0;
     }
 
     #send-btn svg { width: 22px; height: 22px; fill: currentColor; transform: rotate(180deg); }
@@ -193,8 +184,7 @@
     #options-area {
         background: #fff; border-top: 1px solid #ddd;
         display: none; gap: 8px; justify-content: flex-start; flex-wrap: wrap; 
-        max-height: 40vh; overflow-y: auto; flex-shrink: 0;
-        padding: 15px;
+        max-height: 40vh; overflow-y: auto; flex-shrink: 0; padding: 15px;
     }
 
     .option-btn {
@@ -204,32 +194,13 @@
         text-align: right;
     }
 
-    .option-btn:hover, .option-btn.selected { 
-        background-color: var(--btn-bg); color: #fff; 
-    }
+    .option-btn:hover, .option-btn.selected { background-color: var(--btn-bg); color: #fff; }
 
-    #options-area.scale-mode {
-        flex-wrap: nowrap;
-        padding: 15px 5px;
-        overflow-x: auto; 
-    }
-    
-    #options-area.scale-mode .option-btn {
-        padding: 12px 0;
-        flex: 1;
-        margin: 0 2px;
-        font-size: 1rem;
-        min-width: 30px;
-        text-align: center;
-    }
+    #options-area.scale-mode { flex-wrap: nowrap; padding: 15px 5px; overflow-x: auto; }
+    #options-area.scale-mode .option-btn { padding: 12px 0; flex: 1; margin: 0 2px; font-size: 1rem; min-width: 30px; text-align: center; }
 
-    .chat-actions {
-        display: flex; flex-direction: column; gap: 12px; margin-top: 20px;
-    }
-    
-    .chat-actions button {
-        padding: 14px; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; font-weight: bold;
-    }
+    .chat-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+    .chat-actions button { padding: 14px; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; font-weight: bold; }
 </style>
 
 <div id="app-wrapper">
@@ -240,7 +211,7 @@
             <strong>הפרטיות שלך:</strong><br>
             השיחה לא נשמרת בשום שרת. בסיום, תוכלי לבחור להוריד את הסיכום או לשתף אותו.
         </div>
-        <button class="btn-primary" onclick="startChat()">בואי נתחיל (גרסה מעודכנת 2.0)</button>
+        <button class="btn-primary" onclick="startChat()">בואי נתחיל (גרסה סופית 3.0)</button>
     </div>
 
     <div id="chat-interface">
@@ -256,6 +227,19 @@
 </div>
 
 <script>
+    // הגדרת משתנה ה-vh האמיתי שמתחשב במקלדת
+    function setViewportHeight() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        scrollToBottom();
+    }
+
+    // מאזין לשינויי חלון (פתיחת/סגירת מקלדת)
+    window.addEventListener('resize', setViewportHeight);
+    
+    // הפעלה ראשונית
+    setViewportHeight();
+
     const chatFlow = [
         { key: "location", question: "איפה את נמצאת?", type: "regular", inputType: "text" },
         { key: "task", question: "מה המשימה שלך כרגע?", type: "regular", inputType: "text" },
@@ -304,20 +288,12 @@
             inputType: "options_and_text",
             multiSelect: true,
             options: [
-                "דופק מהיר או דפיקות לב חזקות", 
-                "לחץ בחזה", 
-                "קוצר נשימה או תחושת מחנק", 
-                "סחרחורת ותחושת חוסר יציבות", 
-                "גוש בגרון או קושי לבלוע", 
-                "פה יבש", 
-                "בחילה, כאבי בטן או צורך דחוף לשירותים", 
-                '"פרפרים" בבטן', 
-                "שרירים תפוסים (בעיקר בצוואר ובכתפיים)", 
-                "רעידות בידיים או ברגליים", 
-                "תחושת נימול או עקצוץ בקצות האצבעות", 
-                "הזעה (בידיים או בכל הגוף)", 
-                "גלי חום או צמרמורות", 
-                "עייפות גדולה או תשישות"
+                "דופק מהיר או דפיקות לב חזקות", "לחץ בחזה", "קוצר נשימה או תחושת מחנק", 
+                "סחרחורת ותחושת חוסר יציבות", "גוש בגרון או קושי לבלוע", "פה יבש", 
+                "בחילה, כאבי בטן או צורך דחוף לשירותים", '"פרפרים" בבטן', 
+                "שרירים תפוסים (בעיקר בצוואר ובכתפיים)", "רעידות בידיים או ברגליים", 
+                "תחושת נימול או עקצוץ בקצות האצבעות", "הזעה (בידיים או בכל הגוף)", 
+                "גלי חום או צמרמורות", "עייפות גדולה או תשישות"
             ]
         },
         { 
@@ -359,13 +335,12 @@
     const inputArea = document.getElementById('input-area');
     const optionsArea = document.getElementById('options-area');
 
-    // גלילה חלקה למטה בעת שינוי גודל החלון (פתיחת מקלדת טבעית של אנדרואיד)
-    window.addEventListener('resize', () => {
-        setTimeout(scrollToBottom, 50);
-    });
-
+    // מניעת קפיצת המסך באנדרואיד בעת לחיצה על השדה
     chatInput.addEventListener('focus', function() {
-        setTimeout(scrollToBottom, 300);
+        setTimeout(() => {
+            window.scrollTo(0, 0); // כופה על הדפדפן לא לגלול את הרקע הנסתר
+            scrollToBottom();
+        }, 100);
     });
 
     chatInput.addEventListener('keydown', function(e) {
@@ -383,8 +358,8 @@
 
     function startChat() {
         document.body.classList.add('app-active');
-        document.documentElement.classList.add('app-active');
         document.getElementById('app-wrapper').classList.add('fullscreen-mode');
+        setViewportHeight(); // קריאה נוספת כדי לוודא שמתאים למסך מיד
         setTimeout(() => askQuestion(currentStep), 300);
     }
 
@@ -406,25 +381,13 @@
                 return;
             }
 
-            const questionText = typeof currentFlow.question === 'function' 
-                ? currentFlow.question(sessionData) 
-                : currentFlow.question;
-
+            const questionText = typeof currentFlow.question === 'function' ? currentFlow.question(sessionData) : currentFlow.question;
             addMessage(questionText, 'system');
 
             optionsArea.innerHTML = '';
             
-            if (currentFlow.isScale) {
-                optionsArea.classList.add('scale-mode');
-            } else {
-                optionsArea.classList.remove('scale-mode');
-            }
-
-            if (currentFlow.ltr) {
-                optionsArea.style.direction = 'ltr';
-            } else {
-                optionsArea.style.direction = 'rtl';
-            }
+            if (currentFlow.isScale) optionsArea.classList.add('scale-mode'); else optionsArea.classList.remove('scale-mode');
+            if (currentFlow.ltr) optionsArea.style.direction = 'ltr'; else optionsArea.style.direction = 'rtl';
             
             if (currentFlow.inputType === 'options' || currentFlow.inputType === 'options_and_text') {
                 optionsArea.style.display = 'flex';
@@ -570,8 +533,8 @@
             inputArea.style.display = 'flex';
             chatInput.value = '';
             document.body.classList.remove('app-active');
-            document.documentElement.classList.remove('app-active');
             document.getElementById('app-wrapper').classList.remove('fullscreen-mode');
+            window.scrollTo(0, 0);
         };
 
         actionsDiv.appendChild(shareBtn);
