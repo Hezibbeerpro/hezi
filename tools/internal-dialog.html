@@ -6,8 +6,8 @@ robots: noindex
 ---
 
 <style>
-    /* העלמת הפוטר ואזור יצירת קשר של האתר הראשי (בעמוד הזה בלבד) */
-    footer, .site-footer, .footer-wrapper, #footer, #contact, .contact-section {
+    /* העלמת אזור יצירת הקשר בלבד, תוך השארת הפוטר המשפטי וזכויות היוצרים */
+    #contact, .contact-section, .contact-wrapper, .contact-form, .footer-contact {
         display: none !important;
     }
 
@@ -93,19 +93,18 @@ robots: noindex
     .msg-bully { background-color: var(--bully-bg); }
     .msg-need { background-color: var(--need-bg); }
 
-    /* אזור ההקלדה - למנוע היעלמות מאחורי מקלדת */
     #input-area {
         background: #fff; border-top: 1px solid #ddd;
         display: flex; gap: 10px; align-items: flex-end;
         flex-shrink: 0; 
         padding: 15px;
-        padding-bottom: max(15px, env(safe-area-inset-bottom)); /* התאמה לאייפונים חדשים */
+        padding-bottom: max(15px, env(safe-area-inset-bottom));
     }
 
     #chat-input {
         flex: 1; min-height: 48px; max-height: 120px; padding: 14px;
         border: 1px solid #ccc; border-radius: 24px; font-family: inherit; 
-        font-size: 16px; /* חובה 16px כדי למנוע זום באייפון */
+        font-size: 16px; 
         resize: none; box-sizing: border-box; outline: none; line-height: 1.4;
     }
 
@@ -137,12 +136,11 @@ robots: noindex
         background-color: var(--btn-bg); color: #fff; 
     }
 
-    /* עיצוב ספציפי למספרים 1-10 בשורה אחת */
     #options-area.scale-mode {
         flex-wrap: nowrap;
         padding: 15px 5px;
         padding-bottom: max(15px, env(safe-area-inset-bottom));
-        overflow-x: auto; /* מאפשר גלילה ימינה-שמאלה אם המסך צר מאוד */
+        overflow-x: auto; 
     }
     
     #options-area.scale-mode .option-btn {
