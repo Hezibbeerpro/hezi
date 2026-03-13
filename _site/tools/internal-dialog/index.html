@@ -68,7 +68,7 @@
 
     <main>
         <style>
-    /* העלמת אזור יצירת הקשר בלבד, תוך השארת הפוטר המשפטי וזכויות היוצרים */
+    /* העלמת אזור יצירת הקשר בלבד */
     #contact, .contact-section, .contact-wrapper, .contact-form, .footer-contact {
         display: none !important;
     }
@@ -87,7 +87,7 @@
         --need-bg: #f39c12;
     }
 
-    /* נעילה מוחלטת של רקע האתר כדי שהדפדפן לא ידחוף אותו למעלה פתיחת מקלדת */
+    /* נעילה אגרסיבית של רקע האתר כדי למנוע קפיצות בנייד */
     body.app-active, html.app-active {
         overflow: hidden !important;
         position: fixed !important;
@@ -95,6 +95,7 @@
         height: 100% !important;
         top: 0 !important;
         left: 0 !important;
+        touch-action: none; /* מונע זום וגלילה של המסך כולו */
     }
 
     #app-wrapper {
@@ -104,9 +105,11 @@
         box-sizing: border-box; transition: all 0.3s ease; position: relative;
     }
 
+    /* התיקון למסך מלא ולמקלדת */
     #app-wrapper.fullscreen-mode {
-        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-        width: 100%; height: 100%; /* הגובה יעודכן דינמית על ידי JS */
+        position: fixed; 
+        top: 0; left: 0; right: 0;
+        width: 100%; height: 100vh; /* ידרס על ידי ה-JS */
         max-width: none; margin: 0; border-radius: 0; z-index: 999999;
         background-color: var(--app-bg); display: flex; flex-direction: column;
         padding: 0; overflow: hidden;
@@ -175,7 +178,7 @@
     #chat-input {
         flex: 1; min-height: 48px; max-height: 120px; padding: 14px;
         border: 1px solid #ccc; border-radius: 24px; font-family: inherit; 
-        font-size: 16px; /* חובה למניעת זום אוטומטי באייפון */
+        font-size: 16px; 
         resize: none; box-sizing: border-box; outline: none; line-height: 1.4;
     }
 
@@ -191,7 +194,7 @@
     
     #options-area {
         background: #fff; border-top: 1px solid #ddd;
-        display: none; gap: 10px; justify-content: center; flex-wrap: wrap;
+        display: none; gap: 8px; justify-content: flex-start; flex-wrap: wrap; 
         max-height: 40vh; overflow-y: auto; flex-shrink: 0;
         padding: 15px;
         padding-bottom: max(15px, env(safe-area-inset-bottom));
@@ -199,8 +202,9 @@
 
     .option-btn {
         background-color: #fff; color: var(--btn-bg);
-        border: 2px solid var(--btn-bg); border-radius: 20px; padding: 12px 20px;
-        font-size: 1.05rem; cursor: pointer; transition: 0.2s; font-family: inherit; font-weight: bold;
+        border: 2px solid var(--btn-bg); border-radius: 20px; padding: 10px 16px;
+        font-size: 1rem; cursor: pointer; transition: 0.2s; font-family: inherit; font-weight: bold;
+        text-align: right;
     }
 
     .option-btn:hover, .option-btn.selected { 
@@ -304,11 +308,20 @@
             inputType: "options_and_text",
             multiSelect: true,
             options: [
-                "דופק מהיר או דפיקות לב חזקות", "קוצר נשימה או תחושת מחנק", "לחץ בחזה", 
-                "הזעה (בידיים או בכל הגוף)", "רעידות בידיים או ברגליים", "סחרחורת ותחושת חוסר יציבות", 
-                "בחילה, כאבי בטן או צורך דחוף לשירותים", "שרירים תפוסים (בעיקר בצוואר ובכתפיים)", 
-                '"פרפרים" בבטן', "גוש בגרון או קושי לבלוע", "תחושת נימול או עקצוץ בקצות האצבעות", 
-                "גלי חום או צמרמורות", "עייפות גדולה או תשישות", "פה יבש"
+                "דופק מהיר או דפיקות לב חזקות", 
+                "לחץ בחזה", 
+                "קוצר נשימה או תחושת מחנק", 
+                "סחרחורת ותחושת חוסר יציבות", 
+                "גוש בגרון או קושי לבלוע", 
+                "פה יבש", 
+                "בחילה, כאבי בטן או צורך דחוף לשירותים", 
+                '"פרפרים" בבטן', 
+                "שרירים תפוסים (בעיקר בצוואר ובכתפיים)", 
+                "רעידות בידיים או ברגליים", 
+                "תחושת נימול או עקצוץ בקצות האצבעות", 
+                "הזעה (בידיים או בכל הגוף)", 
+                "גלי חום או צמרמורות", 
+                "עייפות גדולה או תשישות"
             ]
         },
         { 
@@ -351,29 +364,31 @@
     const optionsArea = document.getElementById('options-area');
     const appWrapper = document.getElementById('app-wrapper');
 
-    // מנגנון חכם לשמירה על גובה מסך כשמקלדת נפתחת
+    // התיקון לקפיצות המקלדת בנייד
     function updateViewportHeight() {
         if (!appWrapper.classList.contains('fullscreen-mode')) return;
         
         if (window.visualViewport) {
             appWrapper.style.height = window.visualViewport.height + 'px';
-            window.scrollTo(0, 0); // מונע מהדפדפן לדחוף את הרקע למעלה
+            appWrapper.style.top = window.visualViewport.offsetTop + 'px'; // מוודא שהחלק העליון תמיד נשאר מיושר למסך הזמין
+            window.scrollTo(0, 0); 
+            document.body.scrollTop = 0;
+        } else {
+            appWrapper.style.height = window.innerHeight + 'px';
         }
-        scrollToBottom();
+        
+        setTimeout(scrollToBottom, 50);
     }
 
     if (window.visualViewport) {
         window.visualViewport.addEventListener('resize', updateViewportHeight);
+        window.visualViewport.addEventListener('scroll', updateViewportHeight);
     } else {
         window.addEventListener('resize', updateViewportHeight);
     }
 
-    // מניעת קפיצות כשהשדה מקבל פוקוס
     chatInput.addEventListener('focus', function() {
-        setTimeout(() => {
-            window.scrollTo(0, 0);
-            updateViewportHeight();
-        }, 100);
+        setTimeout(updateViewportHeight, 100);
     });
 
     chatInput.addEventListener('keydown', function(e) {
@@ -501,7 +516,6 @@
     }
 
     function scrollToBottom() {
-        // שימוש ב-requestAnimationFrame לדיוק מרבי בגלילה
         requestAnimationFrame(() => {
             chatHistory.scrollTop = chatHistory.scrollHeight;
         });
@@ -582,7 +596,8 @@
             document.body.classList.remove('app-active');
             document.documentElement.classList.remove('app-active');
             appWrapper.classList.remove('fullscreen-mode');
-            appWrapper.style.height = ''; // איפוס הגובה
+            appWrapper.style.height = ''; 
+            appWrapper.style.top = '';
         };
 
         actionsDiv.appendChild(shareBtn);
