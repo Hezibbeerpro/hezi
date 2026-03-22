@@ -84,15 +84,19 @@ robots: noindex
             key: "vulnerable", 
             question: (data) => {
                 let ref = data.importance === "כן" ? `ציינת שהמשימה חשובה לך (ברמה ${data.importance_level}). כשמשהו חשוב לנו, טבעי שהמערכת תיכנס לדריכות.\n\n` : "";
-                return `${ref}יש בך כל מיני קולות עכשיו. אחד מהם מרגיש איום, פחד או חשש. ממה החלק הזה מפחד? מה מפחיד במצב שאת נמצאת בו?`
+                return `${ref}יש בך כל מיני קולות עכשיו. אחד מהם מרגיש איום, פחד או חשש. ממה החלק הזה מפחד? מה מפחיד במצב שאת נמצאת בו?`;
             }
+        },
         { 
             key: "bully", 
             question: (data) => {
-                // משיכת הפחד שהמטופלת שיתפה
                 const fearText = data.vulnerable ? data.vulnerable : "ממה שקורה עכשיו";
-                
                 return `זה כל כך מובן. החלק הזה בך שמשתף עכשיו את הפחד - "${fearText}" - הוא חלק פגיע שזקוק להבנה וחיבוק. הפחד שלו טבעי לגמרי.\n\nלצערנו, במקום לעזור לחלק הזה שפוחד, מתעורר הרבה פעמים קול אחר שמזלזל בו. איך הבריון המתנשא עוקץ עכשיו את הפחד שלך? מה הוא אומר לך?`;
+            }
+        },
+        { 
+            key: "answer_bully", 
+            question: "הקול שפוחד חטף עכשיו התקפה מהבריון. לפעמים קשה לתפקד כשאנחנו מפחדים להרגיש. יכול להיות שהקול הזה אומר לך שאסור לך וזה משתק אותך?\n\nהפעם, בואי תנסי לענות לבריון המתנשא בחזרה. בלי להתנצל או להתחמק. למשל: 'אני לא חלשה, אבל אני כן מרגישה ששום דבר שאני עושה לא מספיק טוב'. יכולה?\n\nעכשיו במילים שלך. תתארי את המחשבות שפוגעות בך. מה המחשבות הפגיעות או המפחדות שלך? תנסי יותר מאחת, אולי אפילו יותר משתיים. אני מזמין אותך לתאר את אלו שהכי מכאיבות, הכי פוצעות. לי למשל יש מחשבה אחת פוצעת: 'אני האפס הכי גדול בעולם'. עכשיו את:" 
         },
         { 
             key: "somatic", 
@@ -103,9 +107,7 @@ robots: noindex
         { 
             key: "bully_status", 
             question: (data) => {
-                // משיכת התחושות שהמטופלת סימנה, או טקסט חלופי אם היא דילגה
                 const somaticText = data.somatic && data.somatic !== "בחרה לדלג על שאלת הפידבק" ? data.somatic : "את התחושות האלו בגוף";
-                
                 return `זה באמת לא פשוט. לחוות ${somaticText} זו תגובה טבעית של המערכת כשהיא מזהה איום. זה מתיש להתמודד עם ההצפה הפיזית הזו בזמן שהראש גם ככה עמוס במחשבות פוגעות.\n\nמה הבריון המתנשא אומר עכשיו? הוא ממשיך לתקוף? באותה עוצמה?`;
             },
             inputType: "options", 
@@ -268,7 +270,6 @@ robots: noindex
             importanceText += ` (רמה ${sessionData.importance_level} מתוך 10)`;
         }
 
-        // מבנה תקני של מיקרוסופט שמונע מ-Word להכריז על הקובץ כפגום
         const header = `<html xmlns:o="urn:schemas-microsoft-com:office:office" 
                               xmlns:w="urn:schemas-microsoft-com:office:word" 
                               xmlns="http://www.w3.org/TR/REC-html40">
@@ -287,7 +288,6 @@ robots: noindex
         
         const footer = "</body></html>";
         
-        // עיצוב מותאם לוורד (שימוש ב-pt במקום px, פחות CSS מורכב)
         const content = `
             <div style="text-align: center; margin-bottom: 20pt;">
                 <h1 style="color: #9b59b6; font-size: 24pt; border-bottom: 2pt solid #9b59b6; padding-bottom: 10pt; margin-bottom: 5pt;">סיכום מרחב שיח פנימי</h1>
@@ -335,7 +335,6 @@ robots: noindex
             </div>
         `;
         
-        // יצירת הקובץ עם MIME מדויק של וורד
         const blob = new Blob([header + content + footer], { type: 'application/vnd.ms-word;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
