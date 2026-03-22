@@ -9,7 +9,7 @@ robots: noindex
 
 <div id="app-wrapper">
     <div id="intro-screen">
-        <h1>הרחבת הפריזמה של התודעה</h1>
+        <h1>תרגיל בקשיבות להווה</h1>
         <p class="app-subtitle">לראות מעבר לבריון הפנימי</p>
         
         <div class="disclaimer">
@@ -100,8 +100,14 @@ robots: noindex
         },
         { 
             key: "bully_status", 
-            question: "מה הבריון המתנשא אומר עכשיו? הוא ממשיך לתקוף? באותה עוצמה?",
-            inputType: "options", options: ["כן", "בעוצמה גבוהה יותר", "בעוצמה נמוכה יותר"]
+            question: (data) => {
+                // משיכת התחושות שהמטופלת סימנה, או טקסט חלופי אם היא דילגה
+                const somaticText = data.somatic && data.somatic !== "בחרה לדלג על שאלת הפידבק" ? data.somatic : "את התחושות האלו בגוף";
+                
+                return `זה באמת לא פשוט. לחוות ${somaticText} זו תגובה טבעית של המערכת כשהיא מזהה איום. זה מתיש להתמודד עם ההצפה הפיזית הזו בזמן שהראש גם ככה עמוס במחשבות פוגעות.\n\nמה הבריון המתנשא אומר עכשיו? הוא ממשיך לתקוף? באותה עוצמה?`;
+            },
+            inputType: "options", 
+            options: ["כן", "בעוצמה גבוהה יותר", "בעוצמה נמוכה יותר"]
         },
         { 
             key: "final_words", 
