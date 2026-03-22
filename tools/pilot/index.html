@@ -1,0 +1,323 @@
+---
+layout: default
+title: הרחבת הפריזמה של התודעה
+permalink: /tools/pilot/
+robots: noindex
+---
+
+<link rel="stylesheet" href="/tools/pilot/style.css">
+
+<div id="app-wrapper">
+    <div id="intro-screen">
+        <h1>הרחבת הפריזמה של התודעה</h1>
+        <p class="app-subtitle">לראות מעבר לבריון הפנימי</p>
+        
+        <div class="disclaimer">
+            <strong>חשוב לדעת:</strong><br>
+            • <strong>פרטיות:</strong> המידע שאת מקלידה נשמר במכשירך בלבד ואינו נשלח לשום שרת. עם סגירת החלון המידע נמחק.<br>
+            • <strong>מטרה:</strong> זהו כלי להשגת מידע וארגון מחשבות ומהווה השלמה לטיפול פסיכולוגי. הכלי אינו מיועד למצבי משבר אקוטיים או למניעת פגיעה עצמית חריפה או אובדנות.
+        </div>
+
+        <button class="btn-primary" onclick="startChat()">בואי נתחיל</button>
+    </div>
+
+    <div id="chat-interface">
+        <div id="progress-bar-container"><div id="progress-bar"></div></div>
+        <div id="chat-history"><div class="chat-spacer"></div></div>
+        <div id="options-area"></div>
+        <div id="input-area">
+            <textarea id="chat-input" rows="1" placeholder="הקלידי כאן..."></textarea>
+            <button id="send-btn" onclick="handleSend()">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <div id="summary-screen">
+        <div class="summary-container">
+            <h2 class="summary-title">מפת הקולות שלך</h2>
+            
+            <div class="voice-card">
+                <div class="voice-title">🥺 החלק שפוחד אומר:</div>
+                <div class="voice-text" id="sum-fear"></div>
+            </div>
+
+            <div class="voice-card">
+                <div class="voice-title">🗣️ הבריון המתנשא תוקף ואומר:</div>
+                <div class="voice-text" id="sum-bully"></div>
+            </div>
+
+            <div class="voice-card">
+                <div class="voice-title">🫀 תחושות בגוף שעולות:</div>
+                <div class="voice-text" id="sum-somatic"></div>
+            </div>
+
+            <div class="voice-card">
+                <div class="voice-title">🛡️ הקול שלך (המענה לבריון):</div>
+                <div class="voice-text" id="sum-self" style="font-weight:bold;"></div>
+            </div>
+
+            <div class="summary-actions">
+                <p style="font-size: 1rem; color: #666; font-weight: 500;">כל הכבוד על העבודה הפנימית. תוכלי לשמור או לשתף את הדוח המלא.</p>
+                <button class="btn-primary btn-whatsapp" onclick="copyFullToWhatsApp()">העתק דוח מלא לוואטסאפ</button>
+                <button class="btn-primary" onclick="downloadWord()">הורד כקובץ Word</button>
+                <button class="btn-primary" onclick="location.reload()" style="background: #e0e0e0; color: #444; margin-top: 10px; box-shadow: none;">סיום וחזרה להתחלה</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const chatFlow = [
+        { key: "location", question: "איפה את נמצאת עכשיו?" },
+        { key: "task", question: "מה המשימה שמעסיקה אותך ברגע זה?" },
+        { key: "reason", question: "למה חשוב לך לעשות את המשימה הזו?" },
+        { key: "importance", question: "המשימה הזו חשובה לך?", inputType: "options", options: ["כן", "לא"] },
+        { 
+            key: "importance_level", 
+            question: "עד כמה היא חשובה לך מ-1 עד 10?", 
+            inputType: "options", options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], 
+            condition: (data) => data.importance === "כן",
+            isScale: true, ltr: true
+        },
+        { 
+            key: "vulnerable", 
+            question: (data) => {
+                let ref = data.importance === "כן" ? `ציינת שהמשימה חשובה לך (ברמה ${data.importance_level}). כשמשהו חשוב לנו, טבעי שהמערכת תיכנס לדריכות.\n\n` : "";
+                return `${ref}יש בך כל מיני קולות עכשיו. אחד מהם מרגיש איום, פחד או חשש. ממה החלק הזה מפחד? מה מפחיד במצב שאת נמצאת בו?`
+            }
+        },
+        { key: "bully", question: "במקום לעזור לחלק שפוחד, מתעורר קול אחר שמזלזל בו. איך הבריון המתנשא עוקץ עכשיו את הפחד שלך? מה הוא אומר לך?" },
+        { 
+            key: "answer_bully", 
+            question: "הקול שפוחד חטף עכשיו התקפה מהבריון. לפעמים קשה לתפקד כשאנחנו מפחדים להרגיש. יכול להיות שהקול הזה אומר לך שאסור לך וזה משתק אותך?\n\nהפעם, בואי תנסי לענות לבריון המתנשא בחזרה. בלי להתנצל או להתחמק. למשל: 'אני לא חלשה, אבל אני כן מרגישה ששום דבר שאני עושה לא מספיק טוב'. יכולה?\n\nעכשיו במילים שלך. תתארי את המחשבות שפוגעות בך. מה המחשבות הפגיעות או המפחדות שלך? תנסי יותר מאחת, אולי אפילו יותר משתיים. אני מזמין אותך לתאר את אלו שהכי מכאיבות, הכי פוצעות. לי למשל יש מחשבה אחת פוצעת: 'אני האפס הכי גדול בעולם'. עכשיו את:" 
+        },
+        { 
+            key: "somatic", 
+            question: "זה מאוד אנושי לחשוב מחשבות כאלו כשמרגישים תחת התקפה.\n\nזה בטח גם מרגיש ממש לא נעים בגוף. נשמע שזו הרגשה שאת ממש שונאת. מה את מרגישה?\n(אפשר לסמן כמה אפשרויות שמתאימות לך, וגם להוסיף במילים שלך בשורת ההקלדה ולשלוח)",
+            inputType: "options_and_text", multiSelect: true,
+            options: ["דופק מהיר", "לחץ בחזה", "קוצר נשימה", "סחרחורת", "גוש בגרון", "פה יבש", "בחילה/בטן", '"פרפרים" בבטן', "שרירים תפוסים", "רעידות", "תחושת נימול", "הזעה", "גלי חום", "עייפות גדולה"]
+        },
+        { 
+            key: "bully_status", 
+            question: "מה הבריון המתנשא אומר עכשיו? הוא ממשיך לתקוף? באותה עוצמה?",
+            inputType: "options", options: ["כן", "בעוצמה גבוהה יותר", "בעוצמה נמוכה יותר"]
+        },
+        { 
+            key: "final_words", 
+            question: (data) => {
+                let emp = "";
+                if(data.bully_status === "בעוצמה גבוהה יותר") emp = "זה כל כך קשה כשהוא מגביר את הווליום דווקא כשאת מנסה לעשות מקום לפחד. זה דורש המון אומץ להישאר כאן.";
+                else if(data.bully_status === "כן") emp = "לשמוע אותו ממשיך באותה עוצמה זה מתיש ומייאש, אבל את עושה עבודה מדהימה בעצם זה שאת לא מוותרת לו.";
+                else emp = "זו הקלה לשמוע שהעוצמה קצת יורדת. זה מראה שהנוכחות שלך מתחילה לקחת לו את הכוח.";
+                return `${emp}\n\nעכשיו, אחרי שהסכמת להגיד ממה את מפחדת, מה את יכולה להגיד לבריון המתנשא?`
+            }
+        },
+        {
+            key: "feedback",
+            question: "כל הכבוד! אני מעריך מאוד את האומץ שהיה לך לעצור, להסתכל לפחד בעיניים ולתת לו מקום בגוף, גם כשהבריון מנסה לאיים מהכיוון השני.\n\nשאלה אחרונה לסיום (רשות): איך הייתה החוויה של השיחה הזו עכשיו?"
+        }
+    ];
+
+    let currentStep = 0;
+    let sessionData = {};
+    const chatHistory = document.getElementById('chat-history');
+    const chatInput = document.getElementById('chat-input');
+    const optionsArea = document.getElementById('options-area');
+    const inputArea = document.getElementById('input-area');
+    const progressBar = document.getElementById('progress-bar');
+
+    chatInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault(); 
+            handleSend();
+        }
+    });
+
+    chatInput.addEventListener('input', function() {
+        this.style.height = '48px';
+        this.style.height = (this.scrollHeight) + 'px';
+        scrollToBottom();
+    });
+
+    chatInput.addEventListener('focus', function() {
+        setTimeout(scrollToBottom, 300);
+    });
+
+    function updateProgress() {
+        const percent = ((currentStep) / chatFlow.length) * 100;
+        progressBar.style.width = `${percent}%`;
+    }
+
+    function startChat() {
+        document.body.classList.add('app-active');
+        document.documentElement.classList.add('app-active');
+        document.getElementById('app-wrapper').classList.add('fullscreen-mode');
+        askQuestion(currentStep);
+    }
+
+    function addMessage(text, sender) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${sender === 'system' ? 'msg-system' : 'msg-user'}`;
+        msgDiv.innerText = text;
+        chatHistory.appendChild(msgDiv);
+        scrollToBottom();
+    }
+
+    function askQuestion(step) {
+        updateProgress();
+        if (step >= chatFlow.length) return buildVisualSummary();
+        const flow = chatFlow[step];
+        if (flow.condition && !flow.condition(sessionData)) { currentStep++; return askQuestion(currentStep); }
+        
+        const q = typeof flow.question === 'function' ? flow.question(sessionData) : flow.question;
+        addMessage(q, 'system');
+
+        optionsArea.innerHTML = '';
+        if (flow.inputType === 'options' || flow.inputType === 'options_and_text') {
+            optionsArea.style.display = 'flex';
+            if (flow.isScale) optionsArea.classList.add('scale-mode'); else optionsArea.classList.remove('scale-mode');
+            optionsArea.style.direction = flow.ltr ? 'ltr' : 'rtl';
+            flow.options.forEach(opt => {
+                const b = document.createElement('button'); b.className = 'option-btn'; b.innerText = opt;
+                b.onclick = () => { if(flow.multiSelect) b.classList.toggle('selected'); else processInput(opt); };
+                optionsArea.appendChild(b);
+            });
+        } else optionsArea.style.display = 'none';
+
+        inputArea.style.display = (flow.inputType !== 'options') ? 'flex' : 'none';
+        if (inputArea.style.display === 'flex') setTimeout(() => chatInput.focus(), 50);
+    }
+
+    function handleSend() {
+        const flow = chatFlow[currentStep];
+        let val = chatInput.value.trim();
+        if (flow && flow.multiSelect) {
+            const sel = Array.from(optionsArea.querySelectorAll('.option-btn.selected')).map(b => b.innerText);
+            if (sel.length > 0) {
+                const optsText = sel.join(', ');
+                val = val ? `${optsText}. בנוסף: ${val}` : optsText;
+            }
+        }
+        if (!val && flow.key !== 'feedback') return;
+        processInput(val || "בחרה לדלג על שאלת הפידבק");
+    }
+
+    function processInput(text) {
+        const flow = chatFlow[currentStep];
+        addMessage(text, 'user');
+        sessionData[flow.key] = text;
+        chatInput.value = '';
+        chatInput.style.height = '48px';
+        optionsArea.style.display = 'none';
+        inputArea.style.display = 'none';
+        currentStep++;
+        setTimeout(() => askQuestion(currentStep), 300);
+    }
+
+    function scrollToBottom() {
+        requestAnimationFrame(() => {
+            if (chatHistory.scrollHeight > chatHistory.clientHeight) {
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+            }
+        });
+    }
+
+    function buildVisualSummary() {
+        document.getElementById('chat-interface').style.display = 'none';
+        const summaryScreen = document.getElementById('summary-screen');
+        summaryScreen.style.display = 'flex';
+
+        document.getElementById('sum-fear').innerText = sessionData.vulnerable || "לא צוין";
+        document.getElementById('sum-bully').innerText = sessionData.bully || "לא צוין";
+        document.getElementById('sum-somatic').innerText = sessionData.somatic || "לא צוין";
+        document.getElementById('sum-self').innerText = sessionData.final_words || "לא צוין";
+    }
+
+    function copyFullToWhatsApp() {
+        const timestamp = new Date().toLocaleString('he-IL', { dateStyle: 'short', timeStyle: 'short' });
+        const getVal = (key, def = "לא צוין") => sessionData[key] || def;
+        
+        let importanceText = getVal('importance');
+        if (sessionData.importance === "כן" && sessionData.importance_level) {
+            importanceText += ` (רמה ${sessionData.importance_level}/10)`;
+        }
+
+        const waText = `*סיכום מרחב שיח פנימי* 📝\nתאריך: ${timestamp}\n\n*1. הקשר ומציאות*\n📍 *מיקום:* ${getVal('location')}\n🎯 *משימה:* ${getVal('task')}\n💡 *משמעות:* ${getVal('reason')}\n⚖️ *חשיבות:* ${importanceText}\n\n*2. מפת הקולות הפנימיים*\n🥺 *החלק שפוחד חושש ש...*\n${getVal('vulnerable')}\n\n🗣️ *הבריון המתנשא תוקף ואומר:*\n"${getVal('bully')}"\n_המחשבות הפוגעות שעולות:_ ${getVal('answer_bully')}\n\n🫀 *תחושה פיזית בגוף:*\n${getVal('somatic')}\n\n*3. התמודדות וסיכום*\n🛡️ *מצב הבריון לאחר התבוננות:* ${getVal('bully_status')}\n💪 *המענה לבריון (הקול שלך):*\n${getVal('final_words')}\n\n✨ *רפלקציה:*\n${getVal('feedback')}`;
+        
+        navigator.clipboard.writeText(waText).then(() => {
+            alert('הדוח המלא הועתק ללוח. אפשר להדביק אותו בשיחת הוואטסאפ.');
+        });
+    }
+
+    function downloadWord() {
+        const timestamp = new Date().toLocaleString('he-IL');
+        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>סיכום מרחב שיח פנימי</title></head><body dir='rtl' style='font-family: Arial, sans-serif; color: #444;'>";
+        const footer = "</body></html>";
+        
+        const getVal = (key, defaultText = "לא צוין") => sessionData[key] ? sessionData[key] : defaultText;
+        
+        let importanceText = getVal('importance');
+        if (sessionData.importance === "כן" && sessionData.importance_level) {
+            importanceText += ` (רמה ${sessionData.importance_level} מתוך 10)`;
+        }
+
+        // שינוי העיצוב בוורד שיתכתב עם המראה החדש
+        const content = `
+            <h1 style="color: #000; text-align: right; font-size: 36px; font-weight: 400; letter-spacing: -1px; margin-bottom: 5px;">סיכום מרחב שיח פנימי</h1>
+            <p style="text-align: right; color: #666; font-size: 16px; margin-top: 0; padding-bottom: 20px; border-bottom: 1px solid #ccc;">תאריך התבוננות: ${timestamp}</p>
+
+            <h2 style="color: #9b59b6; font-size: 22px; font-weight: bold; margin-top: 30px; margin-bottom: 15px;">1. הקשר ומציאות</h2>
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 15px;">
+                <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee; width: 30%;"><strong>מיקום:</strong></td><td style="padding: 10px 0; border-bottom: 1px solid #eee;">${getVal('location')}</td></tr>
+                <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>המשימה הנוכחית:</strong></td><td style="padding: 10px 0; border-bottom: 1px solid #eee;">${getVal('task')}</td></tr>
+                <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>המשמעות עבורך:</strong></td><td style="padding: 10px 0; border-bottom: 1px solid #eee;">${getVal('reason')}</td></tr>
+                <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>מידת חשיבות:</strong></td><td style="padding: 10px 0; border-bottom: 1px solid #eee;">${importanceText}</td></tr>
+            </table>
+
+            <h2 style="color: #9b59b6; font-size: 22px; font-weight: bold; margin-top: 35px; margin-bottom: 15px;">2. מפת הקולות הפנימיים</h2>
+            
+            <div style="background-color: #e1f5fe; padding: 18px; border-right: 5px solid #81d4fa; margin-bottom: 15px;">
+                <h3 style="color: #0277bd; margin-top: 0; font-size: 16px;">החלק שפוחד חושש ש...</h3>
+                <p style="font-size: 15px; line-height: 1.6; margin-bottom: 0;">${getVal('vulnerable')}</p>
+            </div>
+            
+            <div style="background-color: #fce4ec; padding: 18px; border-right: 5px solid #f48fb1; margin-bottom: 15px;">
+                <h3 style="color: #c2185b; margin-top: 0; font-size: 16px;">הבריון המתנשא תוקף ואומר:</h3>
+                <p style="font-size: 15px; line-height: 1.6;">"${getVal('bully')}"</p>
+                <p style="font-size: 14px; color: #555; margin-bottom: 0;"><strong>והמחשבות הפוגעות שעולות כתוצאה מכך:</strong> ${getVal('answer_bully')}</p>
+            </div>
+            
+            <div style="background-color: #fff3e0; padding: 18px; border-right: 5px solid #ffcc80; margin-bottom: 15px;">
+                <h3 style="color: #e65100; margin-top: 0; font-size: 16px;">התחושה הפיזית בגוף:</h3>
+                <p style="font-size: 15px; line-height: 1.6; margin-bottom: 0;">${getVal('somatic')}</p>
+            </div>
+            
+            <h2 style="color: #9b59b6; font-size: 22px; font-weight: bold; margin-top: 35px; margin-bottom: 15px;">3. התמודדות וסיכום</h2>
+
+            <div style="margin-bottom: 15px;">
+                <p style="font-size: 15px; margin-bottom: 5px;"><strong>מצב הבריון לאחר ההתבוננות:</strong> ${getVal('bully_status')}</p>
+            </div>
+
+            <div style="background-color: #e8f5e9; padding: 18px; border-right: 5px solid #81c784; margin-bottom: 20px;">
+                <h3 style="color: #2e7d32; margin-top: 0; font-size: 16px;">המענה לבריון (הקול שלך):</h3>
+                <p style="font-size: 15px; line-height: 1.6; font-weight: bold; margin-bottom: 0;">${getVal('final_words')}</p>
+            </div>
+
+            <div style="background-color: #f8f1fb; padding: 18px; border: 1px solid #9b59b6; margin-bottom: 20px;">
+                <h3 style="color: #9b59b6; margin-top: 0; font-size: 16px;">רפלקציה ופידבק אישי:</h3>
+                <p style="font-size: 15px; line-height: 1.6; margin-bottom: 0;">${getVal('feedback')}</p>
+            </div>
+        `;
+        
+        const blob = new Blob(['\ufeff', header + content + footer], { type: 'application/msword' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'סיכום_מרחב_שיח_פנימי.doc';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
+</script>
