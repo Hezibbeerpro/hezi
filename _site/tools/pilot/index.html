@@ -13,9 +13,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>הרחבת הפריזמה של התודעה | חזי באר פסיכולוג קליני - טיפול קוגניטיבי-התנהגותי</title>
+<title>תרגול קשיבות לרגע הנוכחי | חזי באר פסיכולוג קליני - טיפול קוגניטיבי-התנהגותי</title>
 <meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="הרחבת הפריזמה של התודעה" />
+<meta property="og:title" content="תרגול קשיבות לרגע הנוכחי" />
 <meta name="author" content="חזי באר" />
 <meta property="og:locale" content="he" />
 <meta name="description" content="חזי באר - פסיכולוג קליני מומחה טיפול קוגניטיבי-התנהגותי" />
@@ -25,11 +25,11 @@
 <meta property="og:site_name" content="חזי באר פסיכולוג קליני - טיפול קוגניטיבי-התנהגותי" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="הרחבת הפריזמה של התודעה" />
+<meta property="twitter:title" content="תרגול קשיבות לרגע הנוכחי" />
 <meta name="twitter:site" content="@" />
 <meta name="twitter:creator" content="@חזי באר" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"חזי באר"},"description":"חזי באר - פסיכולוג קליני מומחה טיפול קוגניטיבי-התנהגותי","headline":"הרחבת הפריזמה של התודעה","url":"http://localhost:4000/tools/pilot/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"חזי באר"},"description":"חזי באר - פסיכולוג קליני מומחה טיפול קוגניטיבי-התנהגותי","headline":"תרגול קשיבות לרגע הנוכחי","url":"http://localhost:4000/tools/pilot/"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -67,11 +67,13 @@
 </nav>
 
     <main>
-        <link rel="stylesheet" href="/tools/pilot/style.css">
+        <link rel="stylesheet" href="/assets/css/main.css">
+
+<div id="print-area"></div>
 
 <div id="app-wrapper">
     <div id="intro-screen">
-        <h1>הרחבת הפריזמה של התודעה</h1>
+        <h1>תרגול קשיבות לרגע הנוכחי</h1>
         <p class="app-subtitle">לראות מעבר לבריון הפנימי</p>
         
         <div class="disclaimer">
@@ -125,7 +127,7 @@
             <div class="summary-actions">
                 <p id="summary-thanks-text" style="font-size: 1rem; color: #666; font-weight: 500;"></p>
                 <button class="btn-primary btn-whatsapp" onclick="copyFullToWhatsApp()">העתק דוח מלא לוואטסאפ</button>
-                <button class="btn-primary" onclick="downloadWord()">הורד כקובץ Word</button>
+                <button class="btn-primary" onclick="generatePDF()" style="background: #27ae60;">שמור כקובץ PDF</button>
                 <button class="btn-primary" onclick="location.reload()" style="background: #e0e0e0; color: #444; margin-top: 10px; box-shadow: none;">סיום וחזרה להתחלה</button>
             </div>
         </div>
@@ -133,11 +135,10 @@
 </div>
 
 <script>
-    let currentGender = 'F'; // ברירת מחדל
+    let currentGender = 'F'; 
     let currentStep = 0;
     let sessionData = {};
 
-    // פונקציית העזר ששותלת את הניסוח הנכון לפי המין
     const g = (maleText, femaleText) => currentGender === 'M' ? maleText : femaleText;
 
     const chatFlow = [
@@ -204,7 +205,10 @@
         },
         {
             key: "feedback",
-            question: () => "כל הכבוד! אני מעריך מאוד את האומץ שהיה לך לעצור, להסתכל לפחד בעיניים ולתת לו מקום בגוף, גם כשהבריון מנסה לאיים מהכיוון השני.\n\nשאלה אחרונה לסיום (רשות): איך הייתה החוויה של השיחה הזו עכשיו?"
+            question: () => g(
+                "כל הכבוד! אני מעריך מאוד את האומץ שהיה לך לעצור, להסתכל לפחד בעיניים ולתת לו מקום בגוף, גם כשהבריון מנסה לאיים מהכיוון השני.\n\nשאלה אחרונה לסיום (רשות): איך הייתה החוויה של השיחה הזו עכשיו?",
+                "כל הכבוד! אני מעריך מאוד את האומץ שהיה לך לעצור, להסתכל לפחד בעיניים ולתת לו מקום בגוף, גם כשהבריון מנסה לאיים מהכיוון השני.\n\nשאלה אחרונה לסיום (רשות): איך הייתה החוויה של השיחה הזו עכשיו?"
+            )
         }
     ];
 
@@ -237,12 +241,11 @@
     }
 
     function startChat(gender) {
-        currentGender = gender; // שומר את המין שנבחר (M או F)
+        currentGender = gender; 
         document.body.classList.add('app-active');
         document.documentElement.classList.add('app-active');
         document.getElementById('app-wrapper').classList.add('fullscreen-mode');
         
-        // התאמת טקסט הסיום במסך הסיכום
         document.getElementById('summary-thanks-text').innerText = g(
             "כל הכבוד על העבודה הפנימית. תוכל לשמור או לשתף את הדוח המלא.",
             "כל הכבוד על העבודה הפנימית. תוכלי לשמור או לשתף את הדוח המלא."
@@ -338,16 +341,16 @@
             importanceText += ` (רמה ${sessionData.importance_level}/10)`;
         }
 
-        const waText = `*סיכום מרחב שיח פנימי* 📝\nתאריך: ${timestamp}\n\n*1. הקשר ומציאות*\n📍 *מיקום:* ${getVal('location')}\n🎯 *משימה:* ${getVal('task')}\n💡 *משמעות:* ${getVal('reason')}\n⚖️ *חשיבות:* ${importanceText}\n\n*2. מפת הקולות הפנימיים*\n🥺 *החלק שפוחד חושש ש...*\n${getVal('vulnerable')}\n\n🗣️ *הבריון המתנשא תוקף ואומר:*\n"${getVal('bully')}"\n_המחשבות הפוגעות שעולות:_ ${getVal('answer_bully')}\n\n🫀 *תחושה פיזית בגוף:*\n${getVal('somatic')}\n\n*3. התמודדות וסיכום*\n🛡️ *מצב הבריון לאחר התבוננות:* ${getVal('bully_status')}\n💪 *המענה לבריון (הקול שלך):*\n${getVal('final_words')}\n\n✨ *רפלקציה:*\n${getVal('feedback')}`;
+        const waText = `*תרגול קשיבות לרגע הנוכחי* 📝\nתאריך: ${timestamp}\n\n*1. הקשר ומציאות*\n📍 *מיקום:* ${getVal('location')}\n🎯 *משימה:* ${getVal('task')}\n💡 *משמעות:* ${getVal('reason')}\n⚖️ *חשיבות:* ${importanceText}\n\n*2. מפת הקולות הפנימיים*\n🥺 *החלק שפוחד חושש ש...*\n${getVal('vulnerable')}\n\n🗣️ *הבריון המתנשא תוקף ואומר:*\n"${getVal('bully')}"\n_המחשבות הפוגעות שעולות:_ ${getVal('answer_bully')}\n\n🫀 *תחושה פיזית בגוף:*\n${getVal('somatic')}\n\n*3. התמודדות וסיכום*\n🛡️ *מצב הבריון לאחר התבוננות:* ${getVal('bully_status')}\n💪 *המענה לבריון (הקול שלך):*\n${getVal('final_words')}\n\n✨ *רפלקציה:*\n${getVal('feedback')}`;
         
         navigator.clipboard.writeText(waText).then(() => {
             alert('הדוח המלא הועתק ללוח. אפשר להדביק אותו בשיחת הוואטסאפ.');
         });
     }
 
-    function downloadWord() {
+    function generatePDF() {
+        let printArea = document.getElementById('print-area');
         const timestamp = new Date().toLocaleString('he-IL');
-        
         const getVal = (key, defaultText = "לא צוין") => sessionData[key] ? sessionData[key] : defaultText;
         
         let importanceText = getVal('importance');
@@ -355,80 +358,73 @@
             importanceText += ` (רמה ${sessionData.importance_level} מתוך 10)`;
         }
 
-        const header = `<html xmlns:o="urn:schemas-microsoft-com:office:office" 
-                              xmlns:w="urn:schemas-microsoft-com:office:word" 
-                              xmlns="http://www.w3.org/TR/REC-html40">
-        <head>
-            <meta charset="utf-8">
-            <title>סיכום מרחב שיח פנימי</title>
+        printArea.innerHTML = `
             <style>
-                body { font-family: 'Assistant', Arial, sans-serif; direction: rtl; }
-                table { border-collapse: collapse; width: 100%; margin-bottom: 20pt; }
-                td { padding: 8pt; border-bottom: 1pt solid #eeeeee; }
-                .box { padding: 15pt; margin-bottom: 15pt; border: 1pt solid #ccc; }
-                h2 { color: #2c3e50; font-size: 16pt; margin-top: 20pt; border-bottom: 1pt solid #ccc; padding-bottom: 5pt; }
+                @media print {
+                    @page { size: A4 portrait; margin: 10mm; }
+                    .print-box { break-inside: avoid; }
+                }
             </style>
-        </head>
-        <body dir="rtl">`;
-        
-        const footer = "</body></html>";
-        
-        const content = `
-            <div style="text-align: center; margin-bottom: 20pt;">
-                <h1 style="color: #9b59b6; font-size: 24pt; border-bottom: 2pt solid #9b59b6; padding-bottom: 10pt; margin-bottom: 5pt;">סיכום מרחב שיח פנימי</h1>
-                <p style="color: #666666; font-size: 12pt; margin-top: 0;">תאריך התבוננות: ${timestamp}</p>
-            </div>
+            <div dir="rtl" style="font-family: 'Assistant', Arial, sans-serif; color: #333; padding: 0; max-width: 800px; margin: 0 auto;">
+                <h1 style="color: #9b59b6; text-align: center; border-bottom: 2px solid #9b59b6; padding-bottom: 5px; margin-bottom: 5px; font-size: 22px;">תרגול קשיבות לרגע הנוכחי</h1>
+                <p style="text-align: center; color: #666; font-size: 12px; margin-top: 0; margin-bottom: 15px;">תאריך התבוננות: ${timestamp}</p>
 
-            <h2>1. הקשר ומציאות</h2>
-            <table>
-                <tr><td style="width: 30%;"><strong>מיקום:</strong></td><td>${getVal('location')}</td></tr>
-                <tr><td><strong>המשימה הנוכחית:</strong></td><td>${getVal('task')}</td></tr>
-                <tr><td><strong>המשמעות עבורך:</strong></td><td>${getVal('reason')}</td></tr>
-                <tr><td><strong>מידת חשיבות:</strong></td><td>${importanceText}</td></tr>
-            </table>
+                <h2 style="color: #2c3e50; font-size: 16px; border-bottom: 1px solid #ccc; padding-bottom: 4px; margin-bottom: 8px; margin-top: 0;">1. מציאות והקשר</h2>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 13px;">
+                    <tr>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee; width: 15%;"><strong>מיקום:</strong></td>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee; width: 35%;">${getVal('location')}</td>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee; width: 15%;"><strong>חשיבות:</strong></td>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee; width: 35%;">${importanceText}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee;"><strong>משימה:</strong></td>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee;" colspan="3">${getVal('task')}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee;"><strong>משמעות:</strong></td>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee;" colspan="3">${getVal('reason')}</td>
+                    </tr>
+                </table>
 
-            <h2>2. מפת הקולות הפנימיים</h2>
-            
-            <div class="box" style="background-color: #e1f5fe; border-color: #81d4fa; border-right: 5pt solid #81d4fa;">
-                <h3 style="color: #0277bd; font-size: 14pt; margin-top: 0;">החלק שפוחד חושש ש...</h3>
-                <p style="font-size: 12pt; margin-bottom: 0;">${getVal('vulnerable')}</p>
-            </div>
-            
-            <div class="box" style="background-color: #fce4ec; border-color: #f48fb1; border-right: 5pt solid #f48fb1;">
-                <h3 style="color: #c2185b; font-size: 14pt; margin-top: 0;">הבריון המתנשא תוקף ואומר:</h3>
-                <p style="font-size: 12pt;">"${getVal('bully')}"</p>
-                <p style="font-size: 11pt; color: #555555; margin-bottom: 0;"><strong>והמחשבות הפוגעות שעולות כתוצאה מכך:</strong> ${getVal('answer_bully')}</p>
-            </div>
-            
-            <div class="box" style="background-color: #fff3e0; border-color: #ffcc80; border-right: 5pt solid #ffcc80;">
-                <h3 style="color: #e65100; font-size: 14pt; margin-top: 0;">התחושה הפיזית בגוף:</h3>
-                <p style="font-size: 12pt; margin-bottom: 0;">${getVal('somatic')}</p>
-            </div>
-            
-            <h2>3. התמודדות וסיכום</h2>
+                <h2 style="color: #2c3e50; font-size: 16px; border-bottom: 1px solid #ccc; padding-bottom: 4px; margin-bottom: 10px;">2. מפת הקולות הפנימיים וההתמודדות</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 15px;">
+                    <div class="print-box" style="background-color: #e1f5fe; padding: 12px; border-right: 4px solid #81d4fa; border-radius: 6px;">
+                        <h3 style="color: #0277bd; margin-top: 0; font-size: 14px; margin-bottom: 5px;">🥺 החלק שפוחד חושש ש...</h3>
+                        <p style="font-size: 13px; margin-bottom: 0; line-height: 1.4;">${getVal('vulnerable')}</p>
+                    </div>
+                    
+                    <div class="print-box" style="background-color: #fce4ec; padding: 12px; border-right: 4px solid #f48fb1; border-radius: 6px;">
+                        <h3 style="color: #c2185b; margin-top: 0; font-size: 14px; margin-bottom: 5px;">🗣️ הבריון המתנשא עוקץ:</h3>
+                        <p style="font-size: 13px; margin-bottom: 4px; line-height: 1.4;">"${getVal('bully')}"</p>
+                        <p style="font-size: 11px; color: #555; margin-bottom: 0; line-height: 1.3;"><strong>המחשבות הפוגעות:</strong> ${getVal('answer_bully')}</p>
+                    </div>
+                    
+                    <div class="print-box" style="background-color: #fff3e0; padding: 12px; border-right: 4px solid #ffcc80; border-radius: 6px;">
+                        <h3 style="color: #e65100; margin-top: 0; font-size: 14px; margin-bottom: 5px;">🫀 תחושה פיזית בגוף:</h3>
+                        <p style="font-size: 13px; margin-bottom: 0; line-height: 1.4;">${getVal('somatic')}</p>
+                    </div>
+                    
+                    <div class="print-box" style="background-color: #e8f5e9; padding: 12px; border-right: 4px solid #81c784; border-radius: 6px;">
+                        <h3 style="color: #2e7d32; margin-top: 0; font-size: 14px; margin-bottom: 5px;">🛡️ המענה לבריון (הקול שלך):</h3>
+                        <p style="font-size: 12px; margin-bottom: 4px;"><strong>מצב הבריון כעת:</strong> ${getVal('bully_status')}</p>
+                        <p style="font-size: 13px; font-weight: bold; margin-bottom: 0; line-height: 1.4;">${getVal('final_words')}</p>
+                    </div>
+                </div>
 
-            <p style="font-size: 12pt; margin-bottom: 15pt;"><strong>מצב הבריון לאחר ההתבוננות:</strong> ${getVal('bully_status')}</p>
+                <h2 style="color: #2c3e50; font-size: 16px; border-bottom: 1px solid #ccc; padding-bottom: 4px; margin-bottom: 10px;">3. סיכום התהליך</h2>
 
-            <div class="box" style="background-color: #e8f5e9; border-color: #81c784; border-right: 5pt solid #81c784;">
-                <h3 style="color: #2e7d32; font-size: 14pt; margin-top: 0;">המענה לבריון (הקול שלך):</h3>
-                <p style="font-size: 12pt; font-weight: bold; margin-bottom: 0;">${getVal('final_words')}</p>
-            </div>
-
-            <div class="box" style="background-color: #f8f1fb; border-color: #9b59b6; border-right: 5pt solid #9b59b6;">
-                <h3 style="color: #9b59b6; font-size: 14pt; margin-top: 0;">רפלקציה ופידבק אישי:</h3>
-                <p style="font-size: 12pt; margin-bottom: 0;">${getVal('feedback')}</p>
+                <div class="print-box" style="background-color: #f8f1fb; padding: 12px; border: 1px solid #9b59b6; border-radius: 6px;">
+                    <h3 style="color: #9b59b6; margin-top: 0; font-size: 14px; margin-bottom: 5px;">✨ רפלקציה ופידבק אישי:</h3>
+                    <p style="font-size: 13px; margin-bottom: 0; line-height: 1.4;">${getVal('feedback')}</p>
+                </div>
             </div>
         `;
-        
-        const blob = new Blob([header + content + footer], { type: 'application/vnd.ms-word;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'סיכום_מרחב_שיח_פנימי.doc';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
+
+        setTimeout(() => {
+            window.print();
+        }, 300);
     }
 </script>
     </main>
