@@ -279,14 +279,13 @@ robots: noindex
             importanceText += ` (רמה ${sessionData.importance_level}/10)`;
         }
 
-        const waText = `*סיכום מרחב שיח פנימי* 📝\nתאריך: ${timestamp}\n\n*1. הקשר ומציאות*\n📍 *מיקום:* ${getVal('location')}\n🎯 *משימה:* ${getVal('task')}\n💡 *משמעות:* ${getVal('reason')}\n⚖️ *חשיבות:* ${importanceText}\n\n*2. מפת הקולות הפנימיים*\n🥺 *החלק שפוחד חושש ש...*\n${getVal('vulnerable')}\n\n🗣️ *הבריון המתנשא תוקף ואומר:*\n"${getVal('bully')}"\n_המחשבות הפוגעות שעולות:_ ${getVal('answer_bully')}\n\n🫀 *תחושה פיזית בגוף:*\n${getVal('somatic')}\n\n*3. התמודדות וסיכום*\n🛡️ *מצב הבריון לאחר התבוננות:* ${getVal('bully_status')}\n💪 *המענה לבריון (הקול שלך):*\n${getVal('final_words')}\n\n✨ *רפלקציה:*\n${getVal('feedback')}`;
+        const waText = `*תרגול קשיבות לרגע הנוכחי* 📝\nתאריך: ${timestamp}\n\n*1. הקשר ומציאות*\n📍 *מיקום:* ${getVal('location')}\n🎯 *משימה:* ${getVal('task')}\n💡 *משמעות:* ${getVal('reason')}\n⚖️ *חשיבות:* ${importanceText}\n\n*2. מפת הקולות הפנימיים*\n🥺 *החלק שפוחד חושש ש...*\n${getVal('vulnerable')}\n\n🗣️ *הבריון המתנשא תוקף ואומר:*\n"${getVal('bully')}"\n_המחשבות הפוגעות שעולות:_ ${getVal('answer_bully')}\n\n🫀 *תחושה פיזית בגוף:*\n${getVal('somatic')}\n\n*3. התמודדות וסיכום*\n🛡️ *מצב הבריון לאחר התבוננות:* ${getVal('bully_status')}\n💪 *המענה לבריון (הקול שלך):*\n${getVal('final_words')}\n\n✨ *רפלקציה:*\n${getVal('feedback')}`;
         
         navigator.clipboard.writeText(waText).then(() => {
             alert('הדוח המלא הועתק ללוח. אפשר להדביק אותו בשיחת הוואטסאפ.');
         });
     }
 
-    // הפקת PDF מקומית, מהירה ואסתטית דרך מנוע ההדפסה של הנייד
     function generatePDF() {
         let printArea = document.getElementById('print-area');
         const timestamp = new Date().toLocaleString('he-IL');
@@ -299,7 +298,7 @@ robots: noindex
 
         printArea.innerHTML = `
             <div dir="rtl" style="font-family: 'Assistant', Arial, sans-serif; color: #333; padding: 20px; max-width: 800px; margin: 0 auto;">
-                <h1 style="color: #9b59b6; text-align: center; border-bottom: 2px solid #9b59b6; padding-bottom: 10px; margin-bottom: 5px;">סיכום מרחב שיח פנימי</h1>
+                <h1 style="color: #9b59b6; text-align: center; border-bottom: 2px solid #9b59b6; padding-bottom: 10px; margin-bottom: 5px;">תרגול קשיבות לרגע הנוכחי</h1>
                 <p style="text-align: center; color: #666; font-size: 14px; margin-top: 0; margin-bottom: 30px;">תאריך התבוננות: ${timestamp}</p>
 
                 <h2 style="color: #2c3e50; font-size: 18px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">1. הקשר ומציאות</h2>
@@ -346,7 +345,6 @@ robots: noindex
             </div>
         `;
 
-        // השהייה קלה כדי לאפשר לדפדפן לרנדר את ה-HTML במלואו לפני ההדפסה
         setTimeout(() => {
             window.print();
         }, 300);
