@@ -13,9 +13,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>מרחב לשיח פנימי קליניקה | חזי באר פסיכולוג קליני - טיפול קוגניטיבי-התנהגותי</title>
+<title>תרגול קשיבות לרגע הנוכחי | חזי באר פסיכולוג קליני - טיפול קוגניטיבי-התנהגותי</title>
 <meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="מרחב לשיח פנימי קליניקה" />
+<meta property="og:title" content="תרגול קשיבות לרגע הנוכחי" />
 <meta name="author" content="חזי באר" />
 <meta property="og:locale" content="he" />
 <meta name="description" content="חזי באר - פסיכולוג קליני מומחה טיפול קוגניטיבי-התנהגותי" />
@@ -25,11 +25,11 @@
 <meta property="og:site_name" content="חזי באר פסיכולוג קליני - טיפול קוגניטיבי-התנהגותי" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="מרחב לשיח פנימי קליניקה" />
+<meta property="twitter:title" content="תרגול קשיבות לרגע הנוכחי" />
 <meta name="twitter:site" content="@" />
 <meta name="twitter:creator" content="@חזי באר" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"חזי באר"},"description":"חזי באר - פסיכולוג קליני מומחה טיפול קוגניטיבי-התנהגותי","headline":"מרחב לשיח פנימי קליניקה","url":"http://localhost:4000/tools/internal-dialog/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"חזי באר"},"description":"חזי באר - פסיכולוג קליני מומחה טיפול קוגניטיבי-התנהגותי","headline":"תרגול קשיבות לרגע הנוכחי","url":"http://localhost:4000/tools/internal-dialog/"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -67,279 +67,139 @@
 </nav>
 
     <main>
-        <style>
-    /* העלמת אזורים לא רלוונטיים באתר הראשי */
-    body.app-active header, body.app-active .site-header, body.app-active #header,
-    body.app-active footer, body.app-active .site-footer, body.app-active #footer,
-    body.app-active #contact, body.app-active .contact-section, body.app-active .contact-wrapper {
-        display: none !important;
-    }
+        <link rel="stylesheet" href="/assets/css/main.css">
 
-    :root {
-        --app-bg: #f0f2f5;
-        --card-bg: #fff;
-        --btn-bg: #4A90E2;
-        --sys-msg-bg: #e4e6eb;
-        --sys-msg-text: #050505;
-        --user-msg-bg: #4A90E2;
-        --user-msg-text: #fff;
-        --vulnerable-bg: #2ecc71; 
-        --bully-bg: #8e44ad;
-        --need-bg: #f39c12;
-    }
-
-    /* נעילת ה-Viewport */
-    body.app-active, html.app-active {
-        position: fixed !important;
-        top: 0 !important; left: 0 !important;
-        width: 100vw !important;
-        height: 100dvh !important;
-        overflow: hidden !important;
-        margin: 0 !important; padding: 0 !important;
-        touch-action: none !important;
-    }
-
-    #app-wrapper {
-        width: 100%; max-width: 500px; margin: 40px auto;
-        background: var(--card-bg); border-radius: 16px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 28px;
-        box-sizing: border-box; transition: all 0.3s ease; position: relative;
-    }
-
-    #app-wrapper.fullscreen-mode {
-        position: fixed !important; 
-        top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-        height: 100dvh !important;
-        max-width: none !important; margin: 0 !important; border-radius: 0 !important; 
-        z-index: 9999999 !important;
-        background-color: var(--app-bg) !important; 
-        display: flex !important; flex-direction: column !important;
-        padding: 0 !important; overflow: hidden !important;
-    }
-
-    #intro-screen { display: block; overflow-y: auto; height: 100%; padding: 20px;}
-    #app-wrapper.fullscreen-mode #intro-screen { display: none !important; }
-    
-    .btn-primary { 
-        width: 100%; padding: 16px; border: none; border-radius: 8px;
-        font-size: 1.1rem; font-weight: 600; cursor: pointer;
-        background-color: var(--btn-bg); color: var(--user-msg-text); transition: 0.2s;
-    }
-
-    #chat-interface {
-        display: none; 
-        flex-direction: column !important; 
-        height: 100% !important; 
-        width: 100% !important; 
-        max-width: 600px; margin: 0 auto; 
-        overflow: hidden !important;
-    }
-    #app-wrapper.fullscreen-mode #chat-interface { display: flex !important; }
-
-    #chat-history {
-        flex: 1 1 auto !important; 
-        overflow-y: auto !important; 
-        padding: 20px !important; 
-        display: flex !important; flex-direction: column !important; gap: 14px;
-        touch-action: pan-y !important;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* ה-Spacer שביקשת: דוחף את ההודעה הראשונה למטה */
-    .chat-spacer {
-        flex-shrink: 0;
-        height: 40vh; /* מתחיל את ההודעות בערך באמצע המסך */
-        width: 100%;
-    }
-
-    .message {
-        max-width: 85%; padding: 14px 18px; border-radius: 18px; font-size: 1.1rem; line-height: 1.5;
-        animation: popIn 0.3s ease-out; position: relative; word-wrap: break-word; white-space: pre-wrap;
-    }
-
-    @keyframes popIn {
-        0% { opacity: 0; transform: translateY(10px) scale(0.95); }
-        100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .msg-system { align-self: flex-start; background-color: var(--sys-msg-bg); color: var(--sys-msg-text); border-bottom-right-radius: 4px; }
-    .msg-user { align-self: flex-end; background-color: var(--user-msg-bg); color: var(--user-msg-text); border-bottom-left-radius: 4px; }
-    .msg-vulnerable { background-color: var(--vulnerable-bg); }
-    .msg-bully { background-color: var(--bully-bg); }
-    .msg-need { background-color: var(--need-bg); }
-
-    #input-area {
-        background: #fff !important; border-top: 1px solid #ddd !important;
-        display: flex !important; gap: 10px; align-items: flex-end;
-        flex-shrink: 0 !important; 
-        padding: 15px !important;
-        padding-bottom: max(15px, env(safe-area-inset-bottom)) !important;
-    }
-
-    #chat-input {
-        flex: 1 !important; min-height: 48px; max-height: 120px !important; padding: 14px;
-        border: 1px solid #ccc; border-radius: 24px; font-family: inherit; 
-        font-size: 16px; resize: none; box-sizing: border-box; outline: none; line-height: 1.4;
-    }
-
-    #send-btn {
-        background-color: var(--btn-bg); color: #fff; border: none;
-        border-radius: 50%; width: 48px; height: 48px; cursor: pointer;
-        display: flex; justify-content: center; align-items: center; flex-shrink: 0;
-    }
-
-    #send-btn svg { width: 22px; height: 22px; fill: currentColor; transform: rotate(180deg); }
-    
-    #options-area {
-        background: #fff !important; border-top: 1px solid #ddd !important;
-        display: none; gap: 8px; justify-content: flex-start; flex-wrap: wrap; 
-        max-height: 40vh; overflow-y: auto !important; flex-shrink: 0 !important; padding: 15px !important;
-    }
-
-    .option-btn {
-        background-color: #fff; color: var(--btn-bg);
-        border: 2px solid var(--btn-bg); border-radius: 20px; padding: 10px 16px;
-        font-size: 1rem; cursor: pointer; transition: 0.2s; font-family: inherit; font-weight: bold;
-        text-align: right;
-    }
-
-    .option-btn:hover, .option-btn.selected { background-color: var(--btn-bg); color: #fff; }
-
-    #options-area.scale-mode { flex-wrap: nowrap; padding: 15px 5px; overflow-x: auto; }
-    #options-area.scale-mode .option-btn { padding: 12px 0; flex: 1; margin: 0 2px; font-size: 1rem; min-width: 30px; text-align: center; }
-
-    .chat-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
-    .chat-actions button { padding: 14px; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; font-weight: bold; }
-</style>
+<div id="print-area"></div>
 
 <div id="app-wrapper">
     <div id="intro-screen">
-        <h2>ברוכה הבאה למרחב השיח</h2>
-        <p>הכלי הזה נועד לעזור לך לעשות סדר כשיש בתוכך קונפליקט – במיוחד כשחלק אחד מפחד, וחלק אחר מתנשא עליו או תוקף אותו.</p>
-        <div class="privacy-box">
-            <strong>הפרטיות שלך:</strong><br>
-            השיחה לא נשמרת בשום שרת. בסיום, תוכלי לבחור להוריד את הסיכום או לשתף אותו.
+        <h1>תרגול קשיבות לרגע הנוכחי</h1>
+        <p class="app-subtitle">לראות מעבר לבריון הפנימי</p>
+        
+        <div class="disclaimer">
+            <strong>חשוב לדעת:</strong><br>
+            • <strong>פרטיות:</strong> המידע שאת/ה מקליד/ה נשמר במכשירך בלבד ואינו נשלח לשום שרת. עם סגירת החלון המידע נמחק.<br>
+            • <strong>מטרה:</strong> זהו כלי להשגת מידע וארגון מחשבות ומהווה השלמה לטיפול פסיכולוגי. הכלי אינו מיועד למצבי משבר אקוטיים או למניעת פגיעה עצמית חריפה או אובדנות.
         </div>
-        <button class="btn-primary" onclick="startChat()">בואי נתחיל (גרסה 5.0)</button>
+
+        <div style="display: flex; gap: 15px; margin-top: 15px;">
+            <button class="btn-primary" onclick="startChat('F')" style="flex: 1; padding: 12px 10px;">בואי נתחיל</button>
+            <button class="btn-primary" onclick="startChat('M')" style="flex: 1; padding: 12px 10px; background-color: #2c3e50; box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2);">בוא נתחיל</button>
+        </div>
     </div>
 
     <div id="chat-interface">
-        <div id="chat-history">
-            <div class="chat-spacer"></div>
-        </div>
+        <div id="progress-bar-container"><div id="progress-bar"></div></div>
+        <div id="chat-history"><div class="chat-spacer"></div></div>
         <div id="options-area"></div>
         <div id="input-area">
             <textarea id="chat-input" rows="1" placeholder="הקלידי כאן..."></textarea>
             <button id="send-btn" onclick="handleSend()">
-                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
             </button>
+        </div>
+    </div>
+
+    <div id="summary-screen">
+        <div class="summary-container">
+                       
+                        <div class="summary-actions">
+                <p id="summary-thanks-text" style="font-size: 1rem; color: #666; font-weight: 500;"></p>
+                <button class="btn-primary btn-whatsapp" onclick="copyFullToWhatsApp()">העתק דוח מלא לוואטסאפ</button>
+                <button class="btn-primary" onclick="generatePDF()" style="background: #27ae60;">שמור כקובץ PDF</button>
+                <button class="btn-primary" onclick="location.reload()" style="background: #e0e0e0; color: #444; margin-top: 10px; box-shadow: none;">סיום וחזרה להתחלה</button>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
+    let currentGender = 'F'; 
+    let currentStep = 0;
+    let sessionData = {};
+
+    const g = (maleText, femaleText) => currentGender === 'M' ? maleText : femaleText;
+
     const chatFlow = [
-        { key: "location", question: "איפה את נמצאת?", type: "regular", inputType: "text" },
-        { key: "task", question: "מה המשימה שלך כרגע?", type: "regular", inputType: "text" },
-        { key: "reason", question: "למה את עושה את המשימה הזו?", type: "regular", inputType: "text" },
-        { key: "importance", question: "המשימה הזו חשובה לך?", type: "regular", inputType: "options", options: ["כן", "לא"] },
+        { key: "location", question: () => g("איפה אתה נמצא עכשיו?", "איפה את נמצאת עכשיו?") },
+        { key: "task", question: () => "מה המשימה שמעסיקה אותך ברגע זה?" },
+        { key: "reason", question: () => "למה חשוב לך לעשות את המשימה הזו?" },
+        { key: "importance", question: () => "המשימה הזו חשובה לך?", inputType: "options", options: ["כן", "לא"] },
         { 
             key: "importance_level", 
-            question: "עד כמה היא חשובה לך מ-1 עד 10?", 
-            type: "regular", 
-            inputType: "options", 
-            options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], 
+            question: () => "עד כמה היא חשובה לך מ-1 עד 10?", 
+            inputType: "options", options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], 
             condition: (data) => data.importance === "כן",
-            ltr: true,
-            isScale: true
+            isScale: true, ltr: true
         },
         { 
             key: "vulnerable", 
             question: (data) => {
-                let reflection = "";
-                if (data.importance === "כן" && data.importance_level) {
-                    reflection = `ציינת שהמשימה הזו חשובה לך (ברמה ${data.importance_level} מתוך 10). כשמשהו חשוב לנו, זה הגיוני וטבעי שהמערכת נכנסת לדריכות.\n\n`;
-                } else if (data.importance === "לא") {
-                    reflection = `אפילו שציינת שהמשימה הזו לא מאוד חשובה לך, נראה שמשהו בסיטואציה בכל זאת מפעיל אצלך מתח.\n\n`;
-                }
-                return `${reflection}יש בך כל מיני קולות עכשיו. אחד מהם, אולי יותר מאחד, הוא קול שמרגיש איום, פחד או חשש. ממה החלק הזה מפחד? מה מפחיד במצב שאת נמצאת בו?`;
-            }, 
-            type: "vulnerable", 
-            inputType: "text" 
+                let ref = data.importance === "כן" ? `ציינת שהמשימה חשובה לך (ברמה ${data.importance_level}). כשמשהו חשוב לנו, טבעי שהמערכת תיכנס לדריכות.\n\n` : "";
+                return `${ref}יש בך כל מיני קולות עכשיו. אחד מהם מרגיש איום, פחד או חשש. ממה החלק הזה מפחד? מה מפחיד במצב ש${g("אתה נמצא", "את נמצאת")} בו?`;
+            }
         },
         { 
             key: "bully", 
-            question: "במקום לעזור לחלק שפוחד, מתעורר קול אחר שמזלזל בו. איך הבריון המתנשא עוקץ עכשיו את הפחד שלך? מה הוא אומר לך?", 
-            type: "bully", 
-            inputType: "text" 
+            question: (data) => {
+                const fearText = data.vulnerable ? data.vulnerable : "ממה שקורה עכשיו";
+                return `זה כל כך מובן. החלק הזה בך שמשתף עכשיו את הפחד - "${fearText}" - הוא חלק פגיע שזקוק להבנה וחיבוק. הפחד שלו טבעי לגמרי.\n\nלצערנו, במקום לעזור לחלק הזה שפוחד, מתעורר הרבה פעמים קול אחר שמזלזל בו. איך הבריון המתנשא עוקץ עכשיו את הפחד שלך? מה הוא אומר לך?`;
+            }
         },
         { 
             key: "answer_bully", 
-            question: "הקול שפוחד חטף עכשיו התקפה מהבריון. לפעמים קשה לתפקד כשאנחנו מפחדים להרגיש. יכול להיות שהקול הזה אומר לך שאסור לך וזה משתק אותך?\n\nהפעם, בואי תנסי לענות לבריון המתנשא בחזרה. בלי להתנצל או להתחמק. למשל, אני לא חלשה, אבל אני כן מרגישה ששום דבר שאני עושה לא מספיק טוב. יכולה?\n\nעכשיו במילים שלך. תתארי את המחשבות שפוגעות בך. מה המחשבות הפגיעות או המפחדות שלך? תנסי יותר מאחת, אולי אפילו יותר משתיים. אני מזמין אותך לתאר את אלו שהכי מכאיבות, הכי פוצעות. לי למשל, יש מחשבה אחת ממש פוצעת: אני האפס הכי גדול בעולם. קדימה, עכשיו את:", 
-            type: "need", 
-            inputType: "text" 
+            question: () => g(
+                "הקול שפוחד חטף עכשיו התקפה מהבריון. לפעמים קשה לתפקד כשאנחנו מפחדים להרגיש. יכול להיות שהקול הזה אומר לך שאסור לך וזה משתק אותך?\n\nהפעם, בוא תנסה לענות לבריון המתנשא בחזרה. בלי להתנצל או להתחמק. למשל: 'אני לא חלש, אבל אני כן מרגיש ששום דבר שאני עושה לא מספיק טוב'. יכול?\n\nעכשיו במילים שלך. תתאר את המחשבות שפוגעות בך. מה המחשבות הפגיעות או המפחדות שלך? תנסה יותר מאחת, אולי אפילו יותר משתיים. אני מזמין אותך לתאר את אלו שהכי מכאיבות, הכי פוצעות. לי למשל יש מחשבה אחת פוצעת: 'אני האפס הכי גדול בעולם'. עכשיו אתה:",
+                "הקול שפוחד חטף עכשיו התקפה מהבריון. לפעמים קשה לתפקד כשאנחנו מפחדים להרגיש. יכול להיות שהקול הזה אומר לך שאסור לך וזה משתק אותך?\n\nהפעם, בואי תנסי לענות לבריון המתנשא בחזרה. בלי להתנצל או להתחמק. למשל: 'אני לא חלשה, אבל אני כן מרגישה ששום דבר שאני עושה לא מספיק טוב'. יכולה?\n\nעכשיו במילים שלך. תתארי את המחשבות שפוגעות בך. מה המחשבות הפגיעות או המפחדות שלך? תנסי יותר מאחת, אולי אפילו יותר משתיים. אני מזמין אותך לתאר את אלו שהכי מכאיבות, הכי פוצעות. לי למשל יש מחשבה אחת פוצעת: 'אני האפס הכי גדול בעולם'. עכשיו את:"
+            )
         },
         { 
             key: "somatic", 
-            question: (data) => `זה מאוד אנושי לחשוב ש"${data.answer_bully}". המחשבות האלו מובנות לחלוטין כשמרגישים תחת התקפה.\n\nזה בטח גם מרגיש ממש לא נעים בגוף. נשמע שזו הרגשה שאת ממש שונאת. מה את מרגישה?\n(אפשר לסמן כמה אפשרויות שמתאימות לך, וגם להוסיף במילים שלך בשורת ההקלדה ולשלוח)`, 
-            type: "vulnerable", 
-            inputType: "options_and_text",
-            multiSelect: true,
-            options: [
-                "דופק מהיר או דפיקות לב חזקות", "לחץ בחזה", "קוצר נשימה או תחושת מחנק", 
-                "סחרחורת ותחושת חוסר יציבות", "גוש בגרון או קושי לבלוע", "פה יבש", 
-                "בחילה, כאבי בטן או צורך דחוף לשירותים", '"פרפרים" בבטן', 
-                "שרירים תפוסים (בעיקר בצוואר ובכתפיים)", "רעידות בידיים או ברגליים", 
-                "תחושת נימול או עקצוץ בקצות האצבעות", "הזעה (בידיים או בכל הגוף)", 
-                "גלי חום או צמרמורות", "עייפות גדולה או תשישות"
-            ]
+            question: () => g(
+                "זה מאוד אנושי לחשוב מחשבות כאלו כשמרגישים תחת התקפה.\n\nזה בטח גם מרגיש ממש לא נעים בגוף. נשמע שזו הרגשה שאתה ממש שונא. מה אתה מרגיש?\n(אפשר לסמן כמה אפשרויות שמתאימות לך, וגם להוסיף במילים שלך בשורת ההקלדה ולשלוח)",
+                "זה מאוד אנושי לחשוב מחשבות כאלו כשמרגישים תחת התקפה.\n\nזה בטח גם מרגיש ממש לא נעים בגוף. נשמע שזו הרגשה שאת ממש שונאת. מה את מרגישה?\n(אפשר לסמן כמה אפשרויות שמתאימות לך, וגם להוסיף במילים שלך בשורת ההקלדה ולשלוח)"
+            ),
+            inputType: "options_and_text", multiSelect: true,
+            options: ["דופק מהיר", "לחץ בחזה", "קוצר נשימה", "סחרחורת", "גוש בגרון", "פה יבש", "בחילה/בטן", '"פרפרים" בבטן', "שרירים תפוסים", "רעידות", "תחושת נימול", "הזעה", "גלי חום", "עייפות גדולה"]
         },
         { 
             key: "bully_status", 
-            question: (data) => `זה באמת קשה. לחוות ${data.somatic} זו תגובה טבעית של הגוף ללחץ ולפחד, וזה מתיש בפני עצמו.\n\nמה הבריון המתנשא אומר עכשיו? הוא ממשיך לתקוף? באותה עוצמה?`, 
-            type: "bully", 
+            question: (data) => {
+                const skipStr = g("בחר לדלג על שאלת הפידבק", "בחרה לדלג על שאלת הפידבק");
+                const somaticText = data.somatic && data.somatic !== skipStr ? data.somatic : "את התחושות האלו בגוף";
+                return `זה באמת לא פשוט. לחוות ${somaticText} זו תגובה טבעית של המערכת כשהיא מזהה איום. זה מתיש להתמודד עם ההצפה הפיזית הזו בזמן שהראש גם ככה עמוס במחשבות פוגעות.\n\nמה הבריון המתנשא אומר עכשיו? הוא ממשיך לתקוף? באותה עוצמה?`;
+            },
             inputType: "options", 
-            options: ["כן", "בעוצמה גבוהה יותר", "בעוצמה נמוכה יותר"] 
+            options: ["כן", "בעוצמה גבוהה יותר", "בעוצמה נמוכה יותר"]
         },
         { 
             key: "final_words", 
             question: (data) => {
-                let empathy = "";
-                if(data.bully_status === "בעוצמה גבוהה יותר") {
-                    empathy = "זה כל כך קשה כשהוא מגביר את הווליום דווקא כשאת מנסה לעשות מקום לפחד. זה דורש המון אומץ להישאר כאן.";
-                } else if(data.bully_status === "כן") {
-                    empathy = "לשמוע אותו ממשיך באותה עוצמה זה מתיש ומייאש, אבל את עושה עבודה מדהימה בעצם זה שאת לא מוותרת לו.";
-                } else {
-                    empathy = "זו הקלה לשמוע שהעוצמה קצת יורדת. זה מראה שהנוכחות שלך וההסכמה להרגיש, מתחילות לקחת לו את הכוח.";
-                }
-                return `${empathy}\n\nעכשיו, אחרי שהסכמת להגיד ממה את מפחדת, מה את יכולה להגיד לבריון המתנשא?`;
-            }, 
-            type: "need", 
-            inputType: "text" 
+                let emp = "";
+                if(data.bully_status === "בעוצמה גבוהה יותר") emp = g("זה כל כך קשה כשהוא מגביר את הווליום דווקא כשאתה מנסה לעשות מקום לפחד. זה דורש המון אומץ להישאר כאן.", "זה כל כך קשה כשהוא מגביר את הווליום דווקא כשאת מנסה לעשות מקום לפחד. זה דורש המון אומץ להישאר כאן.");
+                else if(data.bully_status === "כן") emp = g("לשמוע אותו ממשיך באותה עוצמה זה מתיש ומייאש, אבל אתה עושה עבודה מדהימה בעצם זה שאתה לא מוותר לו.", "לשמוע אותו ממשיך באותה עוצמה זה מתיש ומייאש, אבל את עושה עבודה מדהימה בעצם זה שאת לא מוותרת לו.");
+                else emp = "זו הקלה לשמוע שהעוצמה קצת יורדת. זה מראה שהנוכחות שלך מתחילה לקחת לו את הכוח.";
+                return `${emp}\n\nעכשיו, אחרי שהסכמת להגיד ממה ${g("אתה מפחד", "את מפחדת")}, מה ${g("אתה יכול", "את יכולה")} להגיד לבריון המתנשא?`;
+            }
         },
         {
             key: "feedback",
-            question: "כל הכבוד! אני מעריך מאוד את האומץ שהיה לך לעצור, להסתכל לפחד בעיניים, לתת לו מקום בגוף, גם כשהבריון מנסה לאיים מהכיוון השני. זה לא מובן מאליו בכלל.\n\nאני מקווה שהמרחב הזה ימשיך להיות המקום הבטוח שלך לעשות סדר במחשבות בכל פעם שתזדקקי לו.\n\nשאלה אחרונה לסיום (רשות): איך הייתה לך החוויה של השיחה הזו עכשיו? האם משהו עזר במיוחד או היה חסר? (אפשר לכתוב ולשלוח, או פשוט ללחוץ על חץ השליחה כדי לדלג)",
-            type: "regular",
-            inputType: "text"
+            question: () => g(
+                "כל הכבוד! אני מעריך מאוד את האומץ שהיה לך לעצור, להסתכל לפחד בעיניים ולתת לו מקום בגוף, גם כשהבריון מנסה לאיים מהכיוון השני.\n\nשאלה אחרונה לסיום (רשות): איך הייתה החוויה של השיחה הזו עכשיו?",
+                "כל הכבוד! אני מעריך מאוד את האומץ שהיה לך לעצור, להסתכל לפחד בעיניים ולתת לו מקום בגוף, גם כשהבריון מנסה לאיים מהכיוון השני.\n\nשאלה אחרונה לסיום (רשות): איך הייתה החוויה של השיחה הזו עכשיו?"
+            )
         }
     ];
 
-    let currentStep = 0;
-    let sessionData = {};
-
     const chatHistory = document.getElementById('chat-history');
     const chatInput = document.getElementById('chat-input');
-    const inputArea = document.getElementById('input-area');
     const optionsArea = document.getElementById('options-area');
+    const inputArea = document.getElementById('input-area');
+    const progressBar = document.getElementById('progress-bar');
 
-    chatInput.addEventListener('focus', function() {
-        setTimeout(scrollToBottom, 300);
-    });
-
-    chatInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
+    chatInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault(); 
             handleSend();
         }
     });
@@ -350,107 +210,200 @@
         scrollToBottom();
     });
 
-    function startChat() {
+    chatInput.addEventListener('focus', function() {
+        setTimeout(scrollToBottom, 300);
+    });
+
+    function updateProgress() {
+        const percent = ((currentStep) / chatFlow.length) * 100;
+        progressBar.style.width = `${percent}%`;
+    }
+
+    function startChat(gender) {
+        currentGender = gender; 
         document.body.classList.add('app-active');
         document.documentElement.classList.add('app-active');
         document.getElementById('app-wrapper').classList.add('fullscreen-mode');
-        setTimeout(() => askQuestion(currentStep), 300);
+        
+        document.getElementById('summary-thanks-text').innerText = g(
+            "כל הכבוד על העבודה הפנימית. תוכל לשמור או לשתף את הדוח המלא.",
+            "כל הכבוד על העבודה הפנימית. תוכלי לשמור או לשתף את הדוח המלא."
+        );
+        
+        askQuestion(currentStep);
     }
 
-    function addMessage(text, sender, msgType = "") {
+    function addMessage(text, sender) {
         const msgDiv = document.createElement('div');
-        msgDiv.className = `message ${sender === 'system' ? 'msg-system' : 'msg-user'} msg-${msgType}`;
+        msgDiv.className = `message ${sender === 'system' ? 'msg-system' : 'msg-user'}`;
         msgDiv.innerText = text;
         chatHistory.appendChild(msgDiv);
         scrollToBottom();
     }
 
-    function askQuestion(stepIndex) {
-        if (stepIndex < chatFlow.length) {
-            const currentFlow = chatFlow[stepIndex];
-            if (currentFlow.condition && !currentFlow.condition(sessionData)) {
-                currentStep++;
-                askQuestion(currentStep);
-                return;
-            }
-            const questionText = typeof currentFlow.question === 'function' ? currentFlow.question(sessionData) : currentFlow.question;
-            addMessage(questionText, 'system');
-            optionsArea.innerHTML = '';
-            if (currentFlow.isScale) optionsArea.classList.add('scale-mode'); else optionsArea.classList.remove('scale-mode');
-            if (currentFlow.ltr) optionsArea.style.direction = 'ltr'; else optionsArea.style.direction = 'rtl';
-            if (currentFlow.inputType === 'options' || currentFlow.inputType === 'options_and_text') {
-                optionsArea.style.display = 'flex';
-                currentFlow.options.forEach(opt => {
-                    const btn = document.createElement('button');
-                    btn.className = 'option-btn';
-                    btn.innerText = opt;
-                    btn.onclick = () => handleOptionSelect(btn, opt, currentFlow.type, currentFlow.multiSelect);
-                    optionsArea.appendChild(btn);
-                });
-            } else optionsArea.style.display = 'none';
-            if (currentFlow.inputType === 'text' || currentFlow.inputType === 'options_and_text') inputArea.style.display = 'flex'; else inputArea.style.display = 'none';
-            setTimeout(scrollToBottom, 100);
-        } else showSummaryActions();
-    }
+    function askQuestion(step) {
+        updateProgress();
+        if (step >= chatFlow.length) return buildVisualSummary();
+        const flow = chatFlow[step];
+        if (flow.condition && !flow.condition(sessionData)) { currentStep++; return askQuestion(currentStep); }
+        
+        const q = typeof flow.question === 'function' ? flow.question(sessionData) : flow.question;
+        addMessage(q, 'system');
 
-    function handleOptionSelect(btn, selectedOption, msgType, isMulti) {
-        if (isMulti) btn.classList.toggle('selected'); else processUserInput(selectedOption, msgType);
+        optionsArea.innerHTML = '';
+        if (flow.inputType === 'options' || flow.inputType === 'options_and_text') {
+            optionsArea.style.display = 'flex';
+            if (flow.isScale) optionsArea.classList.add('scale-mode'); else optionsArea.classList.remove('scale-mode');
+            optionsArea.style.direction = flow.ltr ? 'ltr' : 'rtl';
+            flow.options.forEach(opt => {
+                const b = document.createElement('button'); b.className = 'option-btn'; b.innerText = opt;
+                b.onclick = () => { if(flow.multiSelect) b.classList.toggle('selected'); else processInput(opt); };
+                optionsArea.appendChild(b);
+            });
+        } else optionsArea.style.display = 'none';
+
+        inputArea.style.display = (flow.inputType !== 'options') ? 'flex' : 'none';
+        if (inputArea.style.display === 'flex') setTimeout(() => chatInput.focus(), 50);
     }
 
     function handleSend() {
-        const currentFlow = chatFlow[currentStep];
-        let text = chatInput.value.trim();
-        if (currentFlow && currentFlow.multiSelect) {
-            const selectedOpts = Array.from(optionsArea.querySelectorAll('.option-btn.selected')).map(b => b.innerText);
-            if (selectedOpts.length > 0) {
-                const optsText = selectedOpts.join(', ');
-                text = text ? `${optsText}. בנוסף: ${text}` : optsText;
+        const flow = chatFlow[currentStep];
+        let val = chatInput.value.trim();
+        if (flow && flow.multiSelect) {
+            const sel = Array.from(optionsArea.querySelectorAll('.option-btn.selected')).map(b => b.innerText);
+            if (sel.length > 0) {
+                const optsText = sel.join(', ');
+                val = val ? `${optsText}. בנוסף: ${val}` : optsText;
             }
         }
-        if (!text && currentFlow.key !== "feedback") return; 
-        processUserInput(text, currentFlow.type);
+        if (!val && flow.key !== 'feedback') return;
+        processInput(val || g("בחר לדלג על שאלת הפידבק", "בחרה לדלג על שאלת הפידבק"));
     }
 
-    function processUserInput(text, msgType) {
-        const currentFlow = chatFlow[currentStep];
-        addMessage(text || "דלג", 'user', msgType);
-        sessionData[currentFlow.key] = text;
+    function processInput(text) {
+        const flow = chatFlow[currentStep];
+        addMessage(text, 'user');
+        sessionData[flow.key] = text;
         chatInput.value = '';
         chatInput.style.height = '48px';
         optionsArea.style.display = 'none';
         inputArea.style.display = 'none';
         currentStep++;
-        setTimeout(() => askQuestion(currentStep), 500);
+        setTimeout(() => askQuestion(currentStep), 300);
     }
 
     function scrollToBottom() {
         requestAnimationFrame(() => {
-            chatHistory.scrollTop = chatHistory.scrollHeight;
+            if (chatHistory.scrollHeight > chatHistory.clientHeight) {
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+            }
         });
     }
 
-    function generateSummaryText() {
-        const timestamp = new Date().toLocaleString('he-IL');
-        return `סיכום שיח פנימי - ${timestamp}\n\nמשימה: ${sessionData.task}\nפחד: ${sessionData.vulnerable}\nבריון: ${sessionData.bully}\nצורך: ${sessionData.final_words}`;
+    function buildVisualSummary() {
+        document.getElementById('chat-interface').style.display = 'none';
+        const summaryScreen = document.getElementById('summary-screen');
+        summaryScreen.style.display = 'flex';
+
+        document.getElementById('sum-fear').innerText = sessionData.vulnerable || "לא צוין";
+        document.getElementById('sum-bully').innerText = sessionData.bully || "לא צוין";
+        document.getElementById('sum-somatic').innerText = sessionData.somatic || "לא צוין";
+        document.getElementById('sum-self').innerText = sessionData.final_words || "לא צוין";
     }
 
-    function showSummaryActions() {
-        inputArea.style.display = 'none';
-        optionsArea.style.display = 'none';
-        const actionsDiv = document.createElement('div');
-        actionsDiv.className = 'chat-actions';
-        const shareBtn = document.createElement('button');
-        shareBtn.innerText = 'שתפי את הסיכום';
-        shareBtn.style.backgroundColor = 'var(--btn-bg)';
-        shareBtn.style.color = 'white';
-        shareBtn.onclick = () => { navigator.clipboard.writeText(generateSummaryText()); alert('הועתק'); };
-        const closeBtn = document.createElement('button');
-        closeBtn.innerText = 'סיום';
-        closeBtn.onclick = () => { location.reload(); };
-        actionsDiv.appendChild(shareBtn);
-        actionsDiv.appendChild(closeBtn);
-        chatHistory.appendChild(actionsDiv);
-        scrollToBottom();
+    function copyFullToWhatsApp() {
+        const timestamp = new Date().toLocaleString('he-IL', { dateStyle: 'short', timeStyle: 'short' });
+        const getVal = (key, def = "לא צוין") => sessionData[key] || def;
+        
+        let importanceText = getVal('importance');
+        if (sessionData.importance === "כן" && sessionData.importance_level) {
+            importanceText += ` (רמה ${sessionData.importance_level}/10)`;
+        }
+
+        const waText = `*תרגול קשיבות לרגע הנוכחי* 📝\nתאריך: ${timestamp}\n\n*1. הקשר ומציאות*\n📍 *מיקום:* ${getVal('location')}\n🎯 *משימה:* ${getVal('task')}\n💡 *משמעות:* ${getVal('reason')}\n⚖️ *חשיבות:* ${importanceText}\n\n*2. מפת הקולות הפנימיים*\n🥺 *החלק שפוחד חושש ש...*\n${getVal('vulnerable')}\n\n🗣️ *הבריון המתנשא תוקף ואומר:*\n"${getVal('bully')}"\n_המחשבות הפוגעות שעולות:_ ${getVal('answer_bully')}\n\n🫀 *תחושה פיזית בגוף:*\n${getVal('somatic')}\n\n*3. התמודדות וסיכום*\n🛡️ *מצב הבריון לאחר התבוננות:* ${getVal('bully_status')}\n💪 *המענה לבריון (הקול שלך):*\n${getVal('final_words')}\n\n✨ *רפלקציה:*\n${getVal('feedback')}`;
+        
+        navigator.clipboard.writeText(waText).then(() => {
+            alert('הדוח המלא הועתק ללוח. אפשר להדביק אותו בשיחת הוואטסאפ.');
+        });
+    }
+
+    function generatePDF() {
+        let printArea = document.getElementById('print-area');
+        const timestamp = new Date().toLocaleString('he-IL');
+        const getVal = (key, defaultText = "לא צוין") => sessionData[key] ? sessionData[key] : defaultText;
+        
+        let importanceText = getVal('importance');
+        if (sessionData.importance === "כן" && sessionData.importance_level) {
+            importanceText += ` (רמה ${sessionData.importance_level} מתוך 10)`;
+        }
+
+        printArea.innerHTML = `
+            <style>
+                @media print {
+                    @page { size: A4 portrait; margin: 10mm; }
+                    .print-box { break-inside: avoid; }
+                }
+            </style>
+            <div dir="rtl" style="font-family: 'Assistant', Arial, sans-serif; color: #333; padding: 0; max-width: 800px; margin: 0 auto;">
+                <h1 style="color: #9b59b6; text-align: center; border-bottom: 2px solid #9b59b6; padding-bottom: 5px; margin-bottom: 5px; font-size: 22px;">תרגול קשיבות לרגע הנוכחי</h1>
+                <p style="text-align: center; color: #666; font-size: 12px; margin-top: 0; margin-bottom: 15px;">תאריך התבוננות: ${timestamp}</p>
+
+                <h2 style="color: #2c3e50; font-size: 16px; border-bottom: 1px solid #ccc; padding-bottom: 4px; margin-bottom: 8px; margin-top: 0;">1. מציאות והקשר</h2>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 13px;">
+                    <tr>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee; width: 15%;"><strong>מיקום:</strong></td>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee; width: 35%;">${getVal('location')}</td>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee; width: 15%;"><strong>חשיבות:</strong></td>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee; width: 35%;">${importanceText}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee;"><strong>משימה:</strong></td>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee;" colspan="3">${getVal('task')}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee;"><strong>משמעות:</strong></td>
+                        <td style="padding: 4px 0; border-bottom: 1px solid #eee;" colspan="3">${getVal('reason')}</td>
+                    </tr>
+                </table>
+
+                <h2 style="color: #2c3e50; font-size: 16px; border-bottom: 1px solid #ccc; padding-bottom: 4px; margin-bottom: 10px;">2. מפת הקולות הפנימיים וההתמודדות</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 15px;">
+                    <div class="print-box" style="background-color: #e1f5fe; padding: 12px; border-right: 4px solid #81d4fa; border-radius: 6px;">
+                        <h3 style="color: #0277bd; margin-top: 0; font-size: 14px; margin-bottom: 5px;">🥺 החלק שפוחד חושש ש...</h3>
+                        <p style="font-size: 13px; margin-bottom: 0; line-height: 1.4;">${getVal('vulnerable')}</p>
+                    </div>
+                    
+                    <div class="print-box" style="background-color: #fce4ec; padding: 12px; border-right: 4px solid #f48fb1; border-radius: 6px;">
+                        <h3 style="color: #c2185b; margin-top: 0; font-size: 14px; margin-bottom: 5px;">🗣️ הבריון המתנשא עוקץ:</h3>
+                        <p style="font-size: 13px; margin-bottom: 4px; line-height: 1.4;">"${getVal('bully')}"</p>
+                        <p style="font-size: 11px; color: #555; margin-bottom: 0; line-height: 1.3;"><strong>המחשבות הפוגעות:</strong> ${getVal('answer_bully')}</p>
+                    </div>
+                    
+                    <div class="print-box" style="background-color: #fff3e0; padding: 12px; border-right: 4px solid #ffcc80; border-radius: 6px;">
+                        <h3 style="color: #e65100; margin-top: 0; font-size: 14px; margin-bottom: 5px;">🫀 תחושה פיזית בגוף:</h3>
+                        <p style="font-size: 13px; margin-bottom: 0; line-height: 1.4;">${getVal('somatic')}</p>
+                    </div>
+                    
+                    <div class="print-box" style="background-color: #e8f5e9; padding: 12px; border-right: 4px solid #81c784; border-radius: 6px;">
+                        <h3 style="color: #2e7d32; margin-top: 0; font-size: 14px; margin-bottom: 5px;">🛡️ המענה לבריון (הקול שלך):</h3>
+                        <p style="font-size: 12px; margin-bottom: 4px;"><strong>מצב הבריון כעת:</strong> ${getVal('bully_status')}</p>
+                        <p style="font-size: 13px; font-weight: bold; margin-bottom: 0; line-height: 1.4;">${getVal('final_words')}</p>
+                    </div>
+                </div>
+
+                <h2 style="color: #2c3e50; font-size: 16px; border-bottom: 1px solid #ccc; padding-bottom: 4px; margin-bottom: 10px;">3. סיכום התהליך</h2>
+
+                <div class="print-box" style="background-color: #f8f1fb; padding: 12px; border: 1px solid #9b59b6; border-radius: 6px;">
+                    <h3 style="color: #9b59b6; margin-top: 0; font-size: 14px; margin-bottom: 5px;">✨ רפלקציה ופידבק אישי:</h3>
+                    <p style="font-size: 13px; margin-bottom: 0; line-height: 1.4;">${getVal('feedback')}</p>
+                </div>
+            </div>
+        `;
+
+        setTimeout(() => {
+            window.print();
+        }, 300);
     }
 </script>
     </main>
