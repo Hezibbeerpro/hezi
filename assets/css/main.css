@@ -325,18 +325,20 @@ h2 {
 .nav-link {
     font-weight: 600;
     font-size: 1.3rem !important;
-    color: var(--text-color) !important;
+    color: var(--primary-purple) !important; /* צבע סגול קבוע */
+    position: relative; /* קריטי לפס העליון */
+    display: flex;
+    align-items: center;
+    height: 65px;
+    transition: all 0.3s ease;
 }
 
+/* הפעלת הפס העליון במעבר עכבר או בעמוד פעיל */
 .nav-name:hover::before,
 .nav-name.is-active::before,
 .nav-link:hover::before, 
 .nav-link.is-active::before {
     background-color: var(--primary-purple);
-}
-
-.nav-link:hover, .nav-link.is-active {
-    color: var(--primary-purple) !important;
 }
 
 .nav-whatsapp-link {
