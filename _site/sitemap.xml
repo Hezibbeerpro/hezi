@@ -24,6 +24,9 @@
 <loc>http://localhost:4000/tools/internal-dialog/</loc>
 </url>
 <url>
+<loc>http://localhost:4000/onboarding.html</loc>
+</url>
+<url>
 <loc>http://localhost:4000/tools/panic-report/</loc>
 </url>
 <url>

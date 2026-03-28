@@ -1338,218 +1338,713 @@ body.app-active #app-wrapper { visibility: visible !important; }
     }
 }
 /* =========================================
-   עיצוב מודרני ורציף לטופס התקף פניקה
+   עיצוב מלא Onboarding (קליטת מטופל) - V2 (חפיפה + No Scroll)
    ========================================= */
-.modern-form-container {
-    background: transparent;
-    max-width: 800px;
-    margin: 0 auto;
-    color: var(--text-color);
+.onboarding-wrapper {
+    max-width: 650px;
+    margin: 40px auto;
+    padding: 0 15px;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.form-main-title {
-    color: var(--primary-purple);
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.privacy-notice {
-    background: rgba(155, 89, 182, 0.05);
-    border-right: 4px solid var(--primary-purple);
-    padding: 15px 20px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-    font-size: 1.05rem;
-    line-height: 1.6;
-}
-
-/* שדות הטופס ללא מחיצות - ריווח נקי וזורם */
-.seamless-group {
+/* סרגל הניווט */
+.stepper-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 25px;
-    background: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.05);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    padding: 0 5px;
 }
 
-.seamless-label {
-    display: block;
-    font-weight: 700;
-    font-size: 1.15rem;
-    margin-bottom: 12px;
-    color: #2c3e50;
-}
-
-.seamless-input {
-    width: 100%;
-    padding: 12px 16px;
-    background-color: #f9f9fb;
-    border: 1px solid #e1e4e8;
-    border-radius: 10px;
-    font-family: inherit;
-    font-size: 1.05rem;
-    color: var(--text-color);
-    transition: all 0.3s ease;
-}
-
-.seamless-input:focus {
-    background-color: #fff;
-    border-color: var(--primary-purple);
-    box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.15);
-    outline: none;
-}
-
-textarea.seamless-input {
-    min-height: 100px;
-    resize: vertical;
-}
-
-.inline-flex-row {
+.step-wrapper {
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.inline-flex-row .form-group-inner {
-    flex: 1;
-    min-width: 140px;
-}
-
-.form-group-inner label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #444;
-}
-
-/* כפתורי רדיו באותה שורה */
-.radio-options-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 10px;
-}
-
-.radio-chip {
-    display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    font-weight: 500;
-    font-size: 1.05rem;
+    z-index: 2;
+    width: 45px;
 }
 
-.radio-chip input[type="radio"] {
-    accent-color: var(--primary-purple);
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-}
-
-/* סליידר ושדה הקלדה משולב לפחד */
-.fear-control-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-top: 15px;
-}
-
-.slider-container-inner {
-    flex: 1;
-}
-
-.fear-slider {
-    width: 100%;
-    accent-color: var(--primary-purple);
-    cursor: pointer;
-}
-
-.fear-number-input {
-    width: 70px;
-    text-align: center;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--primary-purple);
-    border: 2px solid var(--primary-purple);
-    border-radius: 10px;
-    padding: 8px;
-    background: #fff;
-    -moz-appearance: textfield;
-}
-
-.fear-number-input::-webkit-outer-spin-button, 
-.fear-number-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.slider-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #555;
-    margin-top: 5px;
-}
-.slider-labels span {
-    width: 40px;
-}
-
-/* טבלת סימפטומים */
-.symptoms-modern-list {
-    border: 1px solid #e1e4e8;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-top: 15px;
-}
-
-.symptom-row-header, .symptom-row {
-    display: grid;
-    grid-template-columns: 1fr 90px 110px;
-    align-items: center;
-    padding: 12px 15px;
-    border-bottom: 1px solid #eee;
-}
-
-.symptom-row-header {
-    background: #f0f2f5;
-    font-weight: 700;
-    color: #444;
-}
-
-.symptom-row:last-child {
-    border-bottom: none;
-}
-
-.symptom-row:hover {
-    background-color: #fafafa;
-}
-
-.symptom-action {
+.step-dot {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #e0d4e8;
+    color: #888;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: 700;
+    transition: all 0.3s ease;
 }
 
-.symptom-action input[type="checkbox"], 
-.symptom-action input[type="radio"] {
-    width: 22px;
-    height: 22px;
-    accent-color: var(--primary-purple);
+.step-dot.active {
+    background-color: var(--primary-purple);
+    color: white;
+    box-shadow: 0 0 10px rgba(155, 89, 182, 0.4);
+    transform: scale(1.1);
+}
+
+.step-label {
+    font-size: 0.85rem;
+    color: #888;
+    font-weight: 600;
+    text-align: center;
+}
+
+.step-label.active-text { color: var(--primary-purple); }
+
+.step-line {
+    flex: 1;
+    height: 3px;
+    background-color: #e0d4e8;
+    margin: 16px -10px 0 -10px;
+    z-index: 1;
+}
+
+/* כרטיסייה מרכזית (מעודכן ל-V2) */
+.onboarding-card {
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.onboarding-card-v2 {
+    padding-top: 0; /* נדרש עבור החפיפה של הבאנר */
+}
+
+.onboarding-screen {
+    display: none;
+    flex-direction: column;
+    animation: fadeInSlide 0.4s ease-out;
+}
+
+.onboarding-screen.active { display: flex; }
+
+.center-content { text-align: center; }
+
+/* עיצוב חפיפה V2 (Avatar Overlap) */
+.onb-card-header-v2 {
+    height: 90px;
+    background-color: var(--bg-light-purple);
+    margin: 0 -40px 15px -40px; /* מותח את הבאנר עד הקצוות */
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+}
+
+.onb-profile-pic-container-v2 {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    margin: -70px auto 15px auto; /* החפיפה מתבצעת כאן */
+}
+
+.onb-profile-pic-v2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* עגול מושלם */
+    object-fit: cover;
+    border: 5px solid #ffffff; /* מסגרת לבנה עבה לקטיעת החפיפה */
+    box-shadow: 0 8px 25px rgba(155, 89, 182, 0.2);
+    
+    /* פתרון בעיית הפיקסול בדפדפנים שולחניים: */
+    image-rendering: -webkit-optimize-contrast; 
+    transform: translateZ(0);
+}
+
+.onb-title-v2 {
+    color: var(--primary-purple);
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.onb-title-v2 span {
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: #555;
+    display: block;
+    margin-top: 5px;
+}
+
+/* תמונת הקליניקה (מסך סיום) */
+.clinic-pic {
+    width: 100%;
+    height: 140px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* טיפוגרפיה */
+.onb-title {
+    color: var(--primary-purple);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.onb-text {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+/* רשימות */
+.onb-list { list-style: none; padding: 0; margin: 0 0 15px 0; }
+.onb-list li {
+    position: relative;
+    padding-right: 25px;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    background: #fcf8ff;
+    padding: 12px 25px 12px 12px;
+    border-radius: 12px;
+}
+.onb-list li::before {
+    content: "✓";
+    position: absolute;
+    right: 10px;
+    color: var(--primary-purple);
+    font-weight: bold;
+}
+
+/* אקורדיון ופרטים */
+.bank-accordion {
+    background: #fff;
+    border: 1px solid rgba(155, 89, 182, 0.3);
+    border-radius: 12px;
+    padding: 10px 15px;
+    margin-bottom: 15px;
     cursor: pointer;
 }
-
-.export-actions {
+.bank-accordion summary {
+    font-weight: 600;
+    color: var(--primary-purple);
+    font-size: 1.05rem;
+    list-style: none;
     display: flex;
-    gap: 15px;
-    margin-top: 30px;
+    justify-content: space-between;
+}
+.bank-accordion summary::-webkit-details-marker { display: none; }
+.bank-accordion summary::after { content: "+"; font-size: 1.4rem; }
+.bank-accordion[open] summary::after { content: "-"; }
+.bank-details-content {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(155, 89, 182, 0.15);
+    font-size: 1.05rem;
 }
 
-@media print {
-    #print-area { display: block !important; position: absolute; top: 0; left: 0; width: 100%; }
-    body * { visibility: hidden; }
-    #print-area, #print-area * { visibility: visible; }
+/* טופס ומדיניות */
+.friendly-input, .friendly-textarea {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    background: #fafafa;
+}
+.friendly-textarea { min-height: 80px; resize: none; }
+
+.policy-agreement {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+.policy-agreement a { color: var(--primary-purple); font-weight: 600; text-decoration: none; }
+
+/* כפתורים */
+.onb-btn {
+    border-radius: 30px;
+    width: 100%;
+    padding: 14px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.friendly-notice {
+    background: #fcf8ff;
+    padding: 15px;
+    border-radius: 16px;
+    margin-bottom: 15px;
+    font-size: 1.05rem;
+}
+.waze-link { display: inline-block; margin-top: 8px; font-weight: bold; color: var(--primary-purple); text-decoration: none; }
+.private-zone { border-top: 2px dashed #eee; padding-top: 15px; }
+
+@keyframes fadeInSlide {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   מניעת גלילה בטלפונים (No Scroll Mobile View) - V2
+   ========================================= */
+@media (max-width: 600px) {
+    body { overflow: hidden; }
+    
+    .onboarding-wrapper {
+        margin: 0;
+        padding: 10px;
+        height: 100dvh; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .stepper-container { margin-bottom: 12px; }
+    .step-dot { width: 28px; height: 28px; font-size: 0.85rem; }
+    .step-label { font-size: 0.75rem; }
+    
+    .onboarding-card {
+        border-radius: 16px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* התאמת מבנה החפיפה למובייל */
+    .onboarding-card-v2 { padding: 0 15px 15px 15px; }
+    .onb-card-header-v2 { height: 75px; margin: 0 -15px 12px -15px; border-radius: 16px 16px 0 0; }
+    .onb-profile-pic-container-v2 { width: 95px; height: 95px; margin: -60px auto 12px auto; }
+    .onb-profile-pic-v2 { border-width: 4px; }
+    .onb-title-v2 { font-size: 1.7rem; margin-bottom: 12px; }
+    .onb-title-v2 span { font-size: 0.95rem; }
+    
+    /* התאמת מבנה שאר המסכים במובייל */
+    .onboarding-screen:not(#step-0) {
+        padding-top: 15px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .onboarding-screen#step-0 {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .onboarding-screen#step-0 .screen-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* הצמדה למעלה בשביל התמונה */
+    }
+    
+    .onboarding-screen:not(#step-0) .screen-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* ממרכז הכל אנכית בשאר המסכים */
+    }
+    
+    /* כיווץ אלמנטים נוספים למובייל */
+    .clinic-pic { height: 110px; margin-bottom: 10px; }
+    .onb-title { font-size: 1.35rem; margin-bottom: 8px; }
+    .onb-text { font-size: 0.95rem; line-height: 1.4; margin-bottom: 10px; padding: 0 5px; }
+    .onb-list { margin-bottom: 10px; }
+    .onb-list li { padding: 8px 25px 8px 10px; margin-bottom: 8px; font-size: 0.95rem; line-height: 1.3; }
+    .friendly-input { padding: 10px; margin-bottom: 8px; font-size: 0.95rem; }
+    .friendly-textarea { min-height: 55px; margin-bottom: 8px; }
+    .bank-accordion { padding: 8px 12px; margin-bottom: 8px; }
+    .bank-accordion summary { font-size: 0.95rem; }
+    .onb-btn { padding: 12px; font-size: 1.1rem; }
+    .policy-agreement { font-size: 0.8rem; margin-bottom: 10px; }
+    .private-zone { padding-top: 10px; }
+}
+/* =========================================
+   עיצוב מלא Onboarding - V3 (חפיפה, נשימה, No-Scroll)
+   ========================================= */
+
+/* קונטיינר ראשי (מרכז הכל במובייל) */
+.onboarding-wrapper {
+    max-width: 650px;
+    margin: 40px auto;
+    padding: 0 15px;
+    min-height: 85dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================================
+   1. מסך שער המרחף (Splash Screen)
+   ========================================= */
+.splash-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--bg-light-purple);
+    z-index: 9999; /* מעל הכל */
+    transition: opacity 0.8s ease, pointer-events 0.8s ease;
+    pointer-events: auto;
+}
+
+/* שלב 1: תמונה עגולה במרכז (2 שניות) */
+.splash-intro-avatar {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* ממורכז בדיוק */
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    opacity: 0; /* ברירת מחדל נעלם */
+    transition: opacity 1s ease-in-out;
+    z-index: 3;
+}
+.splash-intro-avatar.active { opacity: 1; } /* מופיע כשאקטיבי */
+
+/* שלב 2: כדור הנשימה המאיר (ממורכז בשליש התחתון) */
+.breathing-orb-v2 {
+    position: absolute;
+    bottom: 15%; /* מיקום בשליש התחתון */
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: rgba(155, 89, 182, 0.2);
+    box-shadow: 0 0 60px rgba(155, 89, 182, 0.4);
+    opacity: 0;
+    transition: all 4s ease-in-out, opacity 1s ease; /* אנימציה איטית של 4 שניות */
+    z-index: 1;
+}
+
+/* שאיפה (שאיפה עמוקה 4 שניות) - גדל ועולה קלות */
+.breathing-orb-v2.inhale {
+    opacity: 1;
+    transform: translateX(-50%) scale(3.5) translateY(-25px); /* גדל ועולה */
+}
+
+/* נשיפה (נשיפה איטית 4 שניות) - קטן ויורד חזרה */
+.breathing-orb-v2.exhale {
+    opacity: 0.6;
+    transform: translateX(-50%) scale(1.1) translateY(10px); /* קטן */
+}
+
+/* חשיפה סופית - הכדור נעלם ברכות */
+.breathing-orb-v2.calm {
+    transform: translateX(-50%) scale(4);
+    opacity: 0;
+    transition: all 1.5s ease-out;
+}
+
+/* קונטיינר התוכן המרכזי */
+.splash-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 60px;
+    position: relative;
+    z-index: 2;
+}
+
+/* שלב 2: המלל למעלה */
+.splash-text-group.top-placement {
+    position: absolute;
+    top: 5%; /* ממורכז כמעט בקצה העליון */
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    transition: opacity 1s ease;
+    opacity: 1;
+}
+
+.breathe-msg {
+    font-size: 2rem;
+    color: var(--primary-purple);
+    font-weight: bold;
+    letter-spacing: 2px;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.breathe-msg.active { opacity: 1; }
+
+/* חשיפה סופית - הכפתור להמשך */
+.splash-final-group {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.5s ease;
+    margin-bottom: 20px;
+}
+
+.splash-btn {
+    border-radius: 30px;
+    padding: 16px 40px;
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+/* =========================================
+   2. סרגל הניווט (Stepper)
+   ========================================= */
+.stepper-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    padding: 0 5px;
+}
+
+.step-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    z-index: 2;
+    width: 45px;
+}
+
+.step-dot {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #e0d4e8;
+    color: #888;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.step-dot.active {
+    background-color: var(--primary-purple);
+    color: white;
+    box-shadow: 0 0 10px rgba(155, 89, 182, 0.4);
+    transform: scale(1.1);
+}
+
+.step-label { font-size: 0.85rem; color: #888; font-weight: 600; text-align: center; }
+.step-label.active-text { color: var(--primary-purple); }
+
+.step-line {
+    flex: 1;
+    height: 3px;
+    background-color: #e0d4e8;
+    margin: 16px -10px 0 -10px;
+    z-index: 1;
+}
+
+/* =========================================
+   3. כרטיסיית התוכן הלבנה (V2 חפיפה)
+   ========================================= */
+.onboarding-card {
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* גרסת החפיפה */
+.onboarding-card-v2 { padding-top: 0; }
+
+.onb-card-header-v2 {
+    height: 90px;
+    background-color: var(--bg-light-purple);
+    margin: 0 -40px 15px -40px;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+}
+
+.onb-profile-pic-container-v2 {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    margin: -70px auto 15px auto; /* חצי בחוץ, חצי בפנים */
+}
+
+.onb-profile-pic-v2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #ffffff;
+    box-shadow: 0 8px 25px rgba(155, 89, 182, 0.2);
+}
+
+.onb-title-v2 {
+    color: var(--primary-purple);
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.onb-title-v2 span { font-size: 1.05rem; font-weight: 400; color: #555; display: block; margin-top: 5px; }
+
+/* =========================================
+   4. תוכן פנימי וטיפוגרפיה
+   ========================================= */
+.onboarding-screen {
+    display: none;
+    flex-direction: column;
+}
+
+.onboarding-screen.active { display: flex; animation: fadeInSlide 0.4s; }
+
+.onb-title {
+    color: var(--primary-purple);
+    font-size: 1.9rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.onb-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.onb-list { list-style: none; padding: 0; margin: 0 0 15px 0; }
+.onb-list li {
+    position: relative;
+    padding-right: 25px;
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    background: #fcf8ff;
+    padding: 12px 25px 12px 12px;
+    border-radius: 12px;
+}
+.onb-list li::before {
+    content: "✓";
+    position: absolute;
+    right: 10px;
+    color: var(--primary-purple);
+    font-weight: bold;
+}
+
+/* אקורדיון וטופס */
+.bank-accordion { background: #fff; border: 1px solid rgba(155, 89, 182, 0.3); border-radius: 12px; padding: 10px 15px; margin-bottom: 15px; cursor: pointer; }
+.bank-accordion summary { font-weight: 600; color: var(--primary-purple); font-size: 1.05rem; list-style: none; display: flex; justify-content: space-between; }
+.bank-accordion summary::-webkit-details-marker { display: none; }
+.bank-accordion summary::after { content: "+"; font-size: 1.4rem; }
+.bank-accordion[open] summary::after { content: "-"; }
+.bank-details-content { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(155, 89, 182, 0.15); font-size: 1rem; }
+
+.agreement-checkbox { display: flex; align-items: center; gap: 10px; background: #f0fdf4; padding: 12px; border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: 600; }
+.agreement-checkbox input { width: 18px; height: 18px; accent-color: var(--whatsapp-green); }
+
+.friendly-input, .friendly-textarea { width: 100%; padding: 12px; margin-bottom: 10px; border: 2px solid #eee; border-radius: 12px; font-size: 1rem; background: #fafafa; }
+.friendly-textarea { min-height: 80px; resize: none; }
+
+.onb-btn { border-radius: 30px; width: 100%; padding: 15px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: all 0.2s; border: none; }
+.btn-disabled { background-color: #ddd !important; color: #888 !important; cursor: not-allowed; }
+
+.waze-link { display: inline-block; font-weight: bold; color: var(--primary-purple); text-decoration: none; margin-top: 5px; }
+.clinic-pic { width: 100%; height: 140px; border-radius: 12px; object-fit: cover; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+.friendly-notice { background: #fcf8ff; padding: 15px; border-radius: 16px; margin-bottom: 15px; font-size: 1.05rem; }
+.private-zone { border-top: 2px dashed #eee; padding-top: 15px; }
+
+@keyframes fadeInSlide { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* =========================================
+   5. התאמות למובייל ומניעת גלילה (No-Scroll)
+   ========================================= */
+@media (max-width: 600px) {
+    /* נועל את הגלילה בדף הכללי */
+    body { overflow: hidden; height: 100dvh; }
+
+    /* הקונטיינר הראשי הופך להיות בגובה מלא וממוקד */
+    .onboarding-wrapper {
+        height: 100dvh;
+        margin: 0;
+        padding: 10px;
+        justify-content: center; /* ממרכז את הכל אנכית */
+    }
+
+    /* התאמת הניווט (Stepper) */
+    .stepper-container { margin-bottom: 15px; }
+    .step-dot { width: 30px; height: 30px; font-size: 0.9rem; }
+    .step-label { font-size: 0.75rem; }
+
+    /* הכרטיס הלבן הופך ל-flex כדי שהכל ייכנס פנימה */
+    .onboarding-card {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 15px 15px 15px;
+        border-radius: 20px;
+    }
+
+    /* שאר המסכים ממרכזים את התוכן */
+    .onboarding-screen:not(#step-0) {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .onboarding-screen:not(#step-0) .screen-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* ממרכז את התוכן הפנימי */
+    }
+
+    /* התאמות ספציפיות למסך החפיפה #step-0 במובייל */
+    .onboarding-card-v2 { padding: 0 15px 15px 15px; }
+    .onb-card-header-v2 { height: 75px; margin: 0 -15px 15px -15px; border-radius: 20px 20px 0 0; }
+    .onb-profile-pic-container-v2 { width: 95px; height: 95px; margin: -60px auto 12px auto; }
+    .onb-profile-pic-v2 { border-width: 4px; }
+    .onb-title-v2 { font-size: 1.8rem; margin-bottom: 10px; }
+    .onb-title-v2 span { font-size: 0.95rem; }
+
+    /* כיווץ טיפוגרפיה ושדות כדי שהכל ייכנס */
+    .onb-title { font-size: 1.4rem; margin-bottom: 10px; }
+    .onb-text { font-size: 0.95rem; line-height: 1.4; margin-bottom: 10px; }
+    .onb-list { margin-bottom: 10px; }
+    .onb-list li { font-size: 0.95rem; padding: 10px 25px 10px 10px; margin-bottom: 8px; }
+    
+    .friendly-input, .bank-accordion summary { font-size: 0.95rem; padding: 10px; }
+    .bank-accordion { margin-bottom: 10px; }
+    .agreement-checkbox { font-size: 0.9rem; padding: 10px; }
+    .friendly-textarea { min-height: 60px; font-size: 0.95rem; }
+    
+    .onb-btn { padding: 12px; font-size: 1.1rem; }
+    .friendly-notice { font-size: 0.95rem; padding: 12px; margin-bottom: 10px; }
+    .private-zone { padding-top: 10px; }
+
+    /* התאמות מסך שער למובייל */
+    .splash-overlay { padding: 20px; }
+    .splash-intro-avatar { width: 120px; height: 120px; }
+    .breathing-orb-v2 { width: 150px; height: 150px; bottom: 20%; }
+    .breathe-msg { font-size: 1.6rem; }
+    .splash-text-group.top-placement { top: 8%; }
+    .splash-title { font-size: 2.5rem; }
+    .splash-subtitle { font-size: 1.1rem; }
 }
