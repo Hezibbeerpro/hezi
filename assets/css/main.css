@@ -1730,8 +1730,10 @@ body.app-active #app-wrapper { visibility: visible !important; }
 .onb-title-v2 { color: var(--primary-purple); font-size: 2.1rem; font-weight: 700; text-align: center; }
 .onb-title-v2 span { font-size: 1.05rem; font-weight: 400; color: #555; display: block; margin-top: 5px; }
 
+/* לוגיקת תצוגת מסכים - קריטי לפתרון הבעיה */
 .onboarding-screen { display: none; flex-direction: column; animation: fadeInSlide 0.4s; }
 .onboarding-screen.active { display: flex; }
+
 .onb-text { font-size: 1.1rem; line-height: 1.6; color: #444; margin-bottom: 15px; }
 
 /* === מערכת הכרטיסיות (Cards System) === */
@@ -1801,6 +1803,7 @@ body.app-active #app-wrapper { visibility: visible !important; }
     .treatment-image-container { margin: 10px 0; }
     .onb-btn { padding: 14px; font-size: 1.1rem; }
     
+    /* הבטחת תצוגה נכונה של המסכים במובייל - פתרון הבעיה */
     .onboarding-screen { height: auto; display: none; }
     .onboarding-screen.active { display: flex; flex-direction: column; }
 }
