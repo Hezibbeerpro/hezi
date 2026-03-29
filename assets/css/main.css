@@ -1677,7 +1677,7 @@ body.app-active #app-wrapper { visibility: visible !important; }
     .private-zone { padding-top: 10px; }
 }
 /* =========================================
-   עיצוב Onboarding סופי - V8 (ארכיטקטורה אחידה ללא אייקונים)
+   עיצוב Onboarding סופי - V9 (גלילה תקינה, סרגל מוקטן וחכם)
    ========================================= */
 
 .onboarding-wrapper {
@@ -1711,14 +1711,15 @@ body.app-active #app-wrapper { visibility: visible !important; }
 .breathe-msg { font-size: 2rem; color: var(--primary-purple); font-weight: bold; position: absolute; opacity: 0; transition: opacity 1s ease; }
 .breathe-msg.active { opacity: 1; }
 
-/* Stepper */
-.stepper-container { display: flex; justify-content: space-between; margin-bottom: 25px; padding: 0 5px; }
-.step-wrapper { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; width: 45px; }
-.step-dot { width: 35px; height: 35px; border-radius: 50%; background-color: #e0d4e8; color: #888; display: flex; justify-content: center; align-items: center; font-weight: 700; transition: all 0.3s; }
+/* === סרגל ניווט מוקטן וחכם === */
+.stepper-container { display: flex; justify-content: space-between; margin-bottom: 20px; padding: 0 5px; }
+.step-wrapper { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; width: 45px; }
+.step-dot { width: 28px; height: 28px; border-radius: 50%; background-color: #e0d4e8; color: #888; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 0.9rem; transition: all 0.3s; }
 .step-dot.active { background-color: var(--primary-purple); color: white; transform: scale(1.1); }
-.step-label { font-size: 0.85rem; color: #888; font-weight: 600; text-align: center; }
-.step-label.active-text { color: var(--primary-purple); }
-.step-line { flex: 1; height: 3px; background-color: #e0d4e8; margin: 16px -10px 0 -10px; }
+/* הסתרת השלבים העתידיים וחשיפתם במעבר */
+.step-label { font-size: 0.75rem; font-weight: 600; text-align: center; color: var(--primary-purple); opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
+.step-label.active-text { opacity: 1; visibility: visible; }
+.step-line { flex: 1; height: 2px; background-color: #e0d4e8; margin: 13px -10px 0 -10px; }
 
 /* Card Core */
 .onboarding-card { background: #ffffff; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.06); padding: 40px; position: relative; overflow: hidden; }
@@ -1733,7 +1734,7 @@ body.app-active #app-wrapper { visibility: visible !important; }
 .onboarding-screen.active { display: flex; }
 .onb-text { font-size: 1.1rem; line-height: 1.6; color: #444; margin-bottom: 15px; }
 
-/* === Info Cards System (מערכת הכרטיסיות האחידה החדשה) === */
+/* === Info Cards System (מערכת הכרטיסיות האחידה) === */
 .info-card-list {
     display: flex;
     flex-direction: column;
@@ -1760,7 +1761,6 @@ body.app-active #app-wrapper { visibility: visible !important; }
     margin: 0;
 }
 
-/* כרטיסיית הדגשה (Highlight Card) - להזמנות וטקסטים מיוחדים */
 .highlight-card {
     background: rgba(155, 89, 182, 0.05);
     border-right: 4px solid var(--primary-purple);
@@ -1790,20 +1790,25 @@ body.app-active #app-wrapper { visibility: visible !important; }
 
 @keyframes fadeInSlide { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Mobile Adaptations */
+/* === התאמות ספציפיות למובייל === */
 @media (max-width: 600px) {
-    body { overflow: hidden; height: 100dvh; }
-    .onboarding-wrapper { height: 100dvh; margin: 0; padding: 10px; justify-content: center; }
-    .onboarding-card { flex: 1; display: flex; flex-direction: column; padding: 20px 15px; border-radius: 20px; }
-    .onboarding-screen:not(#step-0) { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-    .onboarding-screen:not(#step-0) .screen-content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    /* ביטול נעילת הגלילה המסוכנת למובייל */
+    body { overflow-x: hidden; } 
+    .onboarding-wrapper { min-height: 100dvh; margin: 0; padding: 15px 10px; justify-content: flex-start; }
+    .onboarding-card { display: flex; flex-direction: column; padding: 20px 15px; border-radius: 20px; }
+    
+    /* הסרגל המוקטן במובייל */
+    .stepper-container { margin-bottom: 15px; }
+    .step-dot { width: 24px; height: 24px; font-size: 0.8rem; }
+    .step-label { font-size: 0.65rem; }
+    .step-line { margin: 11px -8px 0 -8px; }
     
     .onb-card-header-v2 { height: 75px; margin: 0 -15px 15px -15px; }
-    .onb-profile-pic-container-v2 { width: 95px; height: 95px; margin: -60px auto 10px auto; }
-    .onb-title-v2 { font-size: 1.8rem; }
+    .onb-profile-pic-container-v2 { width: 85px; height: 85px; margin: -55px auto 10px auto; }
+    .onb-title-v2 { font-size: 1.7rem; margin-bottom: 15px; }
     .onb-text { font-size: 0.95rem; line-height: 1.4; }
     
-    /* התאמות למערכת הכרטיסיות במסכים קטנים */
+    /* כרטיסיות התוכן */
     .info-card { padding: 14px 15px; margin-bottom: 12px; }
     .info-card-title { font-size: 1.05rem; margin-bottom: 4px; }
     .info-card-text { font-size: 0.95rem; }
