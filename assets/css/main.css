@@ -1677,7 +1677,7 @@ body.app-active #app-wrapper { visibility: visible !important; }
     .private-zone { padding-top: 10px; }
 }
 /* =========================================
-   עיצוב Onboarding סופי - V13 (שחרור מלא למובייל - גלילה חופשית)
+   עיצוב Onboarding סופי - (גלילה חופשית, סרגל חכם וכרטיסיות)
    ========================================= */
 
 .onboarding-wrapper {
@@ -1711,17 +1711,18 @@ body.app-active #app-wrapper { visibility: visible !important; }
 .breathe-msg { font-size: 2rem; color: var(--primary-purple); font-weight: bold; position: absolute; opacity: 0; transition: opacity 1s ease; }
 .breathe-msg.active { opacity: 1; }
 
-/* === סרגל ניווט === */
-.stepper-container { display: flex; justify-content: space-between; margin-bottom: 25px; padding: 0 5px; }
-.step-wrapper { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; width: 45px; }
-.step-dot { width: 32px; height: 32px; border-radius: 50%; background-color: #e0d4e8; color: #888; display: flex; justify-content: center; align-items: center; font-weight: 700; transition: all 0.3s; }
-.step-dot.active { background-color: var(--primary-purple); color: white; transform: scale(1.1); box-shadow: 0 0 10px rgba(155, 89, 182, 0.4); }
-.step-label { font-size: 0.8rem; font-weight: 600; text-align: center; color: var(--primary-purple); opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+/* === סרגל ניווט מוקטן וחכם === */
+.stepper-container { display: flex; justify-content: space-between; margin-bottom: 20px; padding: 0 5px; }
+.step-wrapper { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; width: 45px; }
+.step-dot { width: 28px; height: 28px; border-radius: 50%; background-color: #e0d4e8; color: #888; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 0.95rem; transition: all 0.3s; }
+.step-dot.active { background-color: var(--primary-purple); color: white; transform: scale(1.1); box-shadow: 0 2px 8px rgba(155, 89, 182, 0.3); }
+/* הסתרת השלבים העתידיים וחשיפתם רק במעבר */
+.step-label { font-size: 0.75rem; font-weight: 600; text-align: center; color: var(--primary-purple); opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
 .step-label.active-text { opacity: 1; visibility: visible; }
-.step-line { flex: 1; height: 2px; background-color: #e0d4e8; margin: 15px -10px 0 -10px; }
+.step-line { flex: 1; height: 2px; background-color: #e0d4e8; margin: 13px -10px 0 -10px; }
 
 /* Card Core */
-.onboarding-card { background: #ffffff; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.06); padding: 40px; position: relative; }
+.onboarding-card { background: #ffffff; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.06); padding: 40px; position: relative; overflow: hidden; }
 .onboarding-card-v2 { padding-top: 0; }
 .onb-card-header-v2 { height: 90px; background-color: var(--bg-light-purple); margin: 0 -40px 15px -40px; border-radius: 24px 24px 0 0; }
 .onb-profile-pic-container-v2 { position: relative; width: 110px; height: 110px; margin: -70px auto 15px auto; }
@@ -1729,13 +1730,11 @@ body.app-active #app-wrapper { visibility: visible !important; }
 .onb-title-v2 { color: var(--primary-purple); font-size: 2.1rem; font-weight: 700; text-align: center; }
 .onb-title-v2 span { font-size: 1.05rem; font-weight: 400; color: #555; display: block; margin-top: 5px; }
 
-/* לוגיקת המעברים */
 .onboarding-screen { display: none; flex-direction: column; animation: fadeInSlide 0.4s; }
 .onboarding-screen.active { display: flex; }
-
 .onb-text { font-size: 1.1rem; line-height: 1.6; color: #444; margin-bottom: 15px; }
 
-/* Info Cards System */
+/* === מערכת הכרטיסיות (Cards System) === */
 .info-card-list { display: flex; flex-direction: column; gap: 12px; }
 .info-card { background: #fdfaff; border: 1px solid rgba(155, 89, 182, 0.15); border-radius: 16px; padding: 18px 20px; margin-bottom: 15px; transition: transform 0.2s; }
 .info-card-title { color: var(--primary-purple); font-size: 1.15rem; margin-bottom: 6px; font-weight: 700; }
@@ -1744,63 +1743,64 @@ body.app-active #app-wrapper { visibility: visible !important; }
 .highlight-card { background: rgba(155, 89, 182, 0.05); border-right: 4px solid var(--primary-purple); border-left: 1px solid rgba(155, 89, 182, 0.15); border-top: 1px solid rgba(155, 89, 182, 0.15); border-bottom: 1px solid rgba(155, 89, 182, 0.15); }
 .highlight-card .info-card-text { font-style: italic; }
 
+/* Images & Links */
 .treatment-image-container { margin: 15px 0; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); aspect-ratio: 16/9; }
 .treatment-cover-img { width: 100%; height: 100%; object-fit: cover; }
-
 .subtle-link { color: #777; text-decoration: underline; text-decoration-color: #d1c4e9; text-underline-offset: 3px; transition: all 0.2s ease; }
 .subtle-link:hover { color: var(--primary-purple); text-decoration-color: var(--primary-purple); }
 .arrival-more-link { display: inline-block; margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(155, 89, 182, 0.2); color: var(--primary-purple); font-weight: 600; text-decoration: none; font-size: 0.95rem; width: 100%; transition: color 0.2s; }
+.arrival-more-link:hover { color: #7d3c98; }
 
+/* Components */
 .friendly-input { width: 100%; padding: 12px; margin-bottom: 12px; border: 2px solid #eee; border-radius: 12px; background: #fafafa; font-size: 1rem; }
-.onb-btn { border-radius: 30px; width: 100%; padding: 15px; font-size: 1.2rem; font-weight: bold; border: none; cursor: pointer; transition: 0.2s; margin-top: 10px; }
+.onb-btn { border-radius: 30px; width: 100%; padding: 15px; font-size: 1.2rem; font-weight: bold; border: none; cursor: pointer; transition: 0.2s; margin-top: 15px; }
 .btn-disabled { background-color: #ddd !important; color: #888 !important; cursor: not-allowed; }
 
+/* Final Screen */
 .waiting-text { text-align: center; font-size: 1.3rem; font-weight: 600; color: var(--primary-purple); }
 
 @keyframes fadeInSlide { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* === התאמות נקיות למובייל - שחרור מוחלט === */
+/* === התאמות גלילה למובייל - ביטול נעילת המסך === */
 @media (max-width: 600px) {
-    /* 1. איפוס מוחלט של כל הגבלות הגובה והגלילה שהיו בעבר */
-    html, body {
-        height: auto !important;
-        overflow-y: visible !important;
-        position: static !important;
+    /* הסרת נעילת ה-overflow כדי לאפשר גלילה חופשית */
+    body { overflow-y: auto !important; height: auto !important; }
+    
+    .onboarding-wrapper { 
+        min-height: 100dvh; 
+        height: auto;
+        margin: 0; 
+        padding: 15px 10px 40px 10px; /* ריווח תחתון לכפתור */
+        display: block; 
     }
     
-    .onboarding-wrapper {
-        min-height: auto !important;
-        height: auto !important;
-        margin: 20px 0; /* מרווח קל מלמעלה ומלמטה */
-        padding: 0 10px;
-        display: block; /* ביטול flex wrapper למובייל */
+    .onboarding-card { 
+        display: flex; 
+        flex-direction: column; 
+        padding: 20px 15px 25px 15px; 
+        border-radius: 20px; 
+        height: auto;
     }
     
-    .onboarding-card {
-        padding: 25px 15px;
-        border-radius: 20px;
-        height: auto !important;
-        max-height: none !important;
-        display: block; /* ביטול flex פנימי */
-        overflow: visible !important;
-    }
-    
-    /* 2. סידור סרגל הניווט */
-    .stepper-container { margin-bottom: 25px; }
-    .step-wrapper { width: auto; flex: 1; gap: 4px; }
+    /* סרגל מוקטן עוד יותר למובייל */
+    .stepper-container { margin-bottom: 25px; padding: 0 10px; }
     .step-dot { width: 24px; height: 24px; font-size: 0.8rem; }
-    .step-label { font-size: 0.65rem; }
-    .step-line { margin: 11px -5px 0 -5px; }
+    .step-label { font-size: 0.65rem; margin-top: 2px; }
+    .step-line { margin: 11px -6px 0 -6px; }
     
-    /* 3. עיצוב פנימי מוקטן מעט */
-    .onb-card-header-v2 { height: 75px; margin: -25px -15px 15px -15px; border-radius: 20px 20px 0 0; }
-    .onb-profile-pic-container-v2 { width: 85px; height: 85px; margin: -60px auto 10px auto; }
+    .onb-card-header-v2 { height: 75px; margin: 0 -15px 15px -15px; border-radius: 20px 20px 0 0; }
+    .onb-profile-pic-container-v2 { width: 85px; height: 85px; margin: -55px auto 15px auto; }
     .onb-title-v2 { font-size: 1.7rem; margin-bottom: 15px; }
+    .onb-text { font-size: 0.95rem; line-height: 1.4; }
     
-    .info-card { padding: 16px 15px; margin-bottom: 15px; }
-    .info-card-title { font-size: 1.1rem; margin-bottom: 6px; }
-    .info-card-text { font-size: 1rem; }
+    /* כרטיסיות התוכן */
+    .info-card { padding: 14px 15px; margin-bottom: 12px; }
+    .info-card-title { font-size: 1.05rem; margin-bottom: 4px; }
+    .info-card-text { font-size: 0.95rem; }
     
-    .treatment-image-container { margin: 15px 0; }
-    .onb-btn { padding: 14px; font-size: 1.1rem; margin-top: 15px; margin-bottom: 10px; }
+    .treatment-image-container { margin: 10px 0; }
+    .onb-btn { padding: 14px; font-size: 1.1rem; }
+    
+    .onboarding-screen { height: auto; display: none; }
+    .onboarding-screen.active { display: flex; flex-direction: column; }
 }
