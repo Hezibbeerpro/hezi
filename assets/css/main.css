@@ -1677,7 +1677,7 @@ body.app-active #app-wrapper { visibility: visible !important; }
     .private-zone { padding-top: 10px; }
 }
 /* =========================================
-   עיצוב Onboarding סופי ומתוקן - V12 (גלילה חופשית ומעברי מסכים תקינים)
+   עיצוב Onboarding סופי - V13 (שחרור מלא למובייל - גלילה חופשית)
    ========================================= */
 
 .onboarding-wrapper {
@@ -1711,14 +1711,12 @@ body.app-active #app-wrapper { visibility: visible !important; }
 .breathe-msg { font-size: 2rem; color: var(--primary-purple); font-weight: bold; position: absolute; opacity: 0; transition: opacity 1s ease; }
 .breathe-msg.active { opacity: 1; }
 
-/* === סרגל ניווט מוקטן וחכם === */
+/* === סרגל ניווט === */
 .stepper-container { display: flex; justify-content: space-between; margin-bottom: 25px; padding: 0 5px; }
 .step-wrapper { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; width: 45px; }
 .step-dot { width: 32px; height: 32px; border-radius: 50%; background-color: #e0d4e8; color: #888; display: flex; justify-content: center; align-items: center; font-weight: 700; transition: all 0.3s; }
 .step-dot.active { background-color: var(--primary-purple); color: white; transform: scale(1.1); box-shadow: 0 0 10px rgba(155, 89, 182, 0.4); }
-/* הטקסט מוסתר כברירת מחדל */
 .step-label { font-size: 0.8rem; font-weight: 600; text-align: center; color: var(--primary-purple); opacity: 0; visibility: hidden; transition: all 0.3s ease; }
-/* נחשף רק כשמגיע תורו */
 .step-label.active-text { opacity: 1; visibility: visible; }
 .step-line { flex: 1; height: 2px; background-color: #e0d4e8; margin: 15px -10px 0 -10px; }
 
@@ -1731,7 +1729,7 @@ body.app-active #app-wrapper { visibility: visible !important; }
 .onb-title-v2 { color: var(--primary-purple); font-size: 2.1rem; font-weight: 700; text-align: center; }
 .onb-title-v2 span { font-size: 1.05rem; font-weight: 400; color: #555; display: block; margin-top: 5px; }
 
-/* לוגיקת המעברים - אך ורק זה שולט בתצוגה */
+/* לוגיקת המעברים */
 .onboarding-screen { display: none; flex-direction: column; animation: fadeInSlide 0.4s; }
 .onboarding-screen.active { display: flex; }
 
@@ -1761,36 +1759,48 @@ body.app-active #app-wrapper { visibility: visible !important; }
 
 @keyframes fadeInSlide { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* === התאמות נקיות למובייל === */
+/* === התאמות נקיות למובייל - שחרור מוחלט === */
 @media (max-width: 600px) {
-    /* גלילה טבעית לחלוטין בנייד */
-    body, html { overflow-x: hidden; }
-    
-    .onboarding-wrapper { 
-        margin: 0; 
-        padding: 15px 10px; 
+    /* 1. איפוס מוחלט של כל הגבלות הגובה והגלילה שהיו בעבר */
+    html, body {
+        height: auto !important;
+        overflow-y: visible !important;
+        position: static !important;
     }
     
-    .onboarding-card { 
-        padding: 25px 15px; 
-        border-radius: 20px; 
+    .onboarding-wrapper {
+        min-height: auto !important;
+        height: auto !important;
+        margin: 20px 0; /* מרווח קל מלמעלה ומלמטה */
+        padding: 0 10px;
+        display: block; /* ביטול flex wrapper למובייל */
     }
     
-    /* סרגל ניווט מוקטן במובייל */
-    .stepper-container { margin-bottom: 15px; }
+    .onboarding-card {
+        padding: 25px 15px;
+        border-radius: 20px;
+        height: auto !important;
+        max-height: none !important;
+        display: block; /* ביטול flex פנימי */
+        overflow: visible !important;
+    }
+    
+    /* 2. סידור סרגל הניווט */
+    .stepper-container { margin-bottom: 25px; }
     .step-wrapper { width: auto; flex: 1; gap: 4px; }
     .step-dot { width: 24px; height: 24px; font-size: 0.8rem; }
     .step-label { font-size: 0.65rem; }
     .step-line { margin: 11px -5px 0 -5px; }
     
-    .onb-card-header-v2 { height: 75px; margin: 0 -15px 15px -15px; }
-    .onb-profile-pic-container-v2 { width: 85px; height: 85px; margin: -55px auto 10px auto; }
+    /* 3. עיצוב פנימי מוקטן מעט */
+    .onb-card-header-v2 { height: 75px; margin: -25px -15px 15px -15px; border-radius: 20px 20px 0 0; }
+    .onb-profile-pic-container-v2 { width: 85px; height: 85px; margin: -60px auto 10px auto; }
     .onb-title-v2 { font-size: 1.7rem; margin-bottom: 15px; }
     
-    .info-card { padding: 14px 15px; margin-bottom: 12px; }
-    .info-card-title { font-size: 1.05rem; margin-bottom: 4px; }
-    .info-card-text { font-size: 0.95rem; }
+    .info-card { padding: 16px 15px; margin-bottom: 15px; }
+    .info-card-title { font-size: 1.1rem; margin-bottom: 6px; }
+    .info-card-text { font-size: 1rem; }
     
-    .treatment-image-container { margin: 10px 0; }
-    .onb-btn { padding: 14px; font-size: 1.1rem; }
+    .treatment-image-container { margin: 15px 0; }
+    .onb-btn { padding: 14px; font-size: 1.1rem; margin-top: 15px; margin-bottom: 10px; }
 }
