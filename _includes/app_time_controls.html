@@ -11,12 +11,38 @@
     
     .digital-picker { display: inline-flex; align-items: center; background: #fafafa; border: 2px solid #eee; border-radius: 12px; padding: 8px 12px; direction: ltr; justify-content: center; gap: 8px; min-width: 180px; }
     .digital-icon { font-size: 1.1rem; margin-right: 5px; filter: grayscale(1); opacity: 0.7; }
-    
-    /* הוספת touch-action: none חיונית כדי שהגלילה באצבע תעבוד חלקה בלי לגלול את כל העמוד */
-    .unit-scroll { display: flex; flex-direction: column; align-items: center; width: 30px; cursor: ns-resize; user-select: none; font-size: 1.2rem; font-weight: 400; color: #333; touch-action: none; }
     .separator-dots { font-size: 1.2rem; color: var(--primary-purple); padding-bottom: 2px; }
+    
+    /* Desktop Input Styles */
+    input.unit-scroll {
+        width: 36px;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #333;
+        background: transparent;
+        border: none;
+        outline: none;
+        text-align: center;
+        font-family: inherit;
+        -moz-appearance: textfield;
+        padding: 2px;
+        cursor: ns-resize;
+    }
+    input.unit-scroll::-webkit-outer-spin-button,
+    input.unit-scroll::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    input.unit-scroll:focus { background: rgba(155, 89, 182, 0.1); border-radius: 6px; cursor: text; }
 
-    @media (max-width: 600px) { .time-date-row { flex-direction: column; align-items: stretch; } .digital-picker { width: 100%; } }
+    /* Responsive Switching (Desktop vs Mobile) */
+    .desktop-picker { display: inline-flex; }
+    .mobile-picker { display: none; }
+    
+    @media (max-width: 600px) { 
+        .time-date-row { flex-direction: column; align-items: stretch; } 
+        .desktop-picker { display: none !important; }
+        .mobile-picker { display: flex !important; width: 100%; gap: 10px;}
+        .mobile-picker .seamless-input { flex: 1; padding: 12px; border: 2px solid #eee; border-radius: 12px; background: #fafafa; font-size: 1.1rem; text-align: center; font-family: inherit; }
+        .mobile-picker .seamless-input:focus { border-color: var(--primary-purple); outline: none; }
+    }
 </style>
 
 <div class="time-date-row">
@@ -28,21 +54,29 @@
 
     <div class="picker-container">
         <label class="custom-label">{{ include.time_label | default: 'שעה:' }}</label>
-        <div class="digital-picker">
+        <div class="digital-picker desktop-picker">
             <span class="digital-icon">🕒</span>
-            <div class="unit-scroll" id="start-h" data-max="23" onwheel="handleWheel(event, 'start-h', 23)">00</div>
+            <input type="text" inputmode="numeric" class="unit-scroll" id="desktop-start-h" data-max="23" onwheel="handleWheel(event, this)" oninput="handleTyping(this)" onblur="formatBlur(this)">
             <span class="separator-dots">:</span>
-            <div class="unit-scroll" id="start-m" data-max="59" onwheel="handleWheel(event, 'start-m', 59)">00</div>
+            <input type="text" inputmode="numeric" class="unit-scroll" id="desktop-start-m" data-max="59" onwheel="handleWheel(event, this)" oninput="handleTyping(this)" onblur="formatBlur(this)">
+        </div>
+        <div class="mobile-picker">
+            <input type="time" id="mobile-start-time" class="seamless-input">
         </div>
     </div>
 
     <div class="picker-container">
         <label class="custom-label">{{ include.duration_label | default: 'משך:' }}</label>
-        <div class="digital-picker">
+        <div class="digital-picker desktop-picker">
             <span class="digital-icon">⏳</span>
-            <div class="unit-scroll" id="dur-h" data-max="12" onwheel="handleWheel(event, 'dur-h', 12)">00</div>
+            <input type="text" inputmode="numeric" class="unit-scroll" id="desktop-dur-h" data-max="12" onwheel="handleWheel(event, this)" oninput="handleTyping(this)" onblur="formatBlur(this)">
             <span class="separator-dots">:</span>
-            <div class="unit-scroll" id="dur-m" data-max="59" onwheel="handleWheel(event, 'dur-m', 59)">00</div>
+            <input type="text" inputmode="numeric" class="unit-scroll" id="desktop-dur-m" data-max="59" onwheel="handleWheel(event, this)" oninput="handleTyping(this)" onblur="formatBlur(this)">
+        </div>
+        <div class="mobile-picker" style="direction: ltr;">
+            <select id="mobile-dur-h" class="seamless-input" style="flex: 1; text-align: center;"></select>
+            <span style="align-self: center; font-size: 1.5rem; font-weight: bold; color: var(--primary-purple); margin-bottom: 5px;">:</span>
+            <select id="mobile-dur-m" class="seamless-input" style="flex: 1; text-align: center;"></select>
         </div>
     </div>
 </div>
@@ -84,37 +118,24 @@
             }
         }
 
-        // אתחול הזמנים (שעה נוכחית ו-00:00 למשך)
+        // אתחול זמנים - מחשב
         const now = new Date();
-        updateTimeDisplay('start-h', now.getHours());
-        updateTimeDisplay('start-m', now.getMinutes());
-        updateTimeDisplay('dur-h', 0);
-        updateTimeDisplay('dur-m', 0);
+        document.getElementById('desktop-start-h').value = String(now.getHours()).padStart(2, '0');
+        document.getElementById('desktop-start-m').value = String(now.getMinutes()).padStart(2, '0');
+        document.getElementById('desktop-dur-h').value = "00";
+        document.getElementById('desktop-dur-m').value = "00";
 
-        // *** הוספת תמיכה בגלילת מגע (Swipe) בנייד ***
-        document.querySelectorAll('.unit-scroll').forEach(el => {
-            let startY = 0;
-            let startVal = 0;
-            
-            el.addEventListener('touchstart', e => {
-                startY = e.touches[0].clientY;
-                startVal = parseInt(el.innerText);
-            }, {passive: true});
+        // אתחול זמנים - מובייל
+        let hh = String(now.getHours()).padStart(2, '0');
+        let mm = String(now.getMinutes()).padStart(2, '0');
+        document.getElementById('mobile-start-time').value = `${hh}:${mm}`;
 
-            el.addEventListener('touchmove', e => {
-                e.preventDefault(); // עוצר גלילה של כל המסך בעת בחירת מספר
-                let currentY = e.touches[0].clientY;
-                let diff = startY - currentY;
-                let steps = Math.floor(diff / 15); // כל 15 פיקסלים מעלים/מורידים ספרה
-                
-                let max = parseInt(el.getAttribute('data-max'));
-                let newVal = startVal + steps;
-                
-                // מתמטיקה סיבובית (Wrap around)
-                let modVal = ((newVal % (max + 1)) + (max + 1)) % (max + 1);
-                el.innerText = String(modVal).padStart(2, '0');
-            }, {passive: false});
-        });
+        let durH = document.getElementById('mobile-dur-h');
+        let durM = document.getElementById('mobile-dur-m');
+        for(let i=0; i<=12; i++) durH.options.add(new Option(String(i).padStart(2,'0'), i));
+        for(let i=0; i<=59; i++) durM.options.add(new Option(String(i).padStart(2,'0'), i));
+        durH.value = 0;
+        durM.value = 0;
     }
 
     function toggleDateMenu() {
@@ -130,24 +151,50 @@
         }
     });
 
-    function updateTimeDisplay(id, val) {
-        document.getElementById(id).innerText = String(val).padStart(2, '0');
+    // פונקציות לשדות המחשב (הקלדה וגלילה)
+    function handleTyping(el) {
+        let val = el.value.replace(/\D/g, ''); // הסרת כל תו שאינו מספר
+        let max = parseInt(el.getAttribute('data-max'));
+        if (val !== '') {
+            let num = parseInt(val);
+            if (num > max) num = max; // הגבלת ערך מקסימלי
+            el.value = num;
+        } else {
+            el.value = '';
+        }
     }
 
-    function handleWheel(e, id, max) {
+    function formatBlur(el) {
+        if(el.value === '') el.value = '00';
+        else el.value = String(parseInt(el.value)).padStart(2, '0'); // הוספת אפס מוביל ביציאה מהשדה
+    }
+
+    function handleWheel(e, el) {
         e.preventDefault();
-        let current = parseInt(document.getElementById(id).innerText);
+        if(document.activeElement !== el) el.focus();
+        let current = parseInt(el.value) || 0;
+        let max = parseInt(el.getAttribute('data-max'));
         if (e.deltaY < 0) { current = current >= max ? 0 : current + 1; } 
         else { current = current <= 0 ? max : current - 1; }
-        updateTimeDisplay(id, current);
+        el.value = String(current).padStart(2, '0');
     }
 
-    // פונקציה מרכזית למשיכת נתוני הזמן והתאריך
+    // איסוף הנתונים המאוחד (בודק אם אנחנו במובייל או במחשב)
     function getAppTimeData() {
-        const hStart = document.getElementById('start-h').innerText;
-        const mStart = document.getElementById('start-m').innerText;
-        const hDur = parseInt(document.getElementById('dur-h').innerText);
-        const mDur = parseInt(document.getElementById('dur-m').innerText);
+        let isMobile = window.matchMedia("(max-width: 600px)").matches;
+        let timeStr, hDur, mDur;
+        
+        if (isMobile) {
+            timeStr = document.getElementById('mobile-start-time').value || "00:00";
+            hDur = parseInt(document.getElementById('mobile-dur-h').value) || 0;
+            mDur = parseInt(document.getElementById('mobile-dur-m').value) || 0;
+        } else {
+            let hStart = document.getElementById('desktop-start-h').value;
+            let mStart = document.getElementById('desktop-start-m').value;
+            timeStr = `${String(parseInt(hStart)||0).padStart(2,'0')}:${String(parseInt(mStart)||0).padStart(2,'0')}`;
+            hDur = parseInt(document.getElementById('desktop-dur-h').value) || 0;
+            mDur = parseInt(document.getElementById('desktop-dur-m').value) || 0;
+        }
         
         let durationText = "";
         if (hDur === 0 && mDur === 0) durationText = "פחות מדקה";
@@ -157,7 +204,7 @@
 
         return {
             date: selectedFullDate,
-            time: `${hStart}:${mStart}`,
+            time: timeStr,
             duration: durationText
         };
     }
