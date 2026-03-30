@@ -7,6 +7,115 @@ robots: noindex
 
 <link rel="stylesheet" href="/assets/css/main.css">
 
+<style>
+    /* עיצוב ייעודי לרכיבי הזמן והתאריך */
+    .time-date-row {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        align-items: flex-end;
+    }
+
+    .picker-container {
+        position: relative;
+        flex: 1;
+        min-width: 140px;
+    }
+
+    .custom-label {
+        display: block;
+        font-size: 0.95rem;
+        color: #555;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+    /* כפתור התאריך והתפריט */
+    .date-trigger {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #eee;
+        border-radius: 12px;
+        background: #fafafa;
+        cursor: pointer;
+        text-align: right;
+        font-size: 1rem;
+        transition: border-color 0.2s;
+        position: relative;
+    }
+
+    .date-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        z-index: 100;
+        overflow: hidden;
+    }
+
+    .date-item {
+        padding: 12px 15px;
+        cursor: pointer;
+        border-bottom: 1px solid #f0f0f0;
+        transition: background 0.2s;
+        font-size: 0.95rem;
+    }
+
+    .date-item:last-child {
+        border-bottom: none;
+    }
+
+    .date-item:hover { background: #fdfaff; color: var(--primary-purple); }
+    .date-item.selected { background: #f8f1fb; color: var(--primary-purple); font-weight: 600; }
+
+    /* בורר זמן דיגיטלי קומפקטי באותו השדה */
+    .digital-picker {
+        display: flex;
+        align-items: center;
+        background: #fafafa;
+        border: 2px solid #eee;
+        border-radius: 12px;
+        padding: 8px 12px;
+        direction: ltr;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .digital-icon {
+        font-size: 1.1rem;
+        margin-right: 5px;
+        filter: grayscale(1);
+        opacity: 0.7;
+    }
+
+    .unit-scroll {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 30px;
+        cursor: ns-resize;
+        user-select: none;
+        font-size: 1.2rem;
+        font-weight: 400; /* ללא הדגשה */
+        color: #333;
+    }
+
+    .separator-dots {
+        font-size: 1.2rem;
+        color: var(--primary-purple);
+        padding-bottom: 2px;
+    }
+
+    @media (max-width: 600px) {
+        .time-date-row { flex-direction: column; align-items: stretch; }
+    }
+</style>
+
 <div id="print-area" style="display: none;"></div>
 
 <div id="app-wrapper" style="background: transparent; box-shadow: none; padding: 0;">
@@ -16,10 +125,10 @@ robots: noindex
         
         <div class="privacy-notice" style="text-align: right; margin-top: 20px;">
             <strong>המטרה:</strong> כלי זה נועד לסייע לך לתעד את פרטי האירוע בסמוך להתרחשותו. התיעוד מאפשר לעשות סדר, להבין מה קרה, ולשפר את המודעות לטריגרים ותגובות. זהו כלי עזר טיפולי.<br><br>
-            <strong>פרטיות מלאה:</strong> המידע שאת/ה מקליד/ה נשמר במכשירך האישי בלבד ואינו נשלח לשום שרת. לאחר סיום התיעוד תוכל/י להוריד את הדוח.
+            <strong>פרטיות מלאה:</strong> המידע שאת/ה מקליד/ה נשמר במכשירך האישי בלבד ואינו נשלח לשום שרת. לאחר סיום התיעוד תוכל/י להוריד את הדוח או לשלוח אותו ישירות אליי.
         </div>
         
-        <button class="btn-primary" onclick="startForm()" style="font-size: 1.3rem; padding: 15px 40px;">למילוי הדו"ח</button>
+        <button class="btn-primary" onclick="startForm()" style="font-size: 1.3rem; padding: 15px 40px; margin-top: 25px;">למילוי הדו"ח</button>
     </div>
 
     <div id="form-interface" class="modern-form-container" style="display: none;">
@@ -27,19 +136,34 @@ robots: noindex
         <h1 class="form-main-title" style="margin-bottom: 30px;">דו"ח התקף פניקה</h1>
 
         <div class="seamless-group">
-            <div class="inline-flex-row">
-                <div class="form-group-inner">
-                    <label>תאריך:</label>
-                    <input type="date" id="f-date" class="seamless-input">
+            <div class="time-date-row">
+                
+                <div class="picker-container">
+                    <label class="custom-label">תאריך:</label>
+                    <div id="date-display" class="date-trigger" onclick="toggleDateMenu()">טוען...</div>
+                    <div id="date-menu" class="date-menu"></div>
                 </div>
-                <div class="form-group-inner">
-                    <label>זמן התחלה:</label>
-                    <input type="time" id="f-time" class="seamless-input">
+
+                <div class="picker-container">
+                    <label class="custom-label">שעת ההתחלה:</label>
+                    <div class="digital-picker">
+                        <span class="digital-icon">🕒</span>
+                        <div class="unit-scroll" id="start-h" onwheel="handleWheel(event, 'start-h', 23)">00</div>
+                        <span class="separator-dots">:</span>
+                        <div class="unit-scroll" id="start-m" onwheel="handleWheel(event, 'start-m', 59)">00</div>
+                    </div>
                 </div>
-                <div class="form-group-inner">
-                    <label>משך (דקות):</label>
-                    <input type="number" id="f-duration" class="seamless-input" min="1" placeholder="לדוגמה: 15">
+
+                <div class="picker-container">
+                    <label class="custom-label">משך ההתקף:</label>
+                    <div class="digital-picker">
+                        <span class="digital-icon">⏳</span>
+                        <div class="unit-scroll" id="dur-h" onwheel="handleWheel(event, 'dur-h', 12)">00</div>
+                        <span class="separator-dots">:</span>
+                        <div class="unit-scroll" id="dur-m" onwheel="handleWheel(event, 'dur-m', 59)">00</div>
+                    </div>
                 </div>
+
             </div>
         </div>
         
@@ -55,16 +179,16 @@ robots: noindex
         </div>
 
         <div class="seamless-group">
-            <label class="seamless-label">מלחיץ?</label>
+            <label class="seamless-label">האם ההתקף היה צפוי?</label>
             <div class="radio-options-row" style="margin-bottom: 25px;">
-                <label class="radio-chip"><input type="radio" name="f-stressful" value="כן"> כן</label>
-                <label class="radio-chip"><input type="radio" name="f-stressful" value="לא"> לא</label>
+                <label class="radio-chip"><input type="radio" name="f-expected" value="כן"> כן</label>
+                <label class="radio-chip"><input type="radio" name="f-expected" value="לא"> לא</label>
             </div>
 
-            <label class="seamless-label" style="border-top: 1px solid #eee; padding-top: 20px;">האם ההתקף היה צפוי?</label>
+            <label class="seamless-label" style="border-top: 1px solid #eee; padding-top: 20px;">האם ההתקף היה מלחיץ?</label>
             <div class="radio-options-row">
-                <label class="radio-chip"><input type="radio" name="f-expected" value="צפוי"> צפוי</label>
-                <label class="radio-chip"><input type="radio" name="f-expected" value="בלתי צפוי"> בלתי צפוי</label>
+                <label class="radio-chip"><input type="radio" name="f-stressful" value="כן"> כן</label>
+                <label class="radio-chip"><input type="radio" name="f-stressful" value="לא"> לא</label>
             </div>
         </div>
 
@@ -94,94 +218,31 @@ robots: noindex
             <label class="seamless-label" style="font-size: 1.3rem;">סימפטומים</label>
             <p style="margin-bottom: 15px; color: #555; font-size: 1.05rem;">יש לסמן ב-✔ את כל הסימפטומים שנחוו לפחות במידה קלה, ולסמן בעיגול את הסימפטום <strong>הראשון</strong> שנחווה:</p>
             
-            <div class="symptoms-modern-list">
+            <div class="symptoms-modern-list" id="symptoms-container">
                 <div class="symptom-row-header">
                     <div>הסימפטום</div>
                     <div style="text-align: center;">נחווה (✔)</div>
                     <div style="text-align: center;">הופיע ראשון</div>
                 </div>
-                
-                <div class="symptom-row">
-                    <div class="symptom-name">כאבי חזה או חוסר נוחות</div>
-                    <div class="symptom-action"><input type="checkbox" value="כאבי חזה או חוסר נוחות" class="symp-cb"></div>
-                    <div class="symptom-action"><input type="radio" name="f-first-symptom" value="כאבי חזה או חוסר נוחות" onclick="autoCheck(this)"></div>
                 </div>
-                <div class="symptom-row">
-                    <div class="symptom-name">הזעה</div>
-                    <div class="symptom-action"><input type="checkbox" value="הזעה" class="symp-cb"></div>
-                    <div class="symptom-action"><input type="radio" name="f-first-symptom" value="הזעה" onclick="autoCheck(this)"></div>
-                </div>
-                <div class="symptom-row">
-                    <div class="symptom-name">דופק לב מואץ/ הלמות לב</div>
-                    <div class="symptom-action"><input type="checkbox" value="דופק לב מואץ/ הלמות לב" class="symp-cb"></div>
-                    <div class="symptom-action"><input type="radio" name="f-first-symptom" value="דופק לב מואץ/ הלמות לב" onclick="autoCheck(this)"></div>
-                </div>
-                <div class="symptom-row">
-                    <div class="symptom-name">בחילה/ בטן כואבת</div>
-                    <div class="symptom-action"><input type="checkbox" value="בחילה/ בטן כואבת" class="symp-cb"></div>
-                    <div class="symptom-action"><input type="radio" name="f-first-symptom" value="בחילה/ בטן כואבת" onclick="autoCheck(this)"></div>
-                </div>
-                <div class="symptom-row">
-                    <div class="symptom-name">קוצר נשימה</div>
-                    <div class="symptom-action"><input type="checkbox" value="קוצר נשימה" class="symp-cb"></div>
-                    <div class="symptom-action"><input type="radio" name="f-first-symptom" value="קוצר נשימה" onclick="autoCheck(this)"></div>
-                </div>
-                <div class="symptom-row">
-                    <div class="symptom-name">סחרחורת/ חוסר יציבות/ עילפון</div>
-                    <div class="symptom-action"><input type="checkbox" value="סחרחורת/ חוסר יציבות/ עילפון" class="symp-cb"></div>
-                    <div class="symptom-action"><input type="radio" name="f-first-symptom" value="סחרחורת/ חוסר יציבות/ עילפון" onclick="autoCheck(this)"></div>
-                </div>
-                <div class="symptom-row">
-                    <div class="symptom-name">רעד/ צמרמורת</div>
-                    <div class="symptom-action"><input type="checkbox" value="רעד/ צמרמורת" class="symp-cb"></div>
-                    <div class="symptom-action"><input type="radio" name="f-first-symptom" value="רעד/ צמרמורת" onclick="autoCheck(this)"></div>
-                </div>
-                <div class="symptom-row">
-                    <div class="symptom-name">גלי חום/ גלי קור</div>
-                    <div class="symptom-action"><input type="checkbox" value="גלי חום/ גלי קור" class="symp-cb"></div>
-                    <div class="symptom-action"><input type="radio" name="f-first-symptom" value="גלי חום/ גלי קור" onclick="autoCheck(this)"></div>
-                </div>
-                <div class="symptom-row">
-                    <div class="symptom-name">תחושת "נימול" או עמימות</div>
-                    <div class="symptom-action"><input type="checkbox" value='תחושת "נימול" או עמימות' class="symp-cb"></div>
-                    <div class="symptom-action"><input type="radio" name="f-first-symptom" value='תחושת "נימול" או עמימות' onclick="autoCheck(this)"></div>
-                </div>
-                <div class="symptom-row">
-                    <div class="symptom-name">תחושה של חוסר מציאות</div>
-                    <div class="symptom-action"><input type="checkbox" value="תחושה של חוסר מציאות" class="symp-cb"></div>
-                    <div class="symptom-action"><input type="radio" name="f-first-symptom" value="תחושה של חוסר מציאות" onclick="autoCheck(this)"></div>
-                </div>
-                <div class="symptom-row">
-                    <div class="symptom-name">תחושת חנק</div>
-                    <div class="symptom-action"><input type="checkbox" value="תחושת חנק" class="symp-cb"></div>
-                    <div class="symptom-action"><input type="radio" name="f-first-symptom" value="תחושת חנק" onclick="autoCheck(this)"></div>
-                </div>
-                <div class="symptom-row">
-                    <div class="symptom-name">פחד או חשש ממוות</div>
-                    <div class="symptom-action"><input type="checkbox" value="פחד או חשש ממוות" class="symp-cb"></div>
-                    <div class="symptom-action"><input type="radio" name="f-first-symptom" value="פחד או חשש ממוות" onclick="autoCheck(this)"></div>
-                </div>
-                <div class="symptom-row">
-                    <div class="symptom-name">פחד מאובדן שליטה או השתגעות</div>
-                    <div class="symptom-action"><input type="checkbox" value="פחד מאובדן שליטה או השתגעות" class="symp-cb"></div>
-                    <div class="symptom-action"><input type="radio" name="f-first-symptom" value="פחד מאובדן שליטה או השתגעות" onclick="autoCheck(this)"></div>
-                </div>
-            </div>
         </div>
 
         <div class="seamless-group">
             <label class="seamless-label">מחשבות:</label>
-            <textarea id="f-thoughts" class="seamless-input" style="margin-bottom: 20px;"></textarea>
+            <textarea id="f-thoughts" class="seamless-input" style="margin-bottom: 20px;" placeholder="פרט את מחשבותיך בזמן ההתקף"></textarea>
 
             <label class="seamless-label">התנהגות:</label>
-            <textarea id="f-behavior" class="seamless-input"></textarea>
+            <textarea id="f-behavior" class="seamless-input" placeholder="כיצד התנהגת? (לדוגמה: עזבתי את המקום, שתיתי מים, התקשרתי למישהו)"></textarea>
         </div>
 
         <div class="seamless-group" style="background: transparent; border: none; box-shadow: none; padding: 0;">
-            <p style="text-align: center; font-size: 1.1rem; color: #555; margin-bottom: 15px; font-weight: 600;">סיימת? בחרי כיצד לשמור את הדו"ח:</p>
-            <div class="export-actions">
-                <button class="btn-primary btn-whatsapp" style="flex: 1;" onclick="exportData('whatsapp')">העתק דו"ח לוואטסאפ</button>
-                <button class="btn-primary" style="flex: 1; background: #27ae60;" onclick="exportData('pdf')">שמור כקובץ PDF</button>
+            <p style="text-align: center; font-size: 1.1rem; color: #555; margin-bottom: 15px; font-weight: 600;">סיימת? בחר/י כיצד לשמור את הדו"ח:</p>
+            <div class="export-actions" style="display: flex; flex-direction: column; gap: 10px;">
+                <button class="btn-primary btn-whatsapp" onclick="exportData('sendToHezi')" style="font-size: 1.1rem; padding: 12px; background-color: var(--whatsapp-green);">לשליחת הדוח ישר לחזי</button>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-primary" onclick="exportData('copy')" style="flex: 1; font-size: 1rem; padding: 10px; background-color: #7f8c8d;">העתק דוח (תוכל להדביק אותו היכן שתבחר)</button>
+                    <button class="btn-primary" onclick="exportData('pdf')" style="flex: 1; font-size: 1rem; padding: 10px; background-color: #27ae60;">שמור כקובץ PDF</button>
+                </div>
             </div>
         </div>
     </div>
@@ -189,24 +250,125 @@ robots: noindex
 </div>
 
 <script>
-    // הפעלת הטופס והזנת תאריך/שעה
+    let selectedFullDate = "";
+
     function startForm() {
         document.getElementById('intro-screen').style.display = 'none';
         document.getElementById('form-interface').style.display = 'block';
         window.scrollTo(0, 0);
 
-        const now = new Date();
-        const yyyy = now.getFullYear();
-        const mm = String(now.getMonth() + 1).padStart(2, '0');
-        const dd = String(now.getDate()).padStart(2, '0');
-        document.getElementById('f-date').value = `${yyyy}-${mm}-${dd}`;
-        
-        const hh = String(now.getHours()).padStart(2, '0');
-        const min = String(now.getMinutes()).padStart(2, '0');
-        document.getElementById('f-time').value = `${hh}:${min}`;
+        initDateMenu();
+        initTimePickers();
+        initSymptoms();
     }
 
-    // סנכרון סליידר והקלדת פחד
+    // --- מערכת התאריכים החדשה ---
+    function initDateMenu() {
+        const menu = document.getElementById('date-menu');
+        const display = document.getElementById('date-display');
+        const dayNames = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+        
+        menu.innerHTML = '';
+        
+        // יצירת 7 ימים אחורה, כשהיום (0) יוצג למטה (אחרון)
+        for (let i = 6; i >= 0; i--) {
+            let d = new Date();
+            d.setDate(d.getDate() - i);
+            
+            let dd = String(d.getDate()).padStart(2, '0');
+            let mm = String(d.getMonth() + 1).padStart(2, '0');
+            let yyyy = d.getFullYear();
+            
+            let label = "";
+            if (i === 0) label = "היום";
+            else if (i === 1) label = "אתמול";
+            else if (i === 2) label = "שלשום";
+            else label = "יום " + dayNames[d.getDay()];
+            
+            let text = `${label} (${dd}/${mm})`;
+            let val = `${dd}/${mm}/${yyyy}`;
+            
+            let div = document.createElement('div');
+            div.className = 'date-item';
+            div.innerText = text;
+            div.onclick = () => {
+                selectedFullDate = val;
+                display.innerText = text;
+                toggleDateMenu();
+            };
+            menu.appendChild(div);
+
+            // הגדרת ברירת מחדל ליום הנוכחי (שיימצא בסוף הלולאה כש i=0)
+            if (i === 0) {
+                selectedFullDate = val;
+                display.innerText = text;
+            }
+        }
+    }
+
+    function toggleDateMenu() {
+        const menu = document.getElementById('date-menu');
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // --- מערכת הזמנים (Scroll) ---
+    function initTimePickers() {
+        const now = new Date();
+        updateTimeDisplay('start-h', now.getHours());
+        updateTimeDisplay('start-m', now.getMinutes());
+        
+        updateTimeDisplay('dur-h', 0);
+        updateTimeDisplay('dur-m', 0);
+    }
+
+    function updateTimeDisplay(id, val) {
+        document.getElementById(id).innerText = String(val).padStart(2, '0');
+    }
+
+    function handleWheel(e, id, max) {
+        e.preventDefault();
+        let current = parseInt(document.getElementById(id).innerText);
+        if (e.deltaY < 0) { // Scroll up
+            current = current >= max ? 0 : current + 1;
+        } else { // Scroll down
+            current = current <= 0 ? max : current - 1;
+        }
+        updateTimeDisplay(id, current);
+    }
+
+    // --- סימפטומים ---
+    const symptomsList = [
+        "כאבי חזה או חוסר נוחות", "הזעה", "דופק לב מואץ/ הלמות לב", 
+        "בחילה/ בטן כואבת", "קוצר נשימה", "סחרחורת/ חוסר יציבות/ עילפון", 
+        "רעד/ צמרמורת", "גלי חום/ גלי קור", "תחושת נימול או עמימות", 
+        "תחושה של חוסר מציאות", "תחושת חנק", "פחד ממוות", 
+        "פחד מאובדן שליטה או השתגעות"
+    ];
+
+    function initSymptoms() {
+        const container = document.getElementById('symptoms-container');
+        // מחיקת סימפטומים קודמים אם קיימים (כדי למנוע כפילויות)
+        const rows = container.querySelectorAll('.symptom-row');
+        rows.forEach(row => row.remove());
+
+        symptomsList.forEach(s => {
+            let row = document.createElement('div');
+            row.className = 'symptom-row';
+            row.innerHTML = `
+                <div class="symptom-name">${s}</div>
+                <div class="symptom-action"><input type="checkbox" value="${s}" class="symp-cb"></div>
+                <div class="symptom-action"><input type="radio" name="f-first-symptom" value="${s}" onclick="autoCheck(this)"></div>
+            `;
+            container.appendChild(row);
+        });
+    }
+
+    function autoCheck(radioEl) {
+        const row = radioEl.closest('.symptom-row');
+        const cb = row.querySelector('.symp-cb');
+        if(cb) cb.checked = true;
+    }
+
     function syncFear(val, source) {
         let v = parseInt(val);
         if(isNaN(v)) v = 0;
@@ -221,21 +383,27 @@ robots: noindex
         }
     }
 
-    // סימון אוטומטי ב-V אם המשתמש סימן שזהו הסימפטום הראשון
-    function autoCheck(radioEl) {
-        const row = radioEl.closest('.symptom-row');
-        const cb = row.querySelector('.symp-cb');
-        if(cb) cb.checked = true;
-    }
-
-    // איסוף הנתונים מהטופס
+    // --- איסוף הנתונים ---
     function collectData() {
+        // שעת ההתחלה
+        const hStart = document.getElementById('start-h').innerText;
+        const mStart = document.getElementById('start-m').innerText;
+        const displayTime = `${hStart}:${mStart}`;
+
+        // משך ההתקף
+        const hDur = parseInt(document.getElementById('dur-h').innerText);
+        const mDur = parseInt(document.getElementById('dur-m').innerText);
+        let durationText = "";
+        if (hDur === 0 && mDur === 0) durationText = "פחות מדקה";
+        else if (hDur === 0) durationText = `${mDur} דקות`;
+        else if (mDur === 0) durationText = hDur === 1 ? "שעה אחת" : `${hDur} שעות`;
+        else durationText = (hDur === 1 ? "שעה" : `${hDur} שעות`) + ` ו-${mDur} דקות`;
+
+        // נסיבות
         const socialRadio = document.querySelector('input[name="f-social"]:checked');
         let socialValue = socialRadio ? socialRadio.value : "לא סומן";
         const socialDetails = document.getElementById('f-social-details').value.trim();
-        if (socialDetails) {
-            socialValue += ` (${socialDetails})`; 
-        }
+        if (socialDetails) socialValue += ` (${socialDetails})`; 
 
         const stressfulRadio = document.querySelector('input[name="f-stressful"]:checked');
         const stressfulValue = stressfulRadio ? stressfulRadio.value : "לא סומן";
@@ -243,6 +411,7 @@ robots: noindex
         const expectedRadio = document.querySelector('input[name="f-expected"]:checked');
         const expectedValue = expectedRadio ? expectedRadio.value : "לא סומן";
 
+        // סימפטומים
         const checkboxes = document.querySelectorAll('.symp-cb:checked');
         let selectedSymptoms = [];
         checkboxes.forEach(cb => selectedSymptoms.push(cb.value));
@@ -251,9 +420,9 @@ robots: noindex
         const firstSymptomValue = firstSymptomRadio ? firstSymptomRadio.value : "לא סומן";
 
         return {
-            date: document.getElementById('f-date').value || "לא צוין",
-            time: document.getElementById('f-time').value || "לא צוין",
-            duration: document.getElementById('f-duration').value || "לא צוין",
+            date: selectedFullDate,
+            time: displayTime,
+            duration: durationText,
             social: socialValue,
             stressful: stressfulValue,
             expected: expectedValue,
@@ -266,14 +435,21 @@ robots: noindex
         };
     }
 
-    // פונקציית ייצוא
+    // --- ייצוא הנתונים ---
     function exportData(type) {
         const d = collectData();
-        
-        if (type === 'whatsapp') {
-            const waText = `*דו"ח התקף פניקה* 📝\nתאריך: ${d.date} | זמן: ${d.time} | משך: ${d.duration} דק'\nעם: ${d.social} | מלחיץ? ${d.stressful}\n\n*טריגרים:* ${d.trigger}\n*צפיות:* ${d.expected}\n*פחד מקסימלי:* ${d.fear}/10\n\n*סימפטומים:* ${d.symptoms}\n*סימפטום ראשון:* ${d.first_symptom}\n\n*מחשבות:* ${d.thoughts}\n*התנהגות:* ${d.behavior}`;
-            navigator.clipboard.writeText(waText).then(() => {
-                alert('הדוח המלא הועתק ללוח. אפשר להדביק אותו בוואטסאפ.');
+        const reportText = `*דו"ח התקף פניקה* 📝\nתאריך: ${d.date} | שעת ההתחלה: ${d.time} | משך: ${d.duration}\nעם: ${d.social}\nהאם היה צפוי? ${d.expected} | האם היה מלחיץ? ${d.stressful}\n\n*טריגרים:* ${d.trigger}\n*פחד מקסימלי:* ${d.fear}/10\n\n*סימפטומים:* ${d.symptoms}\n*סימפטום ראשון:* ${d.first_symptom}\n\n*מחשבות:* ${d.thoughts}\n*התנהגות:* ${d.behavior}`;
+
+        if (type === 'sendToHezi') {
+            const whatsappNumber = "{{ site.whatsapp_number }}"; 
+            const encodedText = encodeURIComponent(reportText);
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodedText}`, '_blank');
+        }
+        else if (type === 'copy') {
+            navigator.clipboard.writeText(reportText).then(() => {
+                alert('הדוח המלא הועתק. עכשיו תוכל/י להדביק אותו בכל מקום (הודעה, פתקים וכו\').');
+            }).catch(err => {
+                alert('לא הצלחנו להעתיק את הדוח. אנא נסה/י שוב.');
             });
         } 
         else if (type === 'pdf') {
@@ -301,14 +477,15 @@ robots: noindex
                     <table>
                         <tr>
                             <td class="td-label">תאריך:</td><td class="td-value">${d.date}</td>
-                            <td class="td-label">זמן התחלה:</td><td class="td-value">${d.time}</td>
+                            <td class="td-label">שעת ההתחלה:</td><td class="td-value">${d.time}</td>
                         </tr>
                         <tr>
-                            <td class="td-label">משך (דקות):</td><td class="td-value">${d.duration}</td>
-                            <td class="td-label">מלחיץ?</td><td class="td-value">${d.stressful}</td>
+                            <td class="td-label">משך:</td><td class="td-value">${d.duration}</td>
+                            <td class="td-label">עם מי הייתי:</td><td class="td-value">${d.social}</td>
                         </tr>
                         <tr>
-                            <td class="td-label">עם מי הייתי:</td><td colspan="3">${d.social}</td>
+                            <td class="td-label">האם היה צפוי?</td><td class="td-value">${d.expected}</td>
+                            <td class="td-label">האם היה מלחיץ?</td><td class="td-value">${d.stressful}</td>
                         </tr>
                     </table>
 
@@ -319,7 +496,6 @@ robots: noindex
                     </div>
                     <table>
                         <tr>
-                            <td class="td-label">האם היה צפוי?</td><td class="td-value">${d.expected}</td>
                             <td class="td-label">פחד מקסימלי:</td><td class="td-value"><strong>${d.fear} מתוך 10</strong></td>
                         </tr>
                     </table>
@@ -347,4 +523,13 @@ robots: noindex
             setTimeout(() => window.print(), 300);
         }
     }
+    
+    // סגירת התפריט בלחיצה מחוץ אליו
+    document.addEventListener('click', function(event) {
+        const menu = document.getElementById('date-menu');
+        const trigger = document.getElementById('date-display');
+        if (menu.style.display === 'block' && event.target !== menu && event.target !== trigger) {
+            menu.style.display = 'none';
+        }
+    });
 </script>
