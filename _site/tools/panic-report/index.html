@@ -13,9 +13,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>דו”ח התקף פניקה | טיפול קוגניטיבי-התנהגותי</title>
+<title>דוח התקף פניקה | טיפול קוגניטיבי-התנהגותי</title>
 <meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="דו”ח התקף פניקה" />
+<meta property="og:title" content="דוח התקף פניקה" />
 <meta name="author" content="חזי באר" />
 <meta property="og:locale" content="he" />
 <meta name="description" content="חזי באר - פסיכולוג קליני מומחה טיפול קוגניטיבי-התנהגותי" />
@@ -25,11 +25,11 @@
 <meta property="og:site_name" content="טיפול קוגניטיבי-התנהגותי" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="דו”ח התקף פניקה" />
+<meta property="twitter:title" content="דוח התקף פניקה" />
 <meta name="twitter:site" content="@" />
 <meta name="twitter:creator" content="@חזי באר" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"חזי באר"},"description":"חזי באר - פסיכולוג קליני מומחה טיפול קוגניטיבי-התנהגותי","headline":"דו”ח התקף פניקה","url":"http://localhost:4000/tools/panic-report/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"חזי באר"},"description":"חזי באר - פסיכולוג קליני מומחה טיפול קוגניטיבי-התנהגותי","headline":"דוח התקף פניקה","url":"http://localhost:4000/tools/panic-report/"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -67,166 +67,217 @@
 </nav>
 
     <main>
-        <link rel="stylesheet" href="/assets/css/main.css">
+        
 
-<style>
-    /* עיצוב ייעודי לרכיבי הזמן והתאריך */
-    .time-date-row {
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-        align-items: flex-end;
-    }
 
-    .picker-container {
-        position: relative;
-        flex: 1;
-        min-width: 140px;
-    }
 
-    .custom-label {
-        display: block;
-        font-size: 0.95rem;
-        color: #555;
-        margin-bottom: 8px;
-        font-weight: 600;
-    }
 
-    /* כפתור התאריך והתפריט */
-    .date-trigger {
-        width: 100%;
-        padding: 12px;
-        border: 2px solid #eee;
-        border-radius: 12px;
-        background: #fafafa;
-        cursor: pointer;
-        text-align: right;
-        font-size: 1rem;
-        transition: border-color 0.2s;
-        position: relative;
-    }
 
-    .date-menu {
-        display: none;
-        position: absolute;
-        top: calc(100% + 5px);
-        left: 0;
-        right: 0;
-        background: white;
-        border: 1px solid #ddd;
-        border-radius: 12px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        z-index: 100;
-        overflow: hidden;
-    }
 
-    .date-item {
-        padding: 12px 15px;
-        cursor: pointer;
-        border-bottom: 1px solid #f0f0f0;
-        transition: background 0.2s;
-        font-size: 0.95rem;
-    }
 
-    .date-item:last-child {
-        border-bottom: none;
-    }
 
-    .date-item:hover { background: #fdfaff; color: var(--primary-purple); }
-    .date-item.selected { background: #f8f1fb; color: var(--primary-purple); font-weight: 600; }
 
-    /* בורר זמן דיגיטלי קומפקטי באותו השדה */
-    .digital-picker {
-        display: flex;
-        align-items: center;
-        background: #fafafa;
-        border: 2px solid #eee;
-        border-radius: 12px;
-        padding: 8px 12px;
-        direction: ltr;
-        justify-content: center;
-        gap: 8px;
-    }
 
-    .digital-icon {
-        font-size: 1.1rem;
-        margin-right: 5px;
-        filter: grayscale(1);
-        opacity: 0.7;
-    }
 
-    .unit-scroll {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 30px;
-        cursor: ns-resize;
-        user-select: none;
-        font-size: 1.2rem;
-        font-weight: 400; /* ללא הדגשה */
-        color: #333;
-    }
 
-    .separator-dots {
-        font-size: 1.2rem;
-        color: var(--primary-purple);
-        padding-bottom: 2px;
-    }
 
-    @media (max-width: 600px) {
-        .time-date-row { flex-direction: column; align-items: stretch; }
-    }
-</style>
 
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/css/main.css">
 <div id="print-area" style="display: none;"></div>
 
 <div id="app-wrapper" style="background: transparent; box-shadow: none; padding: 0;">
     
     <div id="intro-screen" class="modern-form-container" style="background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 4px 25px rgba(0,0,0,0.05); text-align: center;">
-        <h1 class="form-main-title" style="margin-bottom: 10px;">דו"ח התקף פניקה</h1>
+        <h1 class="form-main-title" style="margin-bottom: 10px;">דוח התקף פניקה</h1>
         
         <div class="privacy-notice" style="text-align: right; margin-top: 20px;">
-            <strong>המטרה:</strong> כלי זה נועד לסייע לך לתעד את פרטי האירוע בסמוך להתרחשותו. התיעוד מאפשר לעשות סדר, להבין מה קרה, ולשפר את המודעות לטריגרים ותגובות. זהו כלי עזר טיפולי.<br><br>
-            <strong>פרטיות מלאה:</strong> המידע שאת/ה מקליד/ה נשמר במכשירך האישי בלבד ואינו נשלח לשום שרת. לאחר סיום התיעוד תוכל/י להוריד את הדוח או לשלוח אותו ישירות אליי.
-        </div>
+    <strong>המטרה:</strong> כלי זה נועד לסייע לך לתעד את פרטי האירוע בסמוך להתרחשותו. התיעוד מאפשר לעשות סדר, להבין מה קרה, ולשפר את המודעות לטריגרים ותגובות. זהו כלי עזר טיפולי.<br><br>
+    <strong>פרטיות מלאה:</strong> המידע שאת/ה מזין/ה (כולל תמונות, אם צורפו) נשמר במכשירך האישי בלבד ואינו נשלח לשום שרת.
+</div>
         
-        <button class="btn-primary" onclick="startForm()" style="font-size: 1.3rem; padding: 15px 40px; margin-top: 25px;">למילוי הדו"ח</button>
+        <button class="btn-primary" onclick="startForm()" style="font-size: 1.3rem; padding: 15px 40px; margin-top: 25px;">למילוי הדוח</button>
     </div>
 
     <div id="form-interface" class="modern-form-container" style="display: none;">
         
-        <h1 class="form-main-title" style="margin-bottom: 30px;">דו"ח התקף פניקה</h1>
+        <h1 class="form-main-title" style="margin-bottom: 30px;">דוח התקף פניקה</h1>
 
         <div class="seamless-group">
-            <div class="time-date-row">
+            <style>
+    .time-date-row { display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end; }
+    .picker-container { position: relative; flex: 1; min-width: 140px; }
+    .custom-label { display: block; font-size: 0.95rem; color: #555; margin-bottom: 8px; font-weight: 600; }
+    
+    .date-trigger { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 12px; background: #fafafa; cursor: pointer; text-align: right; font-size: 1rem; transition: border-color 0.2s; position: relative; }
+    .date-menu { display: none; position: absolute; top: calc(100% + 5px); left: 0; right: 0; background: white; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); z-index: 100; overflow: hidden; }
+    .date-item { padding: 12px 15px; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: background 0.2s; font-size: 0.95rem; }
+    .date-item:last-child { border-bottom: none; }
+    .date-item:hover { background: #fdfaff; color: var(--primary-purple); }
+    
+    .digital-picker { display: inline-flex; align-items: center; background: #fafafa; border: 2px solid #eee; border-radius: 12px; padding: 8px 12px; direction: ltr; justify-content: center; gap: 8px; min-width: 180px; }
+    .digital-icon { font-size: 1.1rem; margin-right: 5px; filter: grayscale(1); opacity: 0.7; }
+    
+    /* הוספת touch-action: none חיונית כדי שהגלילה באצבע תעבוד חלקה בלי לגלול את כל העמוד */
+    .unit-scroll { display: flex; flex-direction: column; align-items: center; width: 30px; cursor: ns-resize; user-select: none; font-size: 1.2rem; font-weight: 400; color: #333; touch-action: none; }
+    .separator-dots { font-size: 1.2rem; color: var(--primary-purple); padding-bottom: 2px; }
+
+    @media (max-width: 600px) { .time-date-row { flex-direction: column; align-items: stretch; } .digital-picker { width: 100%; } }
+</style>
+
+<div class="time-date-row">
+    <div class="picker-container">
+        <label class="custom-label">תאריך:</label>
+        <div id="date-display" class="date-trigger" onclick="toggleDateMenu()">טוען...</div>
+        <div id="date-menu" class="date-menu"></div>
+    </div>
+
+    <div class="picker-container">
+        <label class="custom-label">שעת ההתחלה:</label>
+        <div class="digital-picker">
+            <span class="digital-icon">🕒</span>
+            <div class="unit-scroll" id="start-h" data-max="23" onwheel="handleWheel(event, 'start-h', 23)">00</div>
+            <span class="separator-dots">:</span>
+            <div class="unit-scroll" id="start-m" data-max="59" onwheel="handleWheel(event, 'start-m', 59)">00</div>
+        </div>
+    </div>
+
+    <div class="picker-container">
+        <label class="custom-label">משך ההתקף:</label>
+        <div class="digital-picker">
+            <span class="digital-icon">⏳</span>
+            <div class="unit-scroll" id="dur-h" data-max="12" onwheel="handleWheel(event, 'dur-h', 12)">00</div>
+            <span class="separator-dots">:</span>
+            <div class="unit-scroll" id="dur-m" data-max="59" onwheel="handleWheel(event, 'dur-m', 59)">00</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let selectedFullDate = "";
+
+    function initAppControls() {
+        // אתחול התאריך
+        const menu = document.getElementById('date-menu');
+        const display = document.getElementById('date-display');
+        const dayNames = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+        menu.innerHTML = '';
+        
+        for (let i = 6; i >= 0; i--) {
+            let d = new Date();
+            d.setDate(d.getDate() - i);
+            let dd = String(d.getDate()).padStart(2, '0');
+            let mm = String(d.getMonth() + 1).padStart(2, '0');
+            let yyyy = d.getFullYear();
+            
+            let label = i === 0 ? "היום" : i === 1 ? "אתמול" : i === 2 ? "שלשום" : "יום " + dayNames[d.getDay()];
+            let text = `${label} (${dd}/${mm})`;
+            let val = `${dd}/${mm}/${yyyy}`;
+            
+            let div = document.createElement('div');
+            div.className = 'date-item';
+            div.innerText = text;
+            div.onclick = () => {
+                selectedFullDate = val;
+                display.innerText = text;
+                toggleDateMenu();
+            };
+            menu.appendChild(div);
+
+            if (i === 0) {
+                selectedFullDate = val;
+                display.innerText = text;
+            }
+        }
+
+        // אתחול הזמנים (שעה נוכחית ו-00:00 למשך)
+        const now = new Date();
+        updateTimeDisplay('start-h', now.getHours());
+        updateTimeDisplay('start-m', now.getMinutes());
+        updateTimeDisplay('dur-h', 0);
+        updateTimeDisplay('dur-m', 0);
+
+        // *** הוספת תמיכה בגלילת מגע (Swipe) בנייד ***
+        document.querySelectorAll('.unit-scroll').forEach(el => {
+            let startY = 0;
+            let startVal = 0;
+            
+            el.addEventListener('touchstart', e => {
+                startY = e.touches[0].clientY;
+                startVal = parseInt(el.innerText);
+            }, {passive: true});
+
+            el.addEventListener('touchmove', e => {
+                e.preventDefault(); // עוצר גלילה של כל המסך בעת בחירת מספר
+                let currentY = e.touches[0].clientY;
+                let diff = startY - currentY;
+                let steps = Math.floor(diff / 15); // כל 15 פיקסלים מעלים/מורידים ספרה
                 
-                <div class="picker-container">
-                    <label class="custom-label">תאריך:</label>
-                    <div id="date-display" class="date-trigger" onclick="toggleDateMenu()">טוען...</div>
-                    <div id="date-menu" class="date-menu"></div>
-                </div>
+                let max = parseInt(el.getAttribute('data-max'));
+                let newVal = startVal + steps;
+                
+                // מתמטיקה סיבובית (Wrap around)
+                let modVal = ((newVal % (max + 1)) + (max + 1)) % (max + 1);
+                el.innerText = String(modVal).padStart(2, '0');
+            }, {passive: false});
+        });
+    }
 
-                <div class="picker-container">
-                    <label class="custom-label">שעת ההתחלה:</label>
-                    <div class="digital-picker">
-                        <span class="digital-icon">🕒</span>
-                        <div class="unit-scroll" id="start-h" onwheel="handleWheel(event, 'start-h', 23)">00</div>
-                        <span class="separator-dots">:</span>
-                        <div class="unit-scroll" id="start-m" onwheel="handleWheel(event, 'start-m', 59)">00</div>
-                    </div>
-                </div>
+    function toggleDateMenu() {
+        const menu = document.getElementById('date-menu');
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
 
-                <div class="picker-container">
-                    <label class="custom-label">משך ההתקף:</label>
-                    <div class="digital-picker">
-                        <span class="digital-icon">⏳</span>
-                        <div class="unit-scroll" id="dur-h" onwheel="handleWheel(event, 'dur-h', 12)">00</div>
-                        <span class="separator-dots">:</span>
-                        <div class="unit-scroll" id="dur-m" onwheel="handleWheel(event, 'dur-m', 59)">00</div>
-                    </div>
-                </div>
+    document.addEventListener('click', function(event) {
+        const menu = document.getElementById('date-menu');
+        const trigger = document.getElementById('date-display');
+        if (menu && menu.style.display === 'block' && event.target !== menu && event.target !== trigger) {
+            menu.style.display = 'none';
+        }
+    });
 
-            </div>
+    function updateTimeDisplay(id, val) {
+        document.getElementById(id).innerText = String(val).padStart(2, '0');
+    }
+
+    function handleWheel(e, id, max) {
+        e.preventDefault();
+        let current = parseInt(document.getElementById(id).innerText);
+        if (e.deltaY < 0) { current = current >= max ? 0 : current + 1; } 
+        else { current = current <= 0 ? max : current - 1; }
+        updateTimeDisplay(id, current);
+    }
+
+    // פונקציה מרכזית למשיכת נתוני הזמן והתאריך
+    function getAppTimeData() {
+        const hStart = document.getElementById('start-h').innerText;
+        const mStart = document.getElementById('start-m').innerText;
+        const hDur = parseInt(document.getElementById('dur-h').innerText);
+        const mDur = parseInt(document.getElementById('dur-m').innerText);
+        
+        let durationText = "";
+        if (hDur === 0 && mDur === 0) durationText = "פחות מדקה";
+        else if (hDur === 0) durationText = `${mDur} דקות`;
+        else if (mDur === 0) durationText = hDur === 1 ? "שעה אחת" : `${hDur} שעות`;
+        else durationText = (hDur === 1 ? "שעה" : `${hDur} שעות`) + ` ו-${mDur} דקות`;
+
+        return {
+            date: selectedFullDate,
+            time: `${hStart}:${mStart}`,
+            duration: durationText
+        };
+    }
+</script>
         </div>
         
         <div class="seamless-group">
@@ -260,25 +311,25 @@
         </div>
 
         <div class="seamless-group">
-            <label class="seamless-label">פחד מקסימלי (0 - כלל לא, 10 - קיצוני):</label>
-            <div class="fear-control-wrapper">
-                <div class="slider-container-inner">
-                    <input type="range" id="f-fear-slider" class="fear-slider" min="0" max="10" step="1" value="5" oninput="syncFear(this.value, 'slider')">
-                    <div class="slider-labels">
-                        <span style="text-align: right;">כלל לא</span>
-                        <span style="text-align: center;">קל</span>
-                        <span style="text-align: center;">מתון</span>
-                        <span style="text-align: center;">חזק</span>
-                        <span style="text-align: left;">קיצוני</span>
-                    </div>
-                </div>
-                <input type="number" id="f-fear-input" class="fear-number-input" min="0" max="10" value="5" oninput="syncFear(this.value, 'input')">
-            </div>
+            <label class="seamless-label">פחד מקסימלי (0-10):</label>
+<div class="fear-control-wrapper" style="margin-bottom: 25px;">
+    <div class="slider-container-inner">
+        <input type="range" id="f-fear-slider" class="fear-slider" min="0" max="10" step="1" value="5" oninput="syncSlider('f-fear', this.value, 'slider')">
+        <div class="slider-labels">
+            <span style="text-align: right;">כלל לא</span>
+            <span style="text-align: center;">קל</span>
+            <span style="text-align: center;">מתון</span>
+            <span style="text-align: center;">חזק</span>
+            <span style="text-align: left;">קיצוני</span>
+        </div>
+    </div>
+    <input type="number" id="f-fear-input" class="fear-number-input" min="0" max="10" value="5" oninput="syncSlider('f-fear', this.value, 'input')">
+</div>
         </div>
 
         <div class="seamless-group">
             <label class="seamless-label" style="font-size: 1.3rem;">סימפטומים</label>
-            <p style="margin-bottom: 15px; color: #555; font-size: 1.05rem;">יש לסמן ב-✔ את כל הסימפטומים שנחוו לפחות במידה קלה, ולסמן בעיגול את הסימפטום <strong>הראשון</strong> שנחווה:</p>
+            <p style="margin-bottom: 15px; color: #555; font-size: 1.05rem;">יש לסמן ב-✔ את כל הסימפטומים שנחוו לפחות במידה קלה, ולסמן בעיגול את הסימפטום הראשון שנחווה:</p>
             
             <div class="symptoms-modern-list" id="symptoms-container">
                 <div class="symptom-row-header">
@@ -286,7 +337,7 @@
                     <div style="text-align: center;">נחווה (✔)</div>
                     <div style="text-align: center;">הופיע ראשון</div>
                 </div>
-                </div>
+            </div>
         </div>
 
         <div class="seamless-group">
@@ -298,107 +349,32 @@
         </div>
 
         <div class="seamless-group" style="background: transparent; border: none; box-shadow: none; padding: 0;">
-            <p style="text-align: center; font-size: 1.1rem; color: #555; margin-bottom: 15px; font-weight: 600;">סיימת? בחר/י כיצד לשמור את הדו"ח:</p>
-            <div class="export-actions" style="display: flex; flex-direction: column; gap: 10px;">
-                <button class="btn-primary btn-whatsapp" onclick="exportData('sendToHezi')" style="font-size: 1.1rem; padding: 12px; background-color: var(--whatsapp-green);">לשליחת הדוח ישר לחזי</button>
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn-primary" onclick="exportData('copy')" style="flex: 1; font-size: 1rem; padding: 10px; background-color: #7f8c8d;">העתק דוח (תוכל להדביק אותו היכן שתבחר)</button>
-                    <button class="btn-primary" onclick="exportData('pdf')" style="flex: 1; font-size: 1rem; padding: 10px; background-color: #27ae60;">שמור כקובץ PDF</button>
-                </div>
-            </div>
+    <p style="text-align: center; font-size: 1.1rem; color: #555; margin-bottom: 15px; font-weight: 600;">סיימת? בחר/י כיצד לשמור את הדו"ח:</p>
+    <div class="export-actions" style="display: flex; flex-direction: column; gap: 10px;">
+        <button class="btn-primary btn-whatsapp" onclick="exportData('sendToHezi')" style="font-size: 1.1rem; padding: 12px; background-color: var(--whatsapp-green);">לשליחת הדוח ישר לחזי</button>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn-primary" onclick="exportData('copy')" style="flex: 1; font-size: 1rem; padding: 10px; background-color: #7f8c8d;">העתק דוח (תוכל להדביק אותו היכן שתבחר)</button>
+            <button class="btn-primary" onclick="exportData('pdf')" style="flex: 1; font-size: 1rem; padding: 10px; background-color: #27ae60;">שמור כקובץ PDF</button>
         </div>
+    </div>
+</div>
     </div>
 
 </div>
 
 <script>
-    let selectedFullDate = "";
+    // שימוש ב-Backticks למניעת שגיאות אם יש גרשיים בכותרת
+    const appTitle = `דוח התקף פניקה`;
 
     function startForm() {
         document.getElementById('intro-screen').style.display = 'none';
         document.getElementById('form-interface').style.display = 'block';
         window.scrollTo(0, 0);
-
-        initDateMenu();
-        initTimePickers();
+        
+        initAppControls(); // מה-include
         initSymptoms();
     }
 
-    // --- מערכת התאריכים החדשה ---
-    function initDateMenu() {
-        const menu = document.getElementById('date-menu');
-        const display = document.getElementById('date-display');
-        const dayNames = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
-        
-        menu.innerHTML = '';
-        
-        // יצירת 7 ימים אחורה, כשהיום (0) יוצג למטה (אחרון)
-        for (let i = 6; i >= 0; i--) {
-            let d = new Date();
-            d.setDate(d.getDate() - i);
-            
-            let dd = String(d.getDate()).padStart(2, '0');
-            let mm = String(d.getMonth() + 1).padStart(2, '0');
-            let yyyy = d.getFullYear();
-            
-            let label = "";
-            if (i === 0) label = "היום";
-            else if (i === 1) label = "אתמול";
-            else if (i === 2) label = "שלשום";
-            else label = "יום " + dayNames[d.getDay()];
-            
-            let text = `${label} (${dd}/${mm})`;
-            let val = `${dd}/${mm}/${yyyy}`;
-            
-            let div = document.createElement('div');
-            div.className = 'date-item';
-            div.innerText = text;
-            div.onclick = () => {
-                selectedFullDate = val;
-                display.innerText = text;
-                toggleDateMenu();
-            };
-            menu.appendChild(div);
-
-            // הגדרת ברירת מחדל ליום הנוכחי (שיימצא בסוף הלולאה כש i=0)
-            if (i === 0) {
-                selectedFullDate = val;
-                display.innerText = text;
-            }
-        }
-    }
-
-    function toggleDateMenu() {
-        const menu = document.getElementById('date-menu');
-        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    }
-
-    // --- מערכת הזמנים (Scroll) ---
-    function initTimePickers() {
-        const now = new Date();
-        updateTimeDisplay('start-h', now.getHours());
-        updateTimeDisplay('start-m', now.getMinutes());
-        
-        updateTimeDisplay('dur-h', 0);
-        updateTimeDisplay('dur-m', 0);
-    }
-
-    function updateTimeDisplay(id, val) {
-        document.getElementById(id).innerText = String(val).padStart(2, '0');
-    }
-
-    function handleWheel(e, id, max) {
-        e.preventDefault();
-        let current = parseInt(document.getElementById(id).innerText);
-        if (e.deltaY < 0) { // Scroll up
-            current = current >= max ? 0 : current + 1;
-        } else { // Scroll down
-            current = current <= 0 ? max : current - 1;
-        }
-        updateTimeDisplay(id, current);
-    }
-
-    // --- סימפטומים ---
     const symptomsList = [
         "כאבי חזה או חוסר נוחות", "הזעה", "דופק לב מואץ/ הלמות לב", 
         "בחילה/ בטן כואבת", "קוצר נשימה", "סחרחורת/ חוסר יציבות/ עילפון", 
@@ -409,7 +385,6 @@
 
     function initSymptoms() {
         const container = document.getElementById('symptoms-container');
-        // מחיקת סימפטומים קודמים אם קיימים (כדי למנוע כפילויות)
         const rows = container.querySelectorAll('.symptom-row');
         rows.forEach(row => row.remove());
 
@@ -431,37 +406,25 @@
         if(cb) cb.checked = true;
     }
 
-    function syncFear(val, source) {
+    // פונקציית סליידר אחידה
+    function syncSlider(id, val, source) {
         let v = parseInt(val);
+        let max = parseInt(document.getElementById(id + '-input').max) || 10;
         if(isNaN(v)) v = 0;
-        if(v > 10) v = 10;
+        if(v > max) v = max;
         if(v < 0) v = 0;
         
         if (source === 'slider') {
-            document.getElementById('f-fear-input').value = v;
+            document.getElementById(id + '-input').value = v;
         } else {
-            document.getElementById('f-fear-slider').value = v;
-            document.getElementById('f-fear-input').value = v; 
+            document.getElementById(id + '-slider').value = v;
+            document.getElementById(id + '-input').value = v; 
         }
     }
 
-    // --- איסוף הנתונים ---
     function collectData() {
-        // שעת ההתחלה
-        const hStart = document.getElementById('start-h').innerText;
-        const mStart = document.getElementById('start-m').innerText;
-        const displayTime = `${hStart}:${mStart}`;
+        const tData = getAppTimeData(); // מה-include
 
-        // משך ההתקף
-        const hDur = parseInt(document.getElementById('dur-h').innerText);
-        const mDur = parseInt(document.getElementById('dur-m').innerText);
-        let durationText = "";
-        if (hDur === 0 && mDur === 0) durationText = "פחות מדקה";
-        else if (hDur === 0) durationText = `${mDur} דקות`;
-        else if (mDur === 0) durationText = hDur === 1 ? "שעה אחת" : `${hDur} שעות`;
-        else durationText = (hDur === 1 ? "שעה" : `${hDur} שעות`) + ` ו-${mDur} דקות`;
-
-        // נסיבות
         const socialRadio = document.querySelector('input[name="f-social"]:checked');
         let socialValue = socialRadio ? socialRadio.value : "לא סומן";
         const socialDetails = document.getElementById('f-social-details').value.trim();
@@ -473,7 +436,6 @@
         const expectedRadio = document.querySelector('input[name="f-expected"]:checked');
         const expectedValue = expectedRadio ? expectedRadio.value : "לא סומן";
 
-        // סימפטומים
         const checkboxes = document.querySelectorAll('.symp-cb:checked');
         let selectedSymptoms = [];
         checkboxes.forEach(cb => selectedSymptoms.push(cb.value));
@@ -482,9 +444,10 @@
         const firstSymptomValue = firstSymptomRadio ? firstSymptomRadio.value : "לא סומן";
 
         return {
-            date: selectedFullDate,
-            time: displayTime,
-            duration: durationText,
+            title: appTitle,
+            date: tData.date,
+            time: tData.time,
+            duration: tData.duration,
             social: socialValue,
             stressful: stressfulValue,
             expected: expectedValue,
@@ -497,10 +460,9 @@
         };
     }
 
-    // --- ייצוא הנתונים ---
     function exportData(type) {
         const d = collectData();
-        const reportText = `*דו"ח התקף פניקה* 📝\nתאריך: ${d.date} | שעת ההתחלה: ${d.time} | משך: ${d.duration}\nעם: ${d.social}\nהאם היה צפוי? ${d.expected} | האם היה מלחיץ? ${d.stressful}\n\n*טריגרים:* ${d.trigger}\n*פחד מקסימלי:* ${d.fear}/10\n\n*סימפטומים:* ${d.symptoms}\n*סימפטום ראשון:* ${d.first_symptom}\n\n*מחשבות:* ${d.thoughts}\n*התנהגות:* ${d.behavior}`;
+        const reportText = `*${d.title}* 📝\nתאריך: ${d.date} | שעת ההתחלה: ${d.time} | משך: ${d.duration}\nעם: ${d.social}\nהאם היה צפוי? ${d.expected} | האם היה מלחיץ? ${d.stressful}\n\n*טריגרים:* ${d.trigger}\n*פחד מקסימלי:* ${d.fear}/10\n\n*סימפטומים:* ${d.symptoms}\n*סימפטום ראשון:* ${d.first_symptom}\n\n*מחשבות:* ${d.thoughts}\n*התנהגות:* ${d.behavior}`;
 
         if (type === 'sendToHezi') {
             const whatsappNumber = "972523865888"; 
@@ -534,7 +496,7 @@
                     }
                 </style>
                 <div class="pdf-wrapper" dir="rtl">
-                    <h1>דו"ח התקף פניקה</h1>
+                    <h1>${d.title}</h1>
                     
                     <table>
                         <tr>
@@ -585,15 +547,6 @@
             setTimeout(() => window.print(), 300);
         }
     }
-    
-    // סגירת התפריט בלחיצה מחוץ אליו
-    document.addEventListener('click', function(event) {
-        const menu = document.getElementById('date-menu');
-        const trigger = document.getElementById('date-display');
-        if (menu.style.display === 'block' && event.target !== menu && event.target !== trigger) {
-            menu.style.display = 'none';
-        }
-    });
 </script>
     </main>
 

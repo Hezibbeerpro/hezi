@@ -1,0 +1,14 @@
+<label class="seamless-label">{{ include.label }}</label>
+<div class="fear-control-wrapper" style="margin-bottom: 25px;">
+    <div class="slider-container-inner">
+        <input type="range" id="{{ include.id }}-slider" class="fear-slider" min="{{ include.min | default: '0' }}" max="{{ include.max | default: '10' }}" step="1" value="{{ include.val }}" oninput="syncSlider('{{ include.id }}', this.value, 'slider')">
+        <div class="slider-labels">
+            <span style="text-align: right;">כלל לא</span>
+            <span style="text-align: center;">קל</span>
+            <span style="text-align: center;">מתון</span>
+            <span style="text-align: center;">חזק</span>
+            <span style="text-align: left;">קיצוני</span>
+        </div>
+    </div>
+    <input type="number" id="{{ include.id }}-input" class="fear-number-input" min="{{ include.min | default: '0' }}" max="{{ include.max | default: '10' }}" value="{{ include.val }}" oninput="syncSlider('{{ include.id }}', this.value, 'input')">
+</div>
