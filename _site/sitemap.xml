@@ -33,6 +33,9 @@
 <loc>http://localhost:4000/privacy.html</loc>
 </url>
 <url>
+<loc>http://localhost:4000/tools/tricho-report/</loc>
+</url>
+<url>
 <loc>http://localhost:4000/assets/docs/specialist_license.pdf</loc>
 <lastmod>2026-02-01T09:07:20+02:00</lastmod>
 </url>
