@@ -422,7 +422,7 @@
         document.getElementById('form-interface').style.display = 'block';
         window.scrollTo(0, 0);
         
-        initAppControls(); // מה-include
+        initAppControls(); // מה-include המשותף
         initSymptoms();
     }
 
@@ -457,7 +457,7 @@
         if(cb) cb.checked = true;
     }
 
-    // פונקציית סליידר אחידה
+    // סנכרון סליידר מהקובץ המשותף
     function syncSlider(id, val, source) {
         let v = parseInt(val);
         let max = parseInt(document.getElementById(id + '-input').max) || 10;
@@ -474,7 +474,7 @@
     }
 
     function collectData() {
-        const tData = getAppTimeData(); // מה-include
+        const tData = getAppTimeData(); // מה-include המשותף
 
         const socialRadio = document.querySelector('input[name="f-social"]:checked');
         let socialValue = socialRadio ? socialRadio.value : "לא סומן";
