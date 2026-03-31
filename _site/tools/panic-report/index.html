@@ -114,7 +114,8 @@
         <h1 class="form-main-title" style="margin-bottom: 30px;">דוח התקף פניקה</h1>
 
         <div class="seamless-group">
-            <style>
+            <div class="time-date-row">
+                <style>
     .time-date-row { display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end; }
     .picker-container { position: relative; flex: 1; min-width: 140px; }
     .custom-label { display: block; font-size: 0.95rem; color: #555; margin-bottom: 8px; font-weight: 600; }
@@ -125,15 +126,15 @@
     .date-item:last-child { border-bottom: none; }
     .date-item:hover { background: #fdfaff; color: var(--primary-purple); }
     
-    .digital-picker { display: inline-flex; align-items: center; background: #fafafa; border: 2px solid #eee; border-radius: 12px; padding: 8px 12px; direction: ltr; justify-content: center; gap: 8px; min-width: 180px; }
-    .digital-icon { font-size: 1.1rem; margin-right: 5px; filter: grayscale(1); opacity: 0.7; }
-    .separator-dots { font-size: 1.2rem; color: var(--primary-purple); padding-bottom: 2px; }
+    .digital-picker { display: inline-flex; align-items: center; background: #fafafa; border: 2px solid #eee; border-radius: 12px; padding: 8px 12px; direction: ltr; justify-content: center; gap: 6px; min-width: 140px; }
+    .digital-icon { font-size: 1rem; margin-right: 5px; filter: grayscale(1); opacity: 0.7; }
+    .separator-dots { font-size: 1.05rem; color: var(--primary-purple); padding-bottom: 2px; }
     
-    /* Desktop Input Styles */
+    /* Desktop Input Styles - מוקטן וללא הדגשה */
     input.unit-scroll {
-        width: 36px;
-        font-size: 1.3rem;
-        font-weight: 600;
+        width: 28px;
+        font-size: 1rem;
+        font-weight: 400; 
         color: #333;
         background: transparent;
         border: none;
@@ -156,44 +157,27 @@
         .time-date-row { flex-direction: column; align-items: stretch; } 
         .desktop-picker { display: none !important; }
         .mobile-picker { display: flex !important; width: 100%; gap: 10px;}
-        .mobile-picker .seamless-input { flex: 1; padding: 12px; border: 2px solid #eee; border-radius: 12px; background: #fafafa; font-size: 1.1rem; text-align: center; font-family: inherit; }
+        .mobile-picker .seamless-input { flex: 1; padding: 12px; border: 2px solid #eee; border-radius: 12px; background: #fafafa; font-size: 1rem; text-align: center; font-family: inherit; font-weight: 400;}
         .mobile-picker .seamless-input:focus { border-color: var(--primary-purple); outline: none; }
     }
 </style>
 
-<div class="time-date-row">
-    <div class="picker-container">
-        <label class="custom-label">תאריך:</label>
-        <div id="date-display" class="date-trigger" onclick="toggleDateMenu()">טוען...</div>
-        <div id="date-menu" class="date-menu"></div>
-    </div>
+<div class="picker-container">
+    <label class="custom-label">תאריך:</label>
+    <div id="date-display" class="date-trigger" onclick="toggleDateMenu()">טוען...</div>
+    <div id="date-menu" class="date-menu"></div>
+</div>
 
-    <div class="picker-container">
-        <label class="custom-label">שעת ההתחלה:</label>
-        <div class="digital-picker desktop-picker">
-            <span class="digital-icon">🕒</span>
-            <input type="text" inputmode="numeric" class="unit-scroll" id="desktop-start-h" data-max="23" onwheel="handleWheel(event, this)" oninput="handleTyping(this)" onblur="formatBlur(this)">
-            <span class="separator-dots">:</span>
-            <input type="text" inputmode="numeric" class="unit-scroll" id="desktop-start-m" data-max="59" onwheel="handleWheel(event, this)" oninput="handleTyping(this)" onblur="formatBlur(this)">
-        </div>
-        <div class="mobile-picker">
-            <input type="time" id="mobile-start-time" class="seamless-input">
-        </div>
+<div class="picker-container">
+    <label class="custom-label">שעת ההתחלה:</label>
+    <div class="digital-picker desktop-picker">
+        <span class="digital-icon">🕒</span>
+        <input type="text" inputmode="numeric" class="unit-scroll" id="desktop-start-h" data-max="23" onwheel="handleWheel(event, this)" oninput="handleTyping(this)" onblur="formatBlur(this)">
+        <span class="separator-dots">:</span>
+        <input type="text" inputmode="numeric" class="unit-scroll" id="desktop-start-m" data-max="59" onwheel="handleWheel(event, this)" oninput="handleTyping(this)" onblur="formatBlur(this)">
     </div>
-
-    <div class="picker-container">
-        <label class="custom-label">משך ההתקף:</label>
-        <div class="digital-picker desktop-picker">
-            <span class="digital-icon">⏳</span>
-            <input type="text" inputmode="numeric" class="unit-scroll" id="desktop-dur-h" data-max="12" onwheel="handleWheel(event, this)" oninput="handleTyping(this)" onblur="formatBlur(this)">
-            <span class="separator-dots">:</span>
-            <input type="text" inputmode="numeric" class="unit-scroll" id="desktop-dur-m" data-max="59" onwheel="handleWheel(event, this)" oninput="handleTyping(this)" onblur="formatBlur(this)">
-        </div>
-        <div class="mobile-picker" style="direction: ltr;">
-            <select id="mobile-dur-h" class="seamless-input" style="flex: 1; text-align: center;"></select>
-            <span style="align-self: center; font-size: 1.5rem; font-weight: bold; color: var(--primary-purple); margin-bottom: 5px;">:</span>
-            <select id="mobile-dur-m" class="seamless-input" style="flex: 1; text-align: center;"></select>
-        </div>
+    <div class="mobile-picker">
+        <input type="time" id="mobile-start-time" class="seamless-input" style="font-weight: 400;">
     </div>
 </div>
 
@@ -201,11 +185,11 @@
     let selectedFullDate = "";
 
     function initAppControls() {
-        // אתחול התאריך
+        // Date init
         const menu = document.getElementById('date-menu');
         const display = document.getElementById('date-display');
         const dayNames = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
-        menu.innerHTML = '';
+        if(menu) menu.innerHTML = '';
         
         for (let i = 6; i >= 0; i--) {
             let d = new Date();
@@ -226,37 +210,45 @@
                 display.innerText = text;
                 toggleDateMenu();
             };
-            menu.appendChild(div);
+            if(menu) menu.appendChild(div);
 
-            if (i === 0) {
+            if (i === 0 && display) {
                 selectedFullDate = val;
                 display.innerText = text;
             }
         }
 
-        // אתחול זמנים - מחשב
+        // Desktop time init
         const now = new Date();
-        document.getElementById('desktop-start-h').value = String(now.getHours()).padStart(2, '0');
-        document.getElementById('desktop-start-m').value = String(now.getMinutes()).padStart(2, '0');
-        document.getElementById('desktop-dur-h').value = "00";
-        document.getElementById('desktop-dur-m').value = "00";
+        const dStartH = document.getElementById('desktop-start-h');
+        const dStartM = document.getElementById('desktop-start-m');
+        if(dStartH) dStartH.value = String(now.getHours()).padStart(2, '0');
+        if(dStartM) dStartM.value = String(now.getMinutes()).padStart(2, '0');
+        
+        const dDurH = document.getElementById('desktop-dur-h');
+        const dDurM = document.getElementById('desktop-dur-m');
+        if(dDurH) dDurH.value = "00";
+        if(dDurM) dDurM.value = "00";
 
-        // אתחול זמנים - מובייל
+        // Mobile time init
         let hh = String(now.getHours()).padStart(2, '0');
         let mm = String(now.getMinutes()).padStart(2, '0');
-        document.getElementById('mobile-start-time').value = `${hh}:${mm}`;
+        const mStart = document.getElementById('mobile-start-time');
+        if(mStart) mStart.value = `${hh}:${mm}`;
 
         let durH = document.getElementById('mobile-dur-h');
         let durM = document.getElementById('mobile-dur-m');
-        for(let i=0; i<=12; i++) durH.options.add(new Option(String(i).padStart(2,'0'), i));
-        for(let i=0; i<=59; i++) durM.options.add(new Option(String(i).padStart(2,'0'), i));
-        durH.value = 0;
-        durM.value = 0;
+        if(durH && durM) {
+            for(let i=0; i<=12; i++) durH.options.add(new Option(String(i).padStart(2,'0'), i));
+            for(let i=0; i<=59; i++) durM.options.add(new Option(String(i).padStart(2,'0'), i));
+            durH.value = 0;
+            durM.value = 0;
+        }
     }
 
     function toggleDateMenu() {
         const menu = document.getElementById('date-menu');
-        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        if(menu) menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
     }
 
     document.addEventListener('click', function(event) {
@@ -267,13 +259,12 @@
         }
     });
 
-    // פונקציות לשדות המחשב (הקלדה וגלילה)
     function handleTyping(el) {
-        let val = el.value.replace(/\D/g, ''); // הסרת כל תו שאינו מספר
+        let val = el.value.replace(/\D/g, ''); 
         let max = parseInt(el.getAttribute('data-max'));
         if (val !== '') {
             let num = parseInt(val);
-            if (num > max) num = max; // הגבלת ערך מקסימלי
+            if (num > max) num = max; 
             el.value = num;
         } else {
             el.value = '';
@@ -282,7 +273,7 @@
 
     function formatBlur(el) {
         if(el.value === '') el.value = '00';
-        else el.value = String(parseInt(el.value)).padStart(2, '0'); // הוספת אפס מוביל ביציאה מהשדה
+        else el.value = String(parseInt(el.value)).padStart(2, '0');
     }
 
     function handleWheel(e, el) {
@@ -295,21 +286,20 @@
         el.value = String(current).padStart(2, '0');
     }
 
-    // איסוף הנתונים המאוחד (בודק אם אנחנו במובייל או במחשב)
     function getAppTimeData() {
         let isMobile = window.matchMedia("(max-width: 600px)").matches;
         let timeStr, hDur, mDur;
         
         if (isMobile) {
             timeStr = document.getElementById('mobile-start-time').value || "00:00";
-            hDur = parseInt(document.getElementById('mobile-dur-h').value) || 0;
-            mDur = parseInt(document.getElementById('mobile-dur-m').value) || 0;
+            hDur = parseInt(document.getElementById('mobile-dur-h')?.value) || 0;
+            mDur = parseInt(document.getElementById('mobile-dur-m')?.value) || 0;
         } else {
             let hStart = document.getElementById('desktop-start-h').value;
             let mStart = document.getElementById('desktop-start-m').value;
             timeStr = `${String(parseInt(hStart)||0).padStart(2,'0')}:${String(parseInt(mStart)||0).padStart(2,'0')}`;
-            hDur = parseInt(document.getElementById('desktop-dur-h').value) || 0;
-            mDur = parseInt(document.getElementById('desktop-dur-m').value) || 0;
+            hDur = parseInt(document.getElementById('desktop-dur-h')?.value) || 0;
+            mDur = parseInt(document.getElementById('desktop-dur-m')?.value) || 0;
         }
         
         let durationText = "";
@@ -325,6 +315,21 @@
         };
     }
 </script>
+                <div class="picker-container">
+    <label class="custom-label">משך ההתקף:</label>
+    <div class="digital-picker desktop-picker">
+        <span class="digital-icon">⏳</span>
+        <input type="text" inputmode="numeric" class="unit-scroll" id="desktop-dur-h" data-max="12" onwheel="handleWheel(event, this)" oninput="handleTyping(this)" onblur="formatBlur(this)">
+        <span class="separator-dots">:</span>
+        <input type="text" inputmode="numeric" class="unit-scroll" id="desktop-dur-m" data-max="59" onwheel="handleWheel(event, this)" oninput="handleTyping(this)" onblur="formatBlur(this)">
+    </div>
+    <div class="mobile-picker" style="direction: ltr;">
+        <select id="mobile-dur-h" class="seamless-input" style="flex: 1; text-align: center; font-weight: 400;"></select>
+        <span style="align-self: center; font-size: 1.1rem; font-weight: 600; color: var(--primary-purple); margin-bottom: 2px;">:</span>
+        <select id="mobile-dur-m" class="seamless-input" style="flex: 1; text-align: center; font-weight: 400;"></select>
+    </div>
+</div>
+            </div>
         </div>
         
         <div class="seamless-group">
@@ -410,7 +415,6 @@
 </div>
 
 <script>
-    // שימוש ב-Backticks למניעת שגיאות אם יש גרשיים בכותרת
     const appTitle = `דוח התקף פניקה`;
 
     function startForm() {

@@ -1,0 +1,14 @@
+<div class="picker-container">
+    <label class="custom-label">{{ include.duration_label | default: 'משך:' }}</label>
+    <div class="digital-picker desktop-picker">
+        <span class="digital-icon">⏳</span>
+        <input type="text" inputmode="numeric" class="unit-scroll" id="desktop-dur-h" data-max="12" onwheel="handleWheel(event, this)" oninput="handleTyping(this)" onblur="formatBlur(this)">
+        <span class="separator-dots">:</span>
+        <input type="text" inputmode="numeric" class="unit-scroll" id="desktop-dur-m" data-max="59" onwheel="handleWheel(event, this)" oninput="handleTyping(this)" onblur="formatBlur(this)">
+    </div>
+    <div class="mobile-picker" style="direction: ltr;">
+        <select id="mobile-dur-h" class="seamless-input" style="flex: 1; text-align: center; font-weight: 400;"></select>
+        <span style="align-self: center; font-size: 1.1rem; font-weight: 600; color: var(--primary-purple); margin-bottom: 2px;">:</span>
+        <select id="mobile-dur-m" class="seamless-input" style="flex: 1; text-align: center; font-weight: 400;"></select>
+    </div>
+</div>
