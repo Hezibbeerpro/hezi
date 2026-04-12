@@ -425,15 +425,83 @@
             <textarea id="f-behavior" class="seamless-input" placeholder="כיצד התנהגת? (לדוגמה: עזבתי את המקום, שתיתי מים, התקשרתי למישהו)"></textarea>
         </div>
 
-        <div class="seamless-group" style="background: transparent; border: none; box-shadow: none; padding: 0;">
-    <p style="text-align: center; font-size: 1.1rem; color: #555; margin-bottom: 15px; font-weight: 600;">סיימת? בחר/י כיצד לשמור את הדו"ח:</p>
-    <div class="export-actions" style="display: flex; flex-direction: column; gap: 10px;">
-        <button class="btn-primary btn-whatsapp" onclick="exportData('sendToHezi')" style="font-size: 1.1rem; padding: 12px; background-color: var(--whatsapp-green);">לשליחת הדוח ישר לחזי</button>
-        <div style="display: flex; gap: 10px;">
-            <button class="btn-primary" onclick="exportData('copy')" style="flex: 1; font-size: 1rem; padding: 10px; background-color: #7f8c8d;">העתק דוח (תוכל להדביק אותו היכן שתבחר)</button>
-            <button class="btn-primary" onclick="exportData('pdf')" style="flex: 1; font-size: 1rem; padding: 10px; background-color: #27ae60;">שמור כקובץ PDF</button>
-        </div>
-    </div>
+        <style>
+    .export-buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 25px;
+        width: 100%;
+    }
+
+    .btn-export-v3 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 15px;
+        border-radius: 14px;
+        border: none;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: white;
+        width: 100%;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    /* כפתור ווטסאפ סגול - מיתוג חזי באר */
+    .btn-whatsapp-hezi {
+        background-color: var(--primary-purple) !important;
+    }
+
+    /* כפתור PDF אדום - סגנון אקרובט */
+    .btn-pdf-acrobat {
+        background-color: #e74c3c !important; /* אדום מקצועי */
+    }
+
+    /* כפתור העתקה ניטרלי */
+    .btn-copy-neutral {
+        background-color: #f8f9fa !important;
+        color: #555 !important;
+        border: 1px solid #eee !important;
+    }
+
+    .btn-export-v3:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        opacity: 0.95;
+    }
+
+    .btn-export-v3:active {
+        transform: translateY(0);
+    }
+
+    .btn-icon-svg {
+        width: 22px;
+        height: 22px;
+        fill: currentColor;
+    }
+</style>
+
+<div class="export-buttons-container">
+    <button class="btn-export-v3 btn-whatsapp-hezi" onclick="exportData('sendToHezi')">
+        <svg class="btn-icon-svg" viewBox="0 0 24 24">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.483 8.412-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.308 1.656zm6.29-4.143c1.589.943 3.385 1.44 5.216 1.441 5.44 0 9.865-4.427 9.867-9.867 0-2.639-1.027-5.118-2.892-6.984-1.866-1.867-4.346-2.895-6.985-2.896-5.44 0-9.866 4.426-9.869 9.868 0 1.908.54 3.768 1.562 5.354l-.995 3.634 3.715-.975zm11.014-6.973c-.273-.138-1.617-.798-1.868-.89-.25-.09-.432-.137-.614.137-.182.273-.706.89-.865 1.072-.158.183-.318.205-.59.069-.273-.137-1.15-.423-2.19-1.353-.809-.722-1.355-1.614-1.514-1.888-.159-.273-.017-.42.12-.556.122-.123.272-.319.408-.478.136-.16.182-.273.272-.455.09-.182.046-.341-.023-.478-.068-.137-.614-1.48-.84-2.026-.221-.535-.441-.462-.614-.471-.158-.008-.341-.01-.523-.01-.182 0-.477.068-.727.341-.25.273-.955.933-.955 2.277 0 1.345.977 2.641 1.114 2.823.136.182 1.922 2.934 4.655 4.114.65.28 1.157.447 1.553.573.654.207 1.248.178 1.718.108.523-.078 1.617-.661 1.845-1.3.227-.638.227-1.185.159-1.298-.069-.115-.25-.183-.523-.321z"/>
+        </svg>
+        <span>שלח לחזי</span>
+    </button>
+
+    <button class="btn-export-v3 btn-pdf-acrobat" onclick="exportData('pdf')">
+        <span style="font-size: 1.3rem;">📄</span>
+        <span>שמור כקובץ PDF</span>
+    </button>
+
+    <button class="btn-export-v3 btn-copy-neutral" onclick="exportData('copy')">
+        <span>📋</span>
+        <span>העתק טקסט</span>
+    </button>
 </div>
 
         <div class="guidance-accordion">
