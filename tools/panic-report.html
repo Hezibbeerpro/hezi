@@ -8,6 +8,25 @@ robots: noindex
 {% assign text_goal = "כלי זה נועד לסייע לך לתעד את פרטי האירוע בסמוך להתרחשותו. התיעוד מאפשר לעשות סדר, להבין מה קרה, ולשפר את המודעות לטריגרים ותגובות. זהו כלי עזר טיפולי." %}
 {% assign text_start_btn = "למילוי הדוח" %}
 
+{% assign text_guidance_btn = "מצפן בזמני התקף" %}
+
+{% capture text_guidance %}
+<ul class="guidance-list">
+    <li>
+        <strong>זה מרגיש מסוכן, אבל זה בטוח:</strong> ההרגשה העוצמתית שחווית היא תגובה פיזיולוגית תקינה. המערכת שלך נכנסה למצב הישרדותי "בטעות". זה מרגיש כמו סכנה קיומית או סכנה לשפיות שלך, אבל אלו רק רגשות ותחושות גופניות. זה בסדר שהן שם כרגע, בדיוק כמו כל תחושה אחרת.
+    </li>
+    <li>
+        <strong>זה גל שחולף:</strong> הגוף שלך יודע לחזור לאיזון באופן טבעי. שיא הגל כנראה כבר מאחוריך, והעוצמה תלך ותיחלש וגם זה יעבור.
+    </li>
+    <li>
+        <strong>תנטוש את המלחמה:</strong> אתה לא חייב "לנצח" את התחושה הזו כדי שהיא תיפסק. למעשה, המאבק הוא זה שמייצר מתח נוסף. נסה להרפות מעט את השרירים- בכתפיים, בלסת, ברגליים. תן לתחושות בבטן או בחזה להיות שם מבלי לנסות לשנות אותן או להידרך מולן. פשוט תן להן לעבור דרכך.
+    </li>
+    <li>
+        <strong>גיוון הרגע הנוכחי:</strong> החרדה מנסה לצמצם את כל עולמך לפחד בלבד. כדי להזכיר לעצמך שהחרדה היא רק חלק קטן ממה שקורה כרגע, נסה את זה: לחץ את כפות הרגליים חזק אל הרצפה והרגש את היציבות שלה. לאחר מכן, התבונן בסקרנות בחמישה חפצים שונים סביבך ושים לב לטמפרטורה של האוויר על עור הפנים שלך.
+    </li>
+</ul>
+{% endcapture %}
+
 {% assign text_time_label = "שעת ההתחלה:" %}
 {% assign text_duration_label = "משך ההתקף:" %}
 
@@ -32,15 +51,36 @@ robots: noindex
 {% assign ph_behavior = "כיצד התנהגת? (לדוגמה: עזבתי את המקום, שתיתי מים, התקשרתי למישהו)" %}
 
 <link rel="stylesheet" href="/assets/css/main.css">
+<style>
+    /* כותרות סגולות ואחידות */
+    .custom-label, .seamless-label { color: var(--primary-purple) !important; font-size: 1.05rem !important; font-weight: 600 !important; display: block; margin-bottom: 8px; }
+    
+    /* הכרחת שורת כפתורים אחת גם בנייד */
+    .radio-options-row { display: flex; flex-wrap: nowrap !important; overflow-x: auto; gap: 8px; padding-bottom: 5px; -ms-overflow-style: none; scrollbar-width: none; }
+    .radio-options-row::-webkit-scrollbar { display: none; }
+    .radio-chip { flex: 1 1 auto; white-space: nowrap; text-align: center; justify-content: center; padding: 10px 5px !important; font-size: 0.9rem !important; }
+
+    /* עיצוב תיבת הנחיות מתקפלת (המצפן) */
+    .guidance-accordion { margin-top: 30px; border-radius: 16px; overflow: hidden; border: 2px solid var(--bg-light-purple); background-color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    .guidance-header { width: 100%; background: #fdfaff; color: var(--primary-purple); padding: 18px 24px; text-align: right; font-weight: 700; cursor: pointer; border: none; display: flex; justify-content: space-between; align-items: center; font-size: 1.2rem; transition: background-color 0.2s ease; }
+    .guidance-header:hover { background-color: #f6eefe; }
+    .guidance-header:focus { outline: 2px solid var(--primary-purple); outline-offset: -2px; }
+    .guidance-content { display: none; padding: 24px; border-top: 2px solid var(--bg-light-purple); }
+    
+    /* עיצוב נגיש לטקסט ההנחיות */
+    .guidance-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 20px; }
+    .guidance-list li { position: relative; padding-right: 20px; color: var(--text-color); font-size: 1.1rem; line-height: 1.6; }
+    .guidance-list li::before { content: "•"; color: var(--primary-purple); font-weight: bold; position: absolute; right: 0; font-size: 1.5rem; line-height: 1; top: -2px; }
+    .guidance-list strong { color: var(--primary-purple); font-weight: 700; display: inline-block; margin-bottom: 4px; }
+</style>
+
 <div id="print-area" style="display: none;"></div>
 
 <div id="app-wrapper" style="background: transparent; box-shadow: none; padding: 0;">
     
     <div id="intro-screen" class="modern-form-container" style="background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 4px 25px rgba(0,0,0,0.05); text-align: center;">
         <h1 class="form-main-title" style="margin-bottom: 10px;">{{ page.title }}</h1>
-        
         {% include app_privacy_notice.html goal=text_goal %}
-        
         <button class="btn-primary" onclick="startForm()" style="font-size: 1.3rem; padding: 15px 40px; margin-top: 25px;">{{ text_start_btn }}</button>
     </div>
 
@@ -111,6 +151,16 @@ robots: noindex
         </div>
 
         {% include app_export_buttons.html %}
+
+        <div class="guidance-accordion">
+            <button class="guidance-header" onclick="toggleGuidance()" aria-expanded="false" aria-controls="guidance-body">
+                <span>🧭 {{ text_guidance_btn }}</span>
+                <span id="guidance-icon" aria-hidden="true">▼</span>
+            </button>
+            <div id="guidance-body" class="guidance-content" role="region">
+                {{ text_guidance }}
+            </div>
+        </div>
     </div>
 
 </div>
@@ -123,8 +173,24 @@ robots: noindex
         document.getElementById('form-interface').style.display = 'block';
         window.scrollTo(0, 0);
         
-        initAppControls(); // מה-include המשותף
+        initAppControls(); 
         initSymptoms();
+    }
+
+    function toggleGuidance() {
+        const body = document.getElementById('guidance-body');
+        const icon = document.getElementById('guidance-icon');
+        const header = document.querySelector('.guidance-header');
+        
+        if (body.style.display === 'block') {
+            body.style.display = 'none';
+            icon.innerText = '▼';
+            header.setAttribute('aria-expanded', 'false');
+        } else {
+            body.style.display = 'block';
+            icon.innerText = '▲';
+            header.setAttribute('aria-expanded', 'true');
+        }
     }
 
     const symptomsList = [
@@ -145,8 +211,8 @@ robots: noindex
             row.className = 'symptom-row';
             row.innerHTML = `
                 <div class="symptom-name">${s}</div>
-                <div class="symptom-action"><input type="checkbox" value="${s}" class="symp-cb"></div>
-                <div class="symptom-action"><input type="radio" name="f-first-symptom" value="${s}" onclick="autoCheck(this)"></div>
+                <div class="symptom-action"><input type="checkbox" value="${s}" class="symp-cb" aria-label="${s}"></div>
+                <div class="symptom-action"><input type="radio" name="f-first-symptom" value="${s}" onclick="autoCheck(this)" aria-label="סימפטום ראשון: ${s}"></div>
             `;
             container.appendChild(row);
         });
@@ -158,55 +224,33 @@ robots: noindex
         if(cb) cb.checked = true;
     }
 
-    // סנכרון סליידר מהקובץ המשותף
     function syncSlider(id, val, source) {
         let v = parseInt(val);
         let max = parseInt(document.getElementById(id + '-input').max) || 10;
-        if(isNaN(v)) v = 0;
-        if(v > max) v = max;
-        if(v < 0) v = 0;
-        
-        if (source === 'slider') {
-            document.getElementById(id + '-input').value = v;
-        } else {
-            document.getElementById(id + '-slider').value = v;
-            document.getElementById(id + '-input').value = v; 
-        }
+        if(isNaN(v)) v = 0; if(v > max) v = max; if(v < 0) v = 0;
+        if (source === 'slider') { document.getElementById(id + '-input').value = v; } 
+        else { document.getElementById(id + '-slider').value = v; document.getElementById(id + '-input').value = v; }
     }
 
     function collectData() {
-        const tData = getAppTimeData(); // מה-include המשותף
-
+        const tData = getAppTimeData();
         const socialRadio = document.querySelector('input[name="f-social"]:checked');
         let socialValue = socialRadio ? socialRadio.value : "לא סומן";
         const socialDetails = document.getElementById('f-social-details').value.trim();
         if (socialDetails) socialValue += ` (${socialDetails})`; 
 
-        const stressfulRadio = document.querySelector('input[name="f-stressful"]:checked');
-        const stressfulValue = stressfulRadio ? stressfulRadio.value : "לא סומן";
-
-        const expectedRadio = document.querySelector('input[name="f-expected"]:checked');
-        const expectedValue = expectedRadio ? expectedRadio.value : "לא סומן";
-
-        const checkboxes = document.querySelectorAll('.symp-cb:checked');
         let selectedSymptoms = [];
-        checkboxes.forEach(cb => selectedSymptoms.push(cb.value));
-
-        const firstSymptomRadio = document.querySelector('input[name="f-first-symptom"]:checked');
-        const firstSymptomValue = firstSymptomRadio ? firstSymptomRadio.value : "לא סומן";
+        document.querySelectorAll('.symp-cb:checked').forEach(cb => selectedSymptoms.push(cb.value));
 
         return {
-            title: appTitle,
-            date: tData.date,
-            time: tData.time,
-            duration: tData.duration,
+            title: appTitle, date: tData.date, time: tData.time, duration: tData.duration,
             social: socialValue,
-            stressful: stressfulValue,
-            expected: expectedValue,
+            stressful: document.querySelector('input[name="f-stressful"]:checked')?.value || "לא סומן",
+            expected: document.querySelector('input[name="f-expected"]:checked')?.value || "לא סומן",
             trigger: document.getElementById('f-trigger').value || "לא נכתב",
             fear: document.getElementById('f-fear-input').value,
             symptoms: selectedSymptoms.length > 0 ? selectedSymptoms.join(', ') : "לא סומנו",
-            first_symptom: firstSymptomValue,
+            first_symptom: document.querySelector('input[name="f-first-symptom"]:checked')?.value || "לא סומן",
             thoughts: document.getElementById('f-thoughts').value || "לא נכתב",
             behavior: document.getElementById('f-behavior').value || "לא נכתב"
         };
@@ -249,7 +293,6 @@ robots: noindex
                 </style>
                 <div class="pdf-wrapper" dir="rtl">
                     <h1>${d.title}</h1>
-                    
                     <table>
                         <tr>
                             <td class="td-label">תאריך:</td><td class="td-value">${d.date}</td>
@@ -264,36 +307,14 @@ robots: noindex
                             <td class="td-label">האם היה מלחיץ?</td><td class="td-value">${d.stressful}</td>
                         </tr>
                     </table>
-
                     <div class="section-title">טריגר ועוצמה</div>
-                    <div class="content-box">
-                        <span class="box-label">טריגרים:</span>
-                        <p class="box-text">${d.trigger}</p>
-                    </div>
-                    <table>
-                        <tr>
-                            <td class="td-label">פחד מקסימלי:</td><td class="td-value"><strong>${d.fear} מתוך 10</strong></td>
-                        </tr>
-                    </table>
-
+                    <div class="content-box"><span class="box-label">טריגרים:</span><p class="box-text">${d.trigger}</p></div>
+                    <table><tr><td class="td-label">פחד מקסימלי:</td><td class="td-value"><strong>${d.fear} מתוך 10</strong></td></tr></table>
                     <div class="section-title">סימפטומים</div>
-                    <div class="content-box" style="border-right: 4px solid #ffcc80;">
-                        <span class="box-label" style="color: #e65100;">סימפטומים שנחוו:</span>
-                        <p class="box-text">${d.symptoms}</p>
-                        <br>
-                        <span class="box-label" style="color: #e65100;">הסימפטום הראשון שהופיע:</span>
-                        <p class="box-text"><strong><u>${d.first_symptom}</u></strong></p>
-                    </div>
-
+                    <div class="content-box" style="border-right: 4px solid #ffcc80;"><span class="box-label" style="color: #e65100;">סימפטומים שנחוו:</span><p class="box-text">${d.symptoms}</p><br><span class="box-label" style="color: #e65100;">הסימפטום הראשון שהופיע:</span><p class="box-text"><strong><u>${d.first_symptom}</u></strong></p></div>
                     <div class="section-title">מחשבות והתנהגות</div>
-                    <div class="content-box" style="border-right: 4px solid #81d4fa;">
-                        <span class="box-label" style="color: #0277bd;">מחשבות בזמן ההתקף:</span>
-                        <p class="box-text">${d.thoughts}</p>
-                    </div>
-                    <div class="content-box" style="border-right: 4px solid #81c784;">
-                        <span class="box-label" style="color: #2e7d32;">התנהגות (מה עשיתי):</span>
-                        <p class="box-text">${d.behavior}</p>
-                    </div>
+                    <div class="content-box" style="border-right: 4px solid #81d4fa;"><span class="box-label" style="color: #0277bd;">מחשבות בזמן ההתקף:</span><p class="box-text">${d.thoughts}</p></div>
+                    <div class="content-box" style="border-right: 4px solid #81c784;"><span class="box-label" style="color: #2e7d32;">התנהגות (מה עשיתי):</span><p class="box-text">${d.behavior}</p></div>
                 </div>
             `;
             setTimeout(() => window.print(), 300);
