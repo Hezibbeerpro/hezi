@@ -56,7 +56,6 @@ layout: default
         animation: popIn 0.5s ease-out;
     }
     
-    /* עיצוב שדה הקלדה נעול */
     #chat-input:disabled {
         background-color: #f5f5f5;
         cursor: not-allowed;
@@ -134,7 +133,6 @@ layout: default
             return sessionData[key] ? sessionData[key] : "";
         });
 
-        // עדכון: מתבסס עכשיו על זה שיש רמה 1-10 במקום התשובה "כן"
         if (parsedText.includes("{COND_IMPORTANCE}")) {
             let condText = sessionData.importance_level ? `ציינת שהמשימה חשובה לך (ברמה ${sessionData.importance_level}). כשמשהו חשוב לנו, טבעי שהמערכת תיכנס לדריכות.\n\n` : "";
             parsedText = parsedText.replace("{COND_IMPORTANCE}", condText);
@@ -171,7 +169,6 @@ layout: default
         document.getElementById('btn-start-f').innerText = ft.btn_start_f;
         document.getElementById('btn-start-m').innerText = ft.btn_start_m;
 
-        // עדכון הרצף: הוסרה שאלת ה"כן/לא" והתנאי מהדירוג
         chatFlow = [
             { key: "location", question: () => ft.location_q(g) },
             { key: "task", question: () => ft.task_q },
@@ -191,14 +188,15 @@ layout: default
                 inputType: "options_and_text", multiSelect: true,
                 options: ft.somatic_options
             },
+            { key: "final_words", question: () => getGenderedQuestion('final_words_q') },
             { 
                 key: "bully_status", 
                 question: () => getGenderedQuestion('bully_status_q'),
                 inputType: "options", 
                 options: pc.bully_status_options || ["כן", "בעוצמה גבוהה יותר", "בעוצמה נמוכה יותר"]
             },
-            { key: "final_words", question: () => getGenderedQuestion('final_words_q') },
-            { key: "feedback", question: () => ft.feedback_q(g) }
+            // שילוב האמפתיה על מצב הבריון ביחד עם שאלת הפידבק הסופית
+            { key: "feedback", question: () => smartTextParser("{COND_BULLY_STATUS}\n\n" + ft.feedback_q(g)) }
         ];
 
         chatInput.addEventListener('keydown', function(e) {
@@ -325,10 +323,9 @@ layout: default
         const timestamp = new Date().toLocaleString('he-IL', { dateStyle: 'short', timeStyle: 'short' });
         const getVal = (key, defaultText = "לא צוין") => sessionData[key] ? sessionData[key] : defaultText;
         
-        // עדכון הייצוא: אין יותר צורך לבדוק אם ענו "כן" קודם
         let importanceText = sessionData.importance_level ? `רמה ${sessionData.importance_level} מתוך 10` : "לא צוין";
 
-        const reportText = `*${pc.dialog_title || "תרגול קשיבות"}* 📝\nתאריך: ${timestamp}\n\n*1. הקשר ומציאות*\n📍 *מיקום:* ${getVal('location')}\n🎯 *משימה:* ${getVal('task')}\n💡 *משמעות:* ${getVal('reason')}\n⚖️ *חשיבות:* ${importanceText}\n\n*2. מפת הקולות הפנימיים*\n🥺 *${pc.vulnerable_label || "החלק הפגיע"}*\n${getVal('vulnerable')}\n\n🗣️ *${pc.bully_label || "הבריון"}*\n"${getVal('bully')}"\n_${pc.answer_bully_label || "המחשבות הפוגעות"}_ ${getVal('answer_bully')}\n\n🫀 *תחושה פיזית בגוף:*\n${getVal('somatic')}\n\n*3. התמודדות וסיכום*\n🛡️ *${pc.bully_status_label || "סטטוס הבריון"}* ${getVal('bully_status')}\n💪 *${pc.final_words_label || "מילות סיום"}*\n${getVal('final_words')}\n\n✨ *רפלקציה:*\n${getVal('feedback')}`;
+        const reportText = `*${pc.dialog_title || "תרגול קשיבות"}* 📝\nתאריך: ${timestamp}\n\n*1. הקשר ומציאות*\n📍 *מיקום:* ${getVal('location')}\n🎯 *משימה:* ${getVal('task')}\n💡 *משמעות:* ${getVal('reason')}\n⚖️ *חשיבות:* ${importanceText}\n\n*2. מפת הקולות הפנימיים*\n🥺 *${pc.vulnerable_label || "החלק הפגיע"}*\n${getVal('vulnerable')}\n\n🗣️ *${pc.bully_label || "הבריון"}*\n"${getVal('bully')}"\n_${pc.answer_bully_label || "המחשבות הפוגעות"}_ ${getVal('answer_bully')}\n\n🫀 *תחושה פיזית בגוף:*\n${getVal('somatic')}\n\n*3. התמודדות וסיכום*\n💪 *${pc.final_words_label || "מילות סיום"}*\n${getVal('final_words')}\n\n🛡️ *${pc.bully_status_label || "סטטוס הבריון"}* ${getVal('bully_status')}\n\n✨ *רפלקציה:*\n${getVal('feedback')}`;
 
         if (type === 'sendToHezi') window.open(`https://wa.me/{{ site.whatsapp_number }}?text=${encodeURIComponent(reportText)}`, '_blank');
         else if (type === 'copy') navigator.clipboard.writeText(reportText).then(() => alert('הדו"ח המלא הועתק! ניתן להדביק אותו.'));
@@ -350,7 +347,7 @@ layout: default
                         <div class="print-box" style="background-color: #e1f5fe; padding: 12px; border-right: 4px solid #81d4fa; border-radius: 6px;"><h3 style="color: #0277bd; margin-top: 0; font-size: 14px; margin-bottom: 5px;">🥺 ${pc.vulnerable_label || "החלק הפגיע"}</h3><p style="font-size: 13px; margin-bottom: 0; line-height: 1.4;">${getVal('vulnerable')}</p></div>
                         <div class="print-box" style="background-color: #fce4ec; padding: 12px; border-right: 4px solid #f48fb1; border-radius: 6px;"><h3 style="color: #c2185b; margin-top: 0; font-size: 14px; margin-bottom: 5px;">🗣️ ${pc.bully_label || "הבריון"}</h3><p style="font-size: 13px; margin-bottom: 4px; line-height: 1.4;">"${getVal('bully')}"</p><p style="font-size: 11px; color: #555; margin-bottom: 0; line-height: 1.3;"><strong>${pc.answer_bully_label || "המחשבות הפוגעות"}</strong> ${getVal('answer_bully')}</p></div>
                         <div class="print-box" style="background-color: #fff3e0; padding: 12px; border-right: 4px solid #ffcc80; border-radius: 6px;"><h3 style="color: #e65100; margin-top: 0; font-size: 14px; margin-bottom: 5px;">🫀 תחושה פיזית בגוף:</h3><p style="font-size: 13px; margin-bottom: 0; line-height: 1.4;">${getVal('somatic')}</p></div>
-                        <div class="print-box" style="background-color: #e8f5e9; padding: 12px; border-right: 4px solid #81c784; border-radius: 6px;"><h3 style="color: #2e7d32; margin-top: 0; font-size: 14px; margin-bottom: 5px;">🛡️ ${pc.final_words_label || "מילות סיום"}</h3><p style="font-size: 12px; margin-bottom: 4px;"><strong>${pc.bully_status_label || "סטטוס הבריון"}</strong> ${getVal('bully_status')}</p><p style="font-size: 13px; font-weight: bold; margin-bottom: 0; line-height: 1.4;">${getVal('final_words')}</p></div>
+                        <div class="print-box" style="background-color: #e8f5e9; padding: 12px; border-right: 4px solid #81c784; border-radius: 6px;"><h3 style="color: #2e7d32; margin-top: 0; font-size: 14px; margin-bottom: 5px;">💪 ${pc.final_words_label || "מילות סיום"}</h3><p style="font-size: 13px; font-weight: bold; margin-bottom: 4px; line-height: 1.4;">${getVal('final_words')}</p><p style="font-size: 12px; margin-bottom: 0;"><strong>${pc.bully_status_label || "סטטוס הבריון"}</strong> ${getVal('bully_status')}</p></div>
                     </div>
                     <h2 style="color: #2c3e50; font-size: 16px; border-bottom: 1px solid #ccc; padding-bottom: 4px; margin-bottom: 10px;">3. סיכום התהליך</h2>
                     <div class="print-box" style="background-color: #f8f1fb; padding: 12px; border: 1px solid #9b59b6; border-radius: 6px;"><h3 style="color: #9b59b6; margin-top: 0; font-size: 14px; margin-bottom: 5px;">✨ רפלקציה ופידבק אישי:</h3><p style="font-size: 13px; margin-bottom: 0; line-height: 1.4;">${getVal('feedback')}</p></div>
