@@ -106,40 +106,23 @@
     .step-dot { width: 28px; height: 28px; border-radius: 50%; background-color: #eee; color: #aaa; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 0.85rem; transition: all 0.3s ease; border: 2px solid transparent; }
     .step-dot.active { background-color: white; color: var(--primary-purple); border-color: var(--primary-purple); transform: scale(1.15); box-shadow: 0 4px 12px rgba(155, 89, 182, 0.15); }
     .step-label { font-size: 0.75rem; font-weight: 500; text-align: center; color: #bbb; opacity: 1; visibility: visible; transition: color 0.3s ease; }
-    .step-label.active-text { color: var(--deep-purple); font-weight: 700; }
+    .step-label.active-text { color: var(--primary-purple); font-weight: 700; }
     .step-line { display: none; } 
 
-    /* כרטיסייה מרכזית - התאמת גובה להכלת הטקסט ללא גלילה */
+    /* כרטיסייה מרכזית */
     .onboarding-card { 
         background: #ffffff; 
         border-radius: 28px; 
         box-shadow: 0 10px 40px rgba(0,0,0,0.06); 
-        padding: 20px 20px; 
+        padding: 25px 20px; 
         position: relative; 
         display: flex; 
         flex-direction: column; 
-        height: 90vh; /* מוגדל ל-90vh למניעת גלילה */
+        height: 88vh; 
         max-height: 850px; 
         min-height: 600px;
         width: 100%;
         overflow: visible; 
-    }
-
-    .onb-profile-pic-container-v2 { 
-        position: absolute; 
-        top: -50px; 
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100px; 
-        height: 100px; 
-        z-index: 10; 
-    }
-    .onb-profile-pic-v2 { 
-        width: 100%; height: 100%; 
-        border-radius: 50%; 
-        object-fit: cover; 
-        border: 4px solid #ffffff; 
-        box-shadow: 0 8px 20px rgba(0,0,0,0.08); 
     }
     
     .onb-title-v2 { 
@@ -147,7 +130,7 @@
         font-size: 2rem; 
         font-weight: 700; 
         text-align: center; 
-        margin-bottom: 5px; 
+        margin-bottom: 10px; 
         flex-shrink: 0; 
     }
     .onb-title-v2 span { 
@@ -180,46 +163,42 @@
 
     .screen-footer { margin-top: auto; padding-top: 10px; flex-shrink: 0; background: #fff; z-index: 5; }
 
-    /* מרווח עליון אחיד לעמודים 1-5 */
+    /* מרווחים אחידים בכל העמודים */
     #step-0 .screen-content, #step-1 .screen-content, #step-2 .screen-content, 
-    #step-3 .screen-content, #step-4 .screen-content { padding-top: 10px; }
-    
-    #step-0 .screen-content { margin-top: 45px; } /* מקום לתמונת הפרופיל הבולטת */
+    #step-3 .screen-content, #step-4 .screen-content { padding-top: 5px; }
 
-    /* רשימת הפסקאות - שליטה מדויקת ואחידה על מרווחים (GAP) */
+    /* רשימת הפסקאות - שליטה מדויקת ואחידה על מרווחים */
     .info-card-list {
         display: flex;
         flex-direction: column;
-        gap: 20px; /* מרווח אחיד לחלוטין בין כל פריט, בכל עמוד */
+        gap: 15px; 
     }
 
-    /* איפוס הקלפים - ללא Margins עכשיו כשיש Gap */
     .info-card { 
         background: transparent; 
         border: none !important; 
         padding: 0; 
-        margin: 0; /* בוטל ה-margin לטובת ה-gap */
+        margin: 0; 
     }
     
     .info-card-title { 
         color: var(--primary-purple); 
         font-size: 1.25rem; 
-        margin-bottom: 6px; 
+        margin-bottom: 4px; 
         font-weight: 700; 
     }
     .info-card-text { 
         color: var(--text-color); 
-        font-size: 1.1rem; /* גודל מותאם למניעת חריגות */
-        line-height: 1.55; /* מרווח שורות אופטימלי לקריאה ולאורך */
+        font-size: 1.15rem; 
+        line-height: 1.55; 
         margin: 0; 
-        white-space: pre-line; /* שומר על ירידות השורה המקוריות מקובץ ה-YAML */
+        white-space: pre-line;
     }
 
-    /* הציטוט המרכזי בעמוד 2 */
     .highlight-card { 
         border: none; 
         padding: 0; 
-        margin: 0; 
+        margin: 15px 0; 
         background: transparent; 
     }
     .highlight-card .info-card-text { 
@@ -303,18 +282,15 @@
     .breathe-msg { font-size: 2rem; color: var(--primary-purple); font-weight: bold; position: absolute; opacity: 0; transition: opacity 1s ease; }
     .breathe-msg.active { opacity: 1; }
 
-    /* התאמה נוקשה לנייד למניעת גלילה לחלוטין */
     @media (max-width: 600px) {
         .onboarding-card { 
             height: 92vh; 
             padding: 25px 15px; 
             min-height: 550px;
         }
-        .onb-profile-pic-container-v2 { width: 90px; height: 90px; top: -45px; }
         .onb-title-v2 { font-size: 1.8rem; margin-bottom: 8px; }
-        #step-0 .screen-content { margin-top: 40px; }
         
-        .info-card-list { gap: 15px; } /* מרווח אחיד קטן יותר בנייד */
+        .info-card-list { gap: 15px; } 
         .info-card-title { font-size: 1.15rem; margin-bottom: 4px; }
         .info-card-text { font-size: 1.05rem; line-height: 1.45; } 
         
@@ -363,12 +339,6 @@
 
     <div class="onboarding-card">
         
-        <div id="dynamic-header-content">
-            <div class="onb-profile-pic-container-v2">
-                <img src="/assets/images/branding/profile.webp" alt="חזי באר" class="onb-profile-pic-v2">
-            </div>
-        </div>
-        
         <div class="onboarding-screen active" id="step-0">
             <div class="screen-content">
                 <h1 class="onb-title-v2" style="margin-bottom: 25px;">חזי באר<span>קליניקה לטיפול פסיכולוגי</span></h1>
@@ -380,7 +350,7 @@
                     </div>
                     <div class="info-card" style="text-align: right;">
                         <h3 class="info-card-title">הגישה שלי</h3>
-                        <p class="info-card-text">אני מטפל באמצעות שלל גישות מעולם הטיפול הקוגניטיבי-התנהגותי בניהן, קבלה ומחויבות, אקטיבציה התנהגותית וסכמה תרפיה. בנוסף, אני מיומן בשימוש בכלים מעולם הפסיכולוגיה החיובית והאימון העסקי. </p>
+                        <p class="info-card-text">אני מטפל באמצעות שלל גישות מעולם הטיפול הקוגניטיבי-התנהגותי בניהן, קבלה ומחויבות, אקטיבציה התנהגותית וסכמה תרפיה. בנוסף, אני מיומן בשימוש בכלים מעולם הפסיכולוגיה החיובית והאימון העסקי.</p>
                     </div>
                     <div class="info-card" style="text-align: right;">
                         <h3 class="info-card-title">מה עוד?</h3>
@@ -402,9 +372,13 @@
 בבסיס הגישה קיימת ההבנה שדפוסי החשיבה והתגובה האוטומטיים שלנו נוטים לשמר את המצב הקיים, גם אם הם כבר לא משרתים אותנו או אפילו גורמים לסבל. אני מזמין אותך למסע משותף שבמהלכו נזהה את הדפוסים הללו ונבחן כלים חדשים; יחד, נגלה אילו שינויים מייצרים תנועה חדשה בחייך ופותחים אפשרויות לפעולה גמישה, מודעת ומיטיבה יותר.</p>
                     </div>
                     <div class="info-card">
-                        <h3 class="info-card-title">מה זה אומר בתכל'ס? </h3>
-                        <p class="info-card-text"> הטיפול הוא תהליך אקטיבי שבו נבחן את יחסי הגומלין בין המחשבות, הרגשות וההתנהגות ביום-יום. העבודה כוללת זיהוי של תבניות חשיבה, זיהוי קונפליקטים פנימיים, פיתוח קבלה כלפי החוויות המורכבות שעולות בנו, ותירגול מעשי של תגובות מנטליות והתנהגותיות חדשות. </p>
+                        <h3 class="info-card-title">מה זה אומר בתכל'ס?</h3>
+                        <p class="info-card-text">הטיפול הוא תהליך אקטיבי שבו נבחן את יחסי הגומלין בין המחשבות, הרגשות וההתנהגות ביום-יום. העבודה כוללת זיהוי של תבניות חשיבה, זיהוי קונפליקטים פנימיים, פיתוח קבלה כלפי החוויות המורכבות שעולות בנו, ותירגול מעשי של תגובות מנטליות והתנהגותיות חדשות.</p>
                     </div>
+                </div>
+                
+                <div class="info-card highlight-card">
+                    <p class="info-card-text"></p>
                 </div>
             </div>
             <div class="screen-footer">
@@ -417,26 +391,17 @@
                 <div class="info-card-list">
                     <div class="info-card">
                         <h3 class="info-card-title">שלב ההערכה</h3>
-                        <p class="info-card-text">
-                            <span class="text-m">אמנם כבר הכרנו מעט בטלפון, אבל נמשיך לעשות זאת לאורך כל התהליך. הפגישה הראשונה שתימשך כ-90 דקות תשמש אותנו להערכה במהלכה נדבר על סיבת הפנייה ואבקש ממך רקע נוסף. בנוסף, ניעזר בשאלון אבחנתי שיסייע לנו לבחון האם ישנם סימפטומים ספציפיים מהם אתה סובל. גם בפגישות הבאות נמשיך את ההכרות וההערכה, בין היתר, באמצעות שאלונים ובירור מקיף של מטרותיך. </span>
-                            <span class="text-f">אמנם כבר הכרנו מעט בטלפון, אבל נמשיך לעשות זאת לאורך כל התהליך. הפגישה הראשונה שתימשך כ-90 דקות תשמש אותנו להערכה במהלכה נדבר על סיבת הפנייה ואבקש ממך רקע נוסף. בנוסף, ניעזר בשאלון אבחנתי שיסייע לנו לבחון האם ישנם סימפטומים ספציפיים מהם אתה סובלת. גם בפגישות הבאות נמשיך את ההכרות וההערכה, בין היתר, באמצעות שאלונים ובירור מקיף של מטרותייך. </span>
-                        </p>
+                        <p class="info-card-text"><span class="text-m">אמנם כבר הכרנו מעט בטלפון, אבל נמשיך לעשות זאת לאורך כל התהליך. הפגישה הראשונה תימשך כ-90 דקות ותשמש אותנו להכרות והערכה. במהלכה נרחיב על סיבת הפנייה ואבקש ממך רקע נוסף. בנוסף, ניעזר בשאלון אבחנתי שיסייע לנו לבחון האם ישנם סימפטומים ספציפיים מהם אתה סובל. גם בפגישות הבאות נמשיך את ההכרות וההערכה, בין היתר, באמצעות שאלונים ובירור מקיף של מטרותיך.</span><span class="text-f">אמנם כבר הכרנו מעט בטלפון, אבל נמשיך לעשות זאת לאורך כל התהליך. הפגישה הראשונה תימשך כ-90 דקות ותשמש אותנו להכרות והערכה. במהלכה נרחיב על סיבת הפנייה ואבקש ממך רקע נוסף. בנוסף, ניעזר בשאלון אבחנתי שיסייע לנו לבחון האם ישנם סימפטומים ספציפיים מהם את סובלת. גם בפגישות הבאות נמשיך את ההכרות וההערכה, בין היתר, באמצעות שאלונים ובירור מקיף של מטרותייך.</span></p>
                     </div>
                     <div class="info-card">
                         <h3 class="info-card-title">פגישות שבועיות</h3>
-                        <p class="info-card-text">
-                            <span class="text-m">במהלך הפגישות הראשונות נסכם על שעה שבועית קבועה שתימשך כ-50 דקות. בסיום כל פגישה נסכם על תרגולים ומטלות בית שביצוען על ידך יגדיל באופן משמעותי את הסיכויים שתשיג את מטרותיך.
-משך התהליך ומידת הצלחתו משתנה ואינדיבידואלי. מפעם לפעם נעצור להערכת מצב כדי לבחון את התקדמותך, המשך הצורך בהמשך פגישות שבועיות או את הגדלת המרווח בין הפגישות. </span>
-                            <span class="text-f">במהלך הפגישות הראשונות נסכם על שעה שבועית קבועה שתימשך כ-50 דקות. בסיום כל פגישה נסכם על תרגולים ומטלות בית שביצוען על ידך יגדיל באופן משמעותי את הסיכויים שתשיג את מטרותיך.
-משך התהליך ומידת הצלחתו משתנה ואינדיבידואלי. מפעם לפעם נעצור להערכת מצב כדי לבחון את התקדמותך, המשך הצורך בהמשך פגישות שבועיות או את הגדלת המרווח בין הפגישות. </span>
-                        </p>
+                        <p class="info-card-text"><span class="text-m">במהלך הפגישות הראשונות נסכם על שעה שבועית קבועה שתימשך כ-50 דקות. בסיום כל פגישה נסכם על תרגולים ומטלות בית שביצוען על ידך יגדיל באופן משמעותי את הסיכויים שתשיג את מטרותיך.
+משך התהליך ומידת הצלחתו משתנה ואינדיבידואלי. מפעם לפעם נעצור להערכת מצב כדי לבחון את התקדמותך, המשך הצורך בהמשך פגישות שבועיות או את הגדלת המרווח בין הפגישות.</span><span class="text-f">במהלך הפגישות הראשונות נסכם על שעה שבועית קבועה שתימשך כ-50 דקות. בסיום כל פגישה נסכם על תרגולים ומטלות בית שביצוען על ידך יגדיל באופן משמעותי את הסיכויים שתשיגי את מטרותייך.
+משך התהליך ומידת הצלחתו משתנה ואינדיבידואלי. מפעם לפעם נעצור להערכת מצב כדי לבחון את התקדמותך, המשך הצורך בהמשך פגישות שבועיות או את הגדלת המרווח בין הפגישות.</span></p>
                     </div>
                     <div class="info-card">
                         <h3 class="info-card-title">חיסיון וסודיות</h3>
-                        <p class="info-card-text">
-                            <span class="text-m">אני מחויב כלפייך בשמירה על סודיות רפואית מלאה, למעט מקרים שבהם תבקש ותאשר לי זאת במפורש, או כשהדין מחייב.</span>
-                            <span class="text-f">אני מחויב כלפייך בשמירה על סודיות רפואית מלאה, למעט מקרים שבהם תבקשי ותאשרי לי זאת במפורש, או כשהדין מחייב.</span>
-                        </p>
+                        <p class="info-card-text"><span class="text-m">אני מחויב כלפיך בשמירה על סודיות התכנים שעולים בפגישות, למעט במקרים הבאים: במקרה שתסכים, בכתב, לוותר על הסודיות או אם החוק מחייב או מאפשר לי באופן מפורש לגלות את המידע.</span><span class="text-f">אני מחויב כלפייך בשמירה על סודיות התכנים שעולים בפגישות, למעט במקרים הבאים: במקרה שתסכימי, בכתב, לוותר על הסודיות או אם החוק מחייב או מאפשר לי באופן מפורש לגלות את המידע.</span></p>
                     </div>
                 </div>
             </div>
@@ -454,10 +419,7 @@
                     </div>
                     <div class="info-card">
                         <h3 class="info-card-title">אמצעי תשלום</h3>
-                        <p class="info-card-text">
-                            <span class="text-m">ניתן לשלם באמצעות העברה בנקאית (האופציה המועדפת עלי - לפרטי החשבון <span class='inline-link' onclick='toggleBankDetails()'>לחץ כאן</span>), פייבוקס, מזומן או צ'ק. לא ניתן לשלם באמצעות אפליקציית ביט.</span>
-                            <span class="text-f">ניתן לשלם באמצעות העברה בנקאית (האופציה המועדפת עלי - לפרטי החשבון <span class='inline-link' onclick='toggleBankDetails()'>לחצי כאן</span>), פייבוקס, מזומן או צ'ק. לא ניתן לשלם באמצעות אפליקציית ביט.</span>
-                        </p>
+                        <p class="info-card-text"><span class="text-m">ניתן לשלם באמצעות העברה בנקאית (האופציה המועדפת עלי - לפרטי החשבון <span class='inline-link' onclick='toggleBankDetails()'>לחץ כאן</span>), פייבוקס, מזומן או צ'ק. לא ניתן לשלם באמצעות אפליקציית ביט.</span><span class="text-f">ניתן לשלם באמצעות העברה בנקאית (האופציה המועדפת עלי - לפרטי החשבון <span class='inline-link' onclick='toggleBankDetails()'>לחצי כאן</span>), פייבוקס, מזומן או צ'ק. לא ניתן לשלם באמצעות אפליקציית ביט.</span></p>
                         <div id="bank-details-box" class="bank-inline-box">
                             <strong>בנק דיסקונט</strong> | סניף 151 | ח"ן 13144040 | ע"ש יחזקאל באר
                         </div>
@@ -476,10 +438,7 @@
         <div class="onboarding-screen" id="step-4">
             <div class="screen-content">
                 <div class="info-card" style="text-align: center;">
-                    <p class="info-card-text">
-                        <span class="text-m">כדי שבפגישה נוכל להתמקד בדברים שבאמת חשובים לך, אנא מלא כאן את הפרטים שלך. המידע יישמר במערכת מאובטחת.</span>
-                        <span class="text-f">כדי שבפגישה נוכל להתמקד בדברים שבאמת חשובים לך, אנא מלאי כאן את הפרטים שלך. המידע יישמר במערכת מאובטחת.</span>
-                    </p>
+                    <p class="info-card-text"><span class="text-m">כדי שבפגישה נוכל להתמקד בדברים שבאמת חשובים לך, אנא מלא כאן את הפרטים שלך. המידע יישמר במערכת מאובטחת.</span><span class="text-f">כדי שבפגישה נוכל להתמקד בדברים שבאמת חשובים לך, אנא מלאי כאן את הפרטים שלך. המידע יישמר במערכת מאובטחת.</span></p>
                 </div>
                 
                 <form id="intake-form" onsubmit="submitForm(event)">
@@ -514,7 +473,7 @@
             </div>
             
             <div class="screen-footer">
-                <a href="/" class="onb-btn" style="background: transparent; color: var(--primary-purple); box-shadow: none; text-decoration: none; display: block; text-align: center; margin-top: 0;">סיום וחזרה לאתר</a>
+                <a href="/" class="onb-btn" style="background: transparent; color: var(--primary-purple); box-shadow: none; text-decoration: none; display: block; text-align: center; margin-top: 0;">מעבר לאתר</a>
             </div>
         </div>
     </div>
@@ -566,21 +525,10 @@
             index <= stepIndex ? dot.classList.add('active') : dot.classList.remove('active');
             index <= stepIndex ? label.classList.add('active-text') : label.classList.remove('active-text');
         });
-        
-        // טיפול בתמונת הפרופיל העליונה (רק לעמוד ראשון)
-        const headerPic = document.getElementById('dynamic-header-content');
-        if (headerPic) {
-            if (stepIndex === 0) {
-                headerPic.style.display = 'block';
-            } else {
-                headerPic.style.display = 'none';
-            }
-        }
 
         if (!targetScreen) return;
         targetScreen.classList.add('active');
         
-        // הבטחה שחוזרים לראש הטקסט ללא קפיצות מסך
         const screenContent = document.querySelector(`#step-${stepIndex} .screen-content`);
         if (screenContent) {
             screenContent.scrollTo({ top: 0, behavior: 'auto' });
