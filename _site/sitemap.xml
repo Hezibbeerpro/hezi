@@ -24,7 +24,7 @@
 <loc>http://localhost:4000/</loc>
 </url>
 <url>
-<loc>http://localhost:4000/onboarding.html</loc>
+<loc>http://localhost:4000/onboarding/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/tools/panic-report/</loc>
