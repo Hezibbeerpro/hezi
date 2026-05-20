@@ -440,12 +440,20 @@ step6_waiting: "אני מחכה לפגוש אותך."
                     <p class="info-card-text"><span class="text-m">{{ page.step5_text_m }}</span><span class="text-f">{{ page.step5_text_f }}</span></p>
                 </div>
                 
-                <form id="intake-form" onsubmit="submitForm(event)">
-                    <input type="text" name="name" class="friendly-input" placeholder="שם מלא" required>
-                    <input type="text" inputmode="numeric" pattern="\d{2}/\d{2}/\d{4}" name="dob" class="friendly-input" placeholder="תאריך לידה (לדוגמה: 15/08/1981)" required>
-                    <input type="tel" name="phone" class="friendly-input" placeholder="טלפון נייד" required>
-                    <input type="email" name="email" class="friendly-input" placeholder="אימייל" required>
-                </form>
+               <form id="intake-form" onsubmit="submitForm(event)">
+    <input type="text" name="name" class="friendly-input" placeholder="שם מלא" required>
+    
+    <input type="text" 
+           onfocus="(this.type='date')" 
+           onblur="if(!this.value) this.type='text'" 
+           name="dob" 
+           class="friendly-input" 
+           placeholder="תאריך לידה" 
+           required>
+           
+    <input type="tel" name="phone" class="friendly-input" placeholder="טלפון נייד" style="text-align: right;" dir="auto" required>
+    <input type="email" name="email" class="friendly-input" placeholder="אימייל" style="text-align: right;" dir="auto" required>
+</form>
             </div>
             <div class="screen-footer">
                 <button class="onb-btn" id="submit-form-btn" onclick="document.getElementById('intake-form').requestSubmit()">יוצאים לדרך ❯</button>
