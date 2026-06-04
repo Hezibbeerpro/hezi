@@ -286,6 +286,9 @@ step6_waiting: "אני מחכה לפגוש אותך."
     .breathe-msg { font-size: 2rem; color: var(--primary-purple); font-weight: bold; position: absolute; opacity: 0; transition: opacity 1s ease; }
     .breathe-msg.active { opacity: 1; }
 
+    .mobile-share-btn { display: none; }
+    .desktop-share-btns { display: flex; }
+
     @media (max-width: 600px) {
         .onboarding-card { 
             height: 92vh; 
@@ -301,6 +304,8 @@ step6_waiting: "אני מחכה לפגוש אותך."
         .step-dot { width: 24px; height: 24px; font-size: 0.8rem; }
         .step-label { font-size: 0.7rem; }
         .final-image-container { max-height: 220px; } 
+        .mobile-share-btn { display: block; }
+        .desktop-share-btns { display: none; }
     }
 </style>
 
@@ -337,7 +342,7 @@ step6_waiting: "אני מחכה לפגוש אותך."
             <div class="step-dot">5</div><span class="step-label">הפרטים שלך</span>
         </div>
         <div class="step-wrapper" onclick="goToStep(5)">
-            <div class="step-dot">6</div><span class="step-label">סיום</span>
+            <div class="step-dot">6</div><span class="step-label">יוצאים לדרך</span>
         </div>
     </div>
 
@@ -436,16 +441,7 @@ step6_waiting: "אני מחכה לפגוש אותך."
                 </div>
             </div>
             <div class="screen-footer">
-                <div class="policy-agreement-wrapper" style="margin-bottom: 15px;">
-                    <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; margin: 0;">
-                        <input type="checkbox" id="policy-agree-checkbox" style="width: 20px; height: 20px; margin-top: 2px; accent-color: var(--primary-purple); cursor: pointer;">
-                        <span style="font-size: 1.05rem; color: #555; line-height: 1.4;">
-                            <span class="text-m">קראתי ואני מאשר את מסגרת הטיפול, התשלום ומדיניות הביטולים.</span>
-                            <span class="text-f">קראתי ואני מאשרת את מסגרת הטיפול, התשלום ומדיניות הביטולים.</span>
-                        </span>
-                    </label>
-                </div>
-                <button class="onb-btn" onclick="proceedFromPolicy()">המשך ←</button>
+                <button class="onb-btn" onclick="goToStep(4)">המשך ←</button>
             </div>
         </div>
 
@@ -456,7 +452,6 @@ step6_waiting: "אני מחכה לפגוש אותך."
                 </div>
                 
                <form id="intake-form" onsubmit="submitForm(event)" style="margin-top: 35px;">
-    <input type="hidden" name="policy_agreement" value="מאושר (נקרא וסומן במסך 4)">
     <input type="text" name="name" class="friendly-input" placeholder="שם מלא" required>
     
     <input type="text" 
@@ -469,6 +464,16 @@ step6_waiting: "אני מחכה לפגוש אותך."
            
     <input type="tel" name="phone" class="friendly-input" placeholder="טלפון נייד" style="text-align: right;" dir="auto" required>
     <input type="email" name="email" class="friendly-input" placeholder="אימייל" style="text-align: right;" dir="auto" required>
+
+    <div class="policy-agreement-wrapper" style="margin-top: 20px; margin-bottom: 10px;">
+        <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; margin: 0;">
+            <input type="checkbox" name="policy_agreement" value="מאושר" id="policy-agree-checkbox" style="width: 20px; height: 20px; margin-top: 2px; accent-color: var(--primary-purple); cursor: pointer;" required>
+            <span style="font-size: 1.05rem; color: #555; line-height: 1.4;">
+                <span class="text-m">קראתי ואני מאשר את מסגרת הטיפול, התשלום ומדיניות הביטולים.</span>
+                <span class="text-f">קראתי ואני מאשרת את מסגרת הטיפול, התשלום ומדיניות הביטולים.</span>
+            </span>
+        </label>
+    </div>
 </form>
             </div>
             <div class="screen-footer">
@@ -492,6 +497,31 @@ step6_waiting: "אני מחכה לפגוש אותך."
                         קוד <a href="{{ site.entrance_photo }}" target="_blank" class="subtle-link" title="צפייה בתמונת הכניסה">לכניסה לבניין</a> {{ site.building_code }} ; קוד לקליניקה {{ site.clinic_code }}
                     </p>
                     <a href="/contact.html" target="_blank" class="arrival-more-link">למידע נוסף על הגעה וחניה ❯</a>
+                    
+                    <div class="share-actions-wrapper" style="margin-top: 20px;">
+                        <div class="mobile-share-btn">
+                            <button onclick="shareNative()" class="onb-btn" style="background: #f3ebf8; color: var(--primary-purple); box-shadow: none; font-size: 1.1rem; padding: 10px; border: 1px solid rgba(155, 89, 182, 0.2);">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 5px; margin-bottom: 2px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                                <span class="text-m">לשמירת הפרטים לחץ כאן</span><span class="text-f">לשמירת הפרטים לחצי כאן</span>
+                            </button>
+                        </div>
+                        <div class="desktop-share-btns" style="flex-direction: column; gap: 8px;">
+                            <p style="margin: 0 0 5px 0; font-size: 1.05rem; color: #555;">
+                                <span class="text-m">לשמירת הפרטים לחץ כאן:</span>
+                                <span class="text-f">לשמירת הפרטים לחצי כאן:</span>
+                            </p>
+                            <div style="display: flex; gap: 10px; justify-content: center;">
+                                <button onclick="copyDetails()" class="onb-btn" style="flex: 1; background: #f3ebf8; color: var(--primary-purple); box-shadow: none; font-size: 1.05rem; padding: 10px; border: 1px solid rgba(155, 89, 182, 0.2);">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 5px; margin-bottom: 2px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                    העתקה
+                                </button>
+                                <button onclick="shareWhatsApp()" class="onb-btn" style="flex: 1; background: #25D366; color: white; box-shadow: none; font-size: 1.05rem; padding: 10px; border: none;">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 5px; margin-bottom: 2px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                                    וואטסאפ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -503,10 +533,25 @@ step6_waiting: "אני מחכה לפגוש אותך."
 </div>
 
 <script>
+    let isFormSubmitted = false;
+
     document.addEventListener("DOMContentLoaded", function() {
         const urlParams = new URLSearchParams(window.location.search);
         
         if (urlParams.get('g') === 'f') document.body.classList.add('gender-female');
+
+        const stepParam = urlParams.get('step');
+        if (stepParam !== null) {
+            const stepIndex = parseInt(stepParam, 10);
+            if (!isNaN(stepIndex) && stepIndex >= 0 && stepIndex <= 5) {
+                if (stepIndex === 5) {
+                    isFormSubmitted = true;
+                }
+                document.getElementById('splash-screen').style.display = 'none';
+                goToStep(stepIndex);
+                return;
+            }
+        }
 
         setTimeout(() => {
             document.getElementById('splash-avatar').style.opacity = '0';
@@ -539,6 +584,12 @@ step6_waiting: "אני מחכה לפגוש אותך."
     }
 
     function goToStep(stepIndex) {
+        if (stepIndex === 5 && !isFormSubmitted) {
+            const isFemale = document.body.classList.contains('gender-female');
+            alert(isFemale ? 'כדי להמשיך אנא מלאי את עמוד 5.' : 'כדי להמשיך אנא מלא את עמוד 5.');
+            return;
+        }
+
         const targetScreen = document.getElementById(`step-${stepIndex}`);
         
         document.querySelectorAll('.onboarding-screen').forEach(el => el.classList.remove('active'));
@@ -558,19 +609,95 @@ step6_waiting: "אני מחכה לפגוש אותך."
         }
     }
 
-    function proceedFromPolicy() {
-        const cb = document.getElementById('policy-agree-checkbox');
-        if (!cb.checked) {
-            const isFemale = document.body.classList.contains('gender-female');
-            alert(isFemale ? 'אנא סמני את תיבת האישור כדי להמשיך.' : 'אנא סמן את תיבת האישור כדי להמשיך.');
-            return;
-        }
-        goToStep(4);
-    }
 
     function toggleBankDetails() {
         const box = document.getElementById('bank-details-box');
         box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+    }
+
+    function getAgreementText() {
+        const baseUrl = window.location.origin + window.location.pathname;
+        const isFemale = document.body.classList.contains('gender-female');
+        const genderParam = isFemale ? '?g=f&' : '?';
+
+        const frameworkLink = `${baseUrl}${genderParam}step=2`;
+        const paymentLink = `${baseUrl}${genderParam}step=3`;
+        const finalPageLink = `${baseUrl}${genderParam}step=5`;
+
+        const arrivalText = `--- פרטי הגעה לקליניקה ---\nלמידע נוסף על הגעה וחניה: ${window.location.origin}/contact.html`;
+
+        return `קישורים ישירים לפרטי המסגרת והתשלום:\n\nלצפייה במסגרת הטיפול:\n${frameworkLink}\n\nלצפייה בתשלום ומדיניות ביטולים:\n${paymentLink}\n\n${arrivalText}\n\nלצפייה בפרטים אלו שוב בעתיד (עמוד הסיום):\n${finalPageLink}`;
+    }
+
+    function getAgreementHTML() {
+        const baseUrl = window.location.origin + window.location.pathname;
+        const isFemale = document.body.classList.contains('gender-female');
+        const genderParam = isFemale ? '?g=f&' : '?';
+
+        const frameworkLink = `${baseUrl}${genderParam}step=2`;
+        const paymentLink = `${baseUrl}${genderParam}step=3`;
+        const finalPageLink = `${baseUrl}${genderParam}step=5`;
+        const contactLink = `${window.location.origin}/contact.html`;
+
+        return `
+            <div dir="rtl" style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                <p><strong>קישורים ישירים לפרטי המסגרת והתשלום:</strong></p>
+                <ul style="padding-right: 20px;">
+                    <li><a href="${frameworkLink}" style="color: #4a2c6a; text-decoration: underline;">לצפייה במסגרת הטיפול</a></li>
+                    <li><a href="${paymentLink}" style="color: #4a2c6a; text-decoration: underline;">לצפייה בתשלום ומדיניות ביטולים</a></li>
+                </ul>
+                <p><strong>פרטי הגעה לקליניקה:</strong><br>
+                <a href="${contactLink}" style="color: #4a2c6a; text-decoration: underline;">למידע נוסף על הגעה וחניה</a>
+                </p>
+                <p><a href="${finalPageLink}" style="color: #4a2c6a; text-decoration: underline;">לצפייה בפרטים אלו שוב בעתיד (עמוד הסיום)</a></p>
+            </div>
+        `;
+    }
+
+    function shareNative() {
+        const text = getAgreementText();
+        
+        if (navigator.share) {
+            navigator.share({
+                title: 'הסכם טיפול ופרטי הגעה - חזי באר',
+                text: text
+            }).catch(err => console.log('Share canceled or failed.', err));
+        } else {
+            copyDetails(); // כגיבוי למקרה שהמכשיר מסיבה כלשהי לא תומך
+        }
+    }
+
+    function copyDetails() {
+        const text = getAgreementText();
+        const html = getAgreementHTML();
+        
+        if (navigator.clipboard && window.ClipboardItem) {
+            const blobText = new Blob([text], { type: 'text/plain' });
+            const blobHtml = new Blob([html], { type: 'text/html' });
+            const data = [new ClipboardItem({ 'text/plain': blobText, 'text/html': blobHtml })];
+
+            navigator.clipboard.write(data)
+                .then(() => alert('הפרטים הועתקו ללוח! הדביקו אותם במייל או בפתקים שלכם.'))
+                .catch(() => fallbackCopy(text));
+        } else {
+            fallbackCopy(text);
+        }
+    }
+
+    function fallbackCopy(text) {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text)
+                .then(() => alert('הפרטים הועתקו ללוח!'))
+                .catch(() => alert('שגיאה בהעתקת הפרטים.'));
+        } else {
+            alert('הדפדפן שלך אינו תומך בהעתקה אוטומטית.');
+        }
+    }
+
+    function shareWhatsApp() {
+        const text = getAgreementText();
+        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+        window.open(whatsappUrl, '_blank');
     }
 
     async function submitForm(e) {
@@ -587,7 +714,12 @@ step6_waiting: "אני מחכה לפגוש אותך."
                 headers: { 'Accept': 'application/json' }
             });
             
-            response.ok ? goToStep(5) : alert("תקלה בשליחה.");
+            if (response.ok) {
+                isFormSubmitted = true;
+                goToStep(5);
+            } else {
+                alert("תקלה בשליחה.");
+            }
         } catch (error) {
             
             alert("תקלה בתקשורת.");
