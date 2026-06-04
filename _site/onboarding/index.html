@@ -282,9 +282,6 @@
     .breathe-msg { font-size: 2rem; color: var(--primary-purple); font-weight: bold; position: absolute; opacity: 0; transition: opacity 1s ease; }
     .breathe-msg.active { opacity: 1; }
 
-    .mobile-share-btn { display: none; }
-    .desktop-share-btns { display: flex; }
-
     @media (max-width: 600px) {
         .onboarding-card { 
             height: 92vh; 
@@ -300,8 +297,6 @@
         .step-dot { width: 24px; height: 24px; font-size: 0.8rem; }
         .step-label { font-size: 0.7rem; }
         .final-image-container { max-height: 220px; } 
-        .mobile-share-btn { display: block; }
-        .desktop-share-btns { display: none; }
     }
 </style>
 
@@ -497,29 +492,11 @@
                     </p>
                     <a href="/contact.html" target="_blank" class="arrival-more-link">למידע נוסף על הגעה וחניה ❯</a>
                     
-                    <div class="share-actions-wrapper" style="margin-top: 20px;">
-                        <div class="mobile-share-btn">
-                            <button onclick="shareNative()" class="onb-btn" style="background: #f3ebf8; color: var(--primary-purple); box-shadow: none; font-size: 1.1rem; padding: 10px; border: 1px solid rgba(155, 89, 182, 0.2);">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 5px; margin-bottom: 2px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                                <span class="text-m">לשמירת הפרטים לחץ כאן</span><span class="text-f">לשמירת הפרטים לחצי כאן</span>
-                            </button>
-                        </div>
-                        <div class="desktop-share-btns" style="flex-direction: column; gap: 8px;">
-                            <p style="margin: 0 0 5px 0; font-size: 1.05rem; color: #555;">
-                                <span class="text-m">לשמירת הפרטים לחץ כאן:</span>
-                                <span class="text-f">לשמירת הפרטים לחצי כאן:</span>
-                            </p>
-                            <div style="display: flex; gap: 10px; justify-content: center;">
-                                <button onclick="copyDetails()" class="onb-btn" style="flex: 1; background: #f3ebf8; color: var(--primary-purple); box-shadow: none; font-size: 1.05rem; padding: 10px; border: 1px solid rgba(155, 89, 182, 0.2);">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 5px; margin-bottom: 2px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                                    העתקה
-                                </button>
-                                <button onclick="shareWhatsApp()" class="onb-btn" style="flex: 1; background: #25D366; color: white; box-shadow: none; font-size: 1.05rem; padding: 10px; border: none;">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 5px; margin-bottom: 2px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                                    וואטסאפ
-                                </button>
-                            </div>
-                        </div>
+                    <div class="share-actions-wrapper" style="margin-top: 25px; display: flex; justify-content: center;">
+                        <button onclick="shareNative()" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.05)'" style="background: rgba(0,0,0,0.05); color: #0f0f0f; font-family: inherit; font-size: 1.05rem; font-weight: 600; padding: 8px 22px; border-radius: 40px; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s;">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M15 5.63 20.66 12 15 18.37V14h-1c-3.96 0-7.14 1-9.75 3.09 1.84-4.07 5.11-6.4 9.89-7.1l.86-.13V5.63M14 3v6C6.22 10.13 3.11 15.33 2 21c2.78-3.97 6.44-6 12-6v6l8-9-8-9z"></path></svg>
+                            שיתוף
+                        </button>
                     </div>
                 </div>
             </div>
@@ -623,9 +600,7 @@
         const paymentLink = `${baseUrl}${genderParam}step=3`;
         const finalPageLink = `${baseUrl}${genderParam}step=5`;
 
-        const arrivalText = `--- פרטי הגעה לקליניקה ---\nלמידע נוסף על הגעה וחניה: ${window.location.origin}/contact.html`;
-
-        return `קישורים ישירים לפרטי המסגרת והתשלום:\n\nלצפייה במסגרת הטיפול:\n${frameworkLink}\n\nלצפייה בתשלום ומדיניות ביטולים:\n${paymentLink}\n\n${arrivalText}\n\nלצפייה בפרטים אלו שוב בעתיד (עמוד הסיום):\n${finalPageLink}`;
+        return `לצפייה במסגרת הטיפול:\n${frameworkLink}\n\nלצפייה בפרטי התשלום ומדיניות ביטולים:\n${paymentLink}\n\nאיפה נפגשים?\n${finalPageLink}`;
     }
 
     function getAgreementHTML() {
@@ -636,19 +611,12 @@
         const frameworkLink = `${baseUrl}${genderParam}step=2`;
         const paymentLink = `${baseUrl}${genderParam}step=3`;
         const finalPageLink = `${baseUrl}${genderParam}step=5`;
-        const contactLink = `${window.location.origin}/contact.html`;
 
         return `
             <div dir="rtl" style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-                <p><strong>קישורים ישירים לפרטי המסגרת והתשלום:</strong></p>
-                <ul style="padding-right: 20px;">
-                    <li><a href="${frameworkLink}" style="color: #4a2c6a; text-decoration: underline;">לצפייה במסגרת הטיפול</a></li>
-                    <li><a href="${paymentLink}" style="color: #4a2c6a; text-decoration: underline;">לצפייה בתשלום ומדיניות ביטולים</a></li>
-                </ul>
-                <p><strong>פרטי הגעה לקליניקה:</strong><br>
-                <a href="${contactLink}" style="color: #4a2c6a; text-decoration: underline;">למידע נוסף על הגעה וחניה</a>
-                </p>
-                <p><a href="${finalPageLink}" style="color: #4a2c6a; text-decoration: underline;">לצפייה בפרטים אלו שוב בעתיד (עמוד הסיום)</a></p>
+                <p><a href="${frameworkLink}" style="color: #4a2c6a; text-decoration: underline;">לצפייה במסגרת הטיפול</a></p>
+                <p><a href="${paymentLink}" style="color: #4a2c6a; text-decoration: underline;">לצפייה בפרטי התשלום ומדיניות ביטולים</a></p>
+                <p><a href="${finalPageLink}" style="color: #4a2c6a; text-decoration: underline;">איפה נפגשים?</a></p>
             </div>
         `;
     }
@@ -691,12 +659,6 @@
         } else {
             alert('הדפדפן שלך אינו תומך בהעתקה אוטומטית.');
         }
-    }
-
-    function shareWhatsApp() {
-        const text = getAgreementText();
-        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
-        window.open(whatsappUrl, '_blank');
     }
 
     async function submitForm(e) {
