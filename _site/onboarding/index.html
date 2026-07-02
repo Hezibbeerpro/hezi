@@ -528,6 +528,9 @@
                 if (stepIndex === 5) {
                     isFormSubmitted = true;
                 }
+                if (stepIndex === 3) {
+                    document.title = 'תשלומים וביטולים';
+                }
                 document.getElementById('splash-screen').style.display = 'none';
                 goToStep(stepIndex);
                 return;

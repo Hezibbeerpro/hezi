@@ -5,7 +5,6 @@ permalink: /tools/tricho-report/
 robots: noindex
 ---
 
-{% assign text_goal = "כלי זה נועד לסייע לתעד תלישת שיער בזמן אמת. התיעוד מאפשר לנו לזהות יחד טריגרים, שעות רגישות יותר, ודפוסים רגשיים ותחושתיים." %}
 {% assign text_start_btn = "למילוי הדוח" %}
 
 {% assign text_time_label = "זמן ביום:" %}
@@ -138,8 +137,7 @@ robots: noindex
     
     <div id="intro-screen" class="modern-form-container" style="background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 4px 25px rgba(0,0,0,0.05); text-align: center;">
         <h1 class="form-main-title" style="margin-bottom: 10px;">{{ page.title }}</h1>
-        
-        {% include app_privacy_notice.html goal=text_goal %}
+        {% include app_privacy_notice.html %}
         
         <button class="btn-primary" onclick="startForm()" style="font-size: 1.3rem; padding: 15px 40px; margin-top: 25px;">{{ text_start_btn }}</button>
     </div>

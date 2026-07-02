@@ -40,4 +40,4 @@ markdown: kramdown
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
-  - jekyll-redirect-from
+disable_disk_cache: true

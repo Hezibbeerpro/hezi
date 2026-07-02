@@ -5,7 +5,6 @@ permalink: /tools/panic-report/
 robots: noindex
 ---
 
-{% assign text_goal = "כלי זה נועד לסייע לך לתעד את פרטי האירוע בסמוך להתרחשותו. התיעוד מאפשר לעשות סדר, להבין מה קרה, ולשפר את המודעות לטריגרים ותגובות. זהו כלי עזר טיפולי." %}
 {% assign text_start_btn = "למילוי הדוח" %}
 
 {% assign text_guidance_btn = "מצפן בזמני התקף" %}
@@ -80,7 +79,7 @@ robots: noindex
     
     <div id="intro-screen" class="modern-form-container" style="background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 4px 25px rgba(0,0,0,0.05); text-align: center;">
         <h1 class="form-main-title" style="margin-bottom: 10px;">{{ page.title }}</h1>
-        {% include app_privacy_notice.html goal=text_goal %}
+        {% include app_privacy_notice.html %}
         <button class="btn-primary" onclick="startForm()" style="font-size: 1.3rem; padding: 15px 40px; margin-top: 25px;">{{ text_start_btn }}</button>
     </div>
 

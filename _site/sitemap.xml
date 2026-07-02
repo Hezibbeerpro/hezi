@@ -32,6 +32,9 @@
 <loc>http://localhost:4000/</loc>
 </url>
 <url>
+<loc>http://localhost:4000/tools/ocd-event-report/</loc>
+</url>
+<url>
 <loc>http://localhost:4000/onboarding/</loc>
 </url>
 <url>
