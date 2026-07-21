@@ -1,6 +1,5 @@
 ---
 layout: default
-title: "חזי באר - פסיכולוג קליני מומחה | CBT"
 ---
 
 <div class="hero">
