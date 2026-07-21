@@ -1,5 +1,6 @@
 ---
 layout: default
+title: "טיפול קוגניטיבי-התנהגותי"
 ---
 
 <div class="hero">
